@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="9.9" height="9.9" viewBox="0 0 9.9 9.9">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #00dede;
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="uploaded_images" data-name="uploaded images">
+      <g id="image_1" data-name="image 1">
+        <g id="check_mark_copy" data-name="check mark copy">
+          <rect id="inactive" class="cls-1" x="0.5" y="0.5" width="8.9" height="8.94" rx="1.2"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

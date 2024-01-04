@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.9" height="15.9" viewBox="0 0 16.9 15.9">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #00dede;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="presets">
+      <g id="core_and_custom_presets" data-name="core and custom presets">
+        <g id="custom_presets_field" data-name="custom presets field">
+          <g id="Custom_Presets" data-name="Custom Presets">
+            <g id="custom_size_icon" data-name="custom size icon">
+              <rect class="cls-1" x="2.8" y="2.6" width="2.4" height="13.34" rx="0.8" transform="translate(8.1 18.5) rotate(180)"/>
+              <rect class="cls-1" x="8.7" y="-3.4" width="2.3" height="14.02" rx="0.8" transform="translate(6.2 13.5) rotate(-90)"/>
+              <rect class="cls-1" x="11.6" width="2.4" height="13.34" rx="0.8"/>
+              <rect class="cls-1" x="5.9" y="5.3" width="2.3" height="14.02" rx="0.8" transform="translate(19.3 5.3) rotate(90)"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

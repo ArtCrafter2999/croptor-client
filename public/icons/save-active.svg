@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.5" height="16.5" viewBox="0 0 16.5 16.5">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+        stroke: #bdccd4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-1 {
+        stroke-width: 0.52px;
+      }
+
+      .cls-2 {
+        stroke-width: 0.52px;
+      }
+
+      .cls-3 {
+        stroke-width: 0.52px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="presets">
+      <g id="chosen_presets" data-name="chosen presets">
+        <g id="save_presets" data-name="save presets">
+          <g id="save_icon" data-name="save icon">
+            <g id="save_icon-2" data-name="save icon">
+              <path class="cls-1" d="M1,.3H13.7l2.5,2.5V15.5a.7.7,0,0,1-.7.7H1a.7.7,0,0,1-.7-.7V1A.7.7,0,0,1,1,.3Z"/>
+              <path class="cls-2" d="M3.1.3H13.4V4.6a1.1,1.1,0,0,1-1,1.1H4.1a1.1,1.1,0,0,1-1-1.1V.3ZM13.5,16.2H3V10.8A1.1,1.1,0,0,1,4.1,9.6h8.3a1.1,1.1,0,0,1,1.1,1.2v5.4Z"/>
+              <path class="cls-3" d="M9.5,3.8h1.9V.3H9.5V3.8ZM5.1,12.1h6.3v.4H5.1v-.4Zm0,2.1h6.3v.4H5.1v-.4Z"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17.1" height="16.5" viewBox="0 0 17.1 16.5">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #bdccd4;
+        stroke-miterlimit: 10;
+        stroke-width: 0.64px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="uploaded_images" data-name="uploaded images">
+      <g id="global_settings" data-name="global settings">
+        <g id="trashy">
+          <g id="trashy-2" data-name="trashy">
+            <line class="cls-1" y1="3" x2="17.1" y2="3"/>
+            <path class="cls-1" d="M6.1,2.6A2.3,2.3,0,0,1,8.4.3a2.4,2.4,0,0,1,2.4,2.3"/>
+            <path class="cls-1" d="M14.5,3.1,12.9,14.8a1.4,1.4,0,0,1-1.4,1.4H5.6a1.4,1.4,0,0,1-1.4-1.4L2.6,3.1"/>
+            <line class="cls-1" x1="7.1" y1="5.8" x2="7.1" y2="13"/>
+            <line class="cls-1" x1="10" y1="5.8" x2="10" y2="13"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

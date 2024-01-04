@@ -1,0 +1,43 @@
+.item {
+  display: flex;
+  width: calc(100% - 60px);
+  margin: 20px 30px;
+  font-weight: 600;
+  user-select: none;
+  color: #567070;
+  font-size: 13px;
+  height: 20px;
+
+
+  img {
+    flex: 0 0 22px;
+    width: 20px;
+    height: 20px;
+    margin-right: 2px;
+  }
+
+  .name, .size {
+    margin-top: 3px;
+  }
+
+  .name {
+    user-select: none;
+    margin-left: 8px;
+    font-weight: 600;
+    flex: 1;
+  }
+
+  .size {
+    text-align: end;
+    flex: 0 0 50px
+  }
+
+  .trash {
+    flex: 0 0 25px;
+    margin-left: 15px;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}

@@ -1,0 +1,73 @@
+.item {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(calc(100% / 6), 1fr));
+  height: 70px;
+  margin: 5px;
+
+  & > div {
+    //border: black solid 2px;
+  }
+
+  .checkboxContainer {
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .imageContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    .image {
+      display: flex;
+      justify-content: center;
+
+      img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        //border: black solid 1px;
+        border-radius: 5px;
+      }
+    }
+
+    span {
+      color: #567070;
+      font-size: 11px;
+    }
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .button {
+      user-select: none;
+      color: #567070;
+      border: #00dede 2px solid;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 13px;
+      white-space: nowrap;
+      padding: 2px 14px {
+        top: 4px
+      };
+      &:hover {
+        background-color: #00dede;
+        color: white;
+      }
+    }
+    img {
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+    }
+  }
+}
+
+.switch {
+  margin-top: 6px;
+}

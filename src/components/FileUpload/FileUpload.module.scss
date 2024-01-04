@@ -1,0 +1,63 @@
+.modalWindow {
+  position: relative;
+  background-color: white;
+  width: 440px;
+  height: 100px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  b {
+    color: #f9446e;
+  }
+
+  h1 {
+    color: #567070;
+    font-size: 36px;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: calc(100% - 20px);
+    margin: 10px 0;
+
+    b {
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 600;
+    }
+  }
+
+  p {
+    margin-top: 28px;
+    color: #567070;
+    text-align: center;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 160% */
+  }
+
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25%, 75% {
+      transform: translateX(-15px);
+    }
+    50% {
+      transform: translateX(15px);
+    }
+  }
+
+  &.shake {
+    height: 200px ;
+    animation: shake 0.35s ease-in-out;
+  }
+}

@@ -1,0 +1,29 @@
+.category {
+  color: #567070;
+  font-size: 13px;
+  margin-top: 12px;
+
+  .row {
+    cursor: pointer;
+    display: flex;
+
+    span {
+      user-select: none;
+      margin: {
+        top: 3px;
+        left: 8px
+      }
+      font-weight: 600;
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .sizes {
+    padding-left: 24px;
+    width: calc(100% - 24px);
+  }
+}

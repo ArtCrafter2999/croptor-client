@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="8.9" height="8.9" viewBox="0 0 8.9 8.9">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #00dede;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="uploaded_images" data-name="uploaded images">
+      <g id="image_1" data-name="image 1">
+        <g id="check_mark_copy" data-name="check mark copy">
+          <g id="active_copy_6" data-name="active copy 6">
+            <rect id="inactive" class="cls-1" width="8.9" height="8.94" rx="1.2"/>
+            <path id="check_mark" data-name="check mark" class="cls-2" d="M6.7,2.8a.5.5,0,0,0-.8,0L4.4,4.3H4.1l-.9-1a.6.6,0,0,0-.8,0,.6.6,0,0,0,0,.9L3.8,5.6l.2.2a.7.7,0,0,0,.7-.2l2-2A.6.6,0,0,0,6.7,2.8Z"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

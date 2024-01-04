@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styles from "./App.module.scss"
+import Footer from "./components/Footer/Footer";
+import Logo from "./components/Logo/Logo";
+import Header from "./components/Header/Header";
+import DefaultSizes from "./components/DefaultSizes/DefaultSizes";
+import GlobalParameters from "./components/GlobalParameters/GlobalParametrs";
+import ImageSection from "./components/ImageSection/ImageSection";
+import PresetsSection from "./components/PresetsSection/PresetsSection";
+import CustomSizes from "./components/CustomSizes/CustomSizes";
+import FileUpload from "./components/FileUpload/FileUpload";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <div className={styles.app}>
+            <Logo/>
+            <div className={styles.workspace}>
+                <Header/>
+                <GlobalParameters/>
+                <ImageSection/>
+                <PresetsSection/>
+                <CustomSizes/>
+                <DefaultSizes/>
+            </div>
+            <FileUpload onFilesDropped={() => {}}/>
+            <Footer/>
+        </div>
+    );
+};
 
 export default App;

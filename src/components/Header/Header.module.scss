@@ -1,0 +1,64 @@
+.section {
+  display: flex;
+  grid-area: 1 / 1 / 2 / 12;
+  align-items: end;
+
+  .buttonContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    span, input {
+      color: #567070;
+      margin-top: 8px;
+    }
+    span {
+      white-space: nowrap;
+      user-select: none;
+    }
+    input {
+      background: none;
+      border: none {
+        bottom: #567070 solid 2px;
+      };
+      width: 50px;
+      height: 14px;
+      outline: none;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 550;
+      margin:{
+        left: 14px;
+        right: 8px;
+      }
+    }
+  }
+}
+
+.button {
+  user-select: none;
+  --color: #567070;
+  text-transform: uppercase;
+  font-weight: 700;
+  height: 18px;
+  min-width: fit-content;
+  font-size: 14px;
+  border: var(--color) solid 2px;
+  color: var(--color);
+  border-radius: 20px;
+  padding: {
+    top: 4px;
+    bottom: 1px;
+    right: 12px;
+    left: 12px;
+  };
+  margin: {
+    right: 4px;
+    left: 16px;
+  };
+  cursor: pointer;
+  &:hover {
+    color: white;
+    background: var(--color);
+  }
+}
