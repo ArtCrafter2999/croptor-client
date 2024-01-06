@@ -1,16 +1,14 @@
 import React, {useState} from 'react';
 import styles from "./SizeItem.module.scss"
-import {Size} from "../../DefaultSizes/SizeItem/SizeItem";
+import {PresetSize, Size} from "../../../reducer/reducer"
 import TrashButton from "../../TrashButton/TrashButton";
 
 type Props = {
-    size: Size;
-    name?: string
-    icon: string
+    presetSize: PresetSize;
     onRemove?: () => void;
 }
 
-const SizeItem = ({size, name, icon, onRemove}: Props) => {
+const SizeItem = ({presetSize: {size, name, icon}, onRemove}: Props) => {
     const sizeString = size.width + "x" + size.height;
     const [isHover, setHover] = useState<boolean>(false);
 

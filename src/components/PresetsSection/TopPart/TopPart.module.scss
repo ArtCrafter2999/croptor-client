@@ -31,4 +31,9 @@
 .presetName {
   grid-area: 1 / 2 / 2 / 4;
   text-align: center;
+  input {
+    margin-top: 2px;
+    font-weight: 600;
+    font-size: 15px;
+  }
 }

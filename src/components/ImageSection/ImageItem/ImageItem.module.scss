@@ -37,6 +37,7 @@
     span {
       color: #567070;
       font-size: 11px;
+      white-space: nowrap;
     }
   }
 
@@ -52,7 +53,7 @@
       font-weight: 700;
       font-size: 13px;
       white-space: nowrap;
-      padding: 2px 14px {
+      padding: 2px 1.5em {
         top: 4px
       };
       &:hover {

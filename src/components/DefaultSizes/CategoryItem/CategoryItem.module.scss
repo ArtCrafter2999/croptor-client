@@ -5,6 +5,9 @@
 
   .row {
     cursor: pointer;
+    &.alwaysOpened {
+      cursor: auto;
+    }
     display: flex;
 
     span {

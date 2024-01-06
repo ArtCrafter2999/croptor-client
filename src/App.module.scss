@@ -16,6 +16,15 @@ img {
   user-select: none;
   -webkit-user-drag: none;
 }
+input[type="text"] {
+  color: #567070;
+  background: none;
+  border: none {
+    bottom: #567070 solid 2px;
+  };
+  outline: none;
+  text-align: center;
+}
 
 .app {
   padding: {

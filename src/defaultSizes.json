@@ -1,0 +1,171 @@
+[
+  {
+    "icon": "testIcons/instagram.svg",
+    "name": "Instagram",
+    "sizes": [
+      {"name": "Story", "size": {"width": 1080, "height": 1920}},
+      {"name": "Landscape Carousel", "size": {"width": 1080, "height": 566}},
+      {"name": "Portrait Carousel", "size": {"width": 1080, "height": 1350}},
+      {"name": "Square Carousel", "size": {"width": 1080, "height": 1080}},
+      {"name": "Landscape Ad", "size": {"width": 1080, "height": 566}},
+      {"name": "Square Ad", "size": {"width": 1080, "height": 1080}},
+      {"name": "Thumbnail", "size": {"width": 61, "height": 61}}
+    ]
+  },
+  {
+    "icon": "testIcons/facebook.svg",
+    "name": "Facebook",
+    "sizes": [
+      {"name": "Profile Photo", "size": {"width": 170, "height": 170}},
+      {"name": "Landscape", "size": {"width": 1200, "height": 630}},
+      {"name": "Portrait", "size": {"width": 630, "height": 1200}},
+      {"name": "Square", "size": {"width": 1200, "height": 1200}},
+      {"name": "Stories", "size": {"width": 1080, "height": 1920}},
+      {"name": "Cover Photo", "size": {"width": 851, "height": 315}},
+      {"name": "Feed Ads", "size": {"width": 1080, "height": 1080}},
+      {"name": "Instant Article", "size": {"width": 1080, "height": 1080}},
+      {"name": "Right Column Ads", "size": {"width": 1080, "height": 1080}},
+      {"name": "Marketplace Ads", "size": {"width": 1080, "height": 1080}},
+      {"name": "Facebook Search", "size": {"width": 1080, "height": 1080}},
+      {"name": "Sponsored Messages", "size": {"width": 1080, "height": 1080}},
+      {"name": "Messenger Inbox Ads", "size": {"width": 1080, "height": 1080}},
+      {"name": "Messenger Stories Ads", "size": {"width": 1080, "height": 1080}},
+      {"name": "Event Cover Photo", "size": {"width": 1200, "height": 628}}
+    ]
+  },
+  {
+    "icon": "testIcons/linkedin.svg",
+    "name": "LinkedIn",
+    "sizes": [
+      {"name": "Blog Post Link Image", "size": {"width": 1080, "height": 1080}},
+      {"name": "Custom Image Sharing", "size": {"width": 1080, "height": 1080}},
+      {"name": "Company Logo", "size": {"width": 300, "height": 300}},
+      {"name": "Square Logo", "size": {"width": 60, "height": 60}},
+      {"name": "Page Cover Image", "size": {"width": 1128, "height": 191}},
+      {"name": "Life Tab Main Image", "size": {"width": 1128, "height": 1376}},
+      {"name": "Life Tab Custom Modules", "size": {"width": 502, "height": 282}},
+      {"name": "Life Tab Company Photo", "size": {"width": 900, "height": 600}},
+      {"name": "Company Logo for Ads", "size": {"width": 300, "height": 300}},
+      {"name": "Spotlights Ads Logo", "size": {"width": 60, "height": 60}},
+      {"name": "Sponsored Content", "size": {"width": 1128, "height": 376}},
+      {"name": "Sponsored Carousel", "size": {"width": 502, "height": 282}}
+    ]
+  },
+  {
+    "icon": "testIcons/pinterest.svg",
+    "name": "Pinterest",
+    "sizes": [
+      {"name": "Pin", "size": {"width": 1000, "height": 1500}},
+      {"name": "Idea Pin", "size": {"width": 1080, "height": 1920}},
+      {"name": "Square Pin", "size": {"width": 1000, "height": 1000}},
+      {"name": "Long Pin", "size": {"width": 1000, "height": 2100}},
+      {"name": "Profile Photo", "size": {"width": 280, "height": 280}},
+      {"name": "Board Cover", "size": {"width": 600, "height": 600}},
+      {"name": "Carousel Pin", "size": {"width": 1000, "height": 1500}},
+      {"name": "Square Carousel Pin", "size": {"width": 1000, "height": 1000}},
+      {"name": "Ad", "size": {"width": 1000, "height": 1500}},
+      {"name": "Shopping Ads", "size": {"width": 1000, "height": 1500}},
+      {"name": "App Install Ads", "size": {"width": 1000, "height": 1500}}
+    ]
+  },
+  {
+    "icon": "testIcons/twitter.svg",
+    "name": "Twitter",
+    "sizes": [
+      {"name": "Landscape Feed", "size": {"width": 1600, "height": 600}},
+      {"name": "Square Feed", "size": {"width": 1200, "height": 1200}},
+      {"name": "Portrait Feed", "size": {"width": 1080, "height": 1350}},
+      {"name": "Profile", "size": {"width": 400, "height": 400}},
+      {"name": "Header", "size": {"width": 1500, "height": 500}},
+      {"name": "Twitter Card", "size": {"width": 4096, "height": 4096}},
+      {"name": "Website Card Ad", "size": {"width": 800, "height": 418}},
+      {"name": "App Card Image Ad", "size": {"width": 800, "height": 800}},
+      {"name": "Carousel Ad", "size": {"width": 800, "height": 800}},
+      {"name": "Direct Message Ad", "size": {"width": 800, "height": 418}},
+      {"name": "Conversation Card Ad", "size": {"width": 800, "height": 418}}
+    ]
+  },
+  {
+    "icon": "testIcons/snapchat.svg",
+    "name": "Snapchat",
+    "sizes": [
+      {"name": "Geofilter Image", "size": {"width": 1080, "height": 1920}},
+      {"name": "Image Ad", "size": {"width": 1080, "height": 1920}}
+    ]
+  },
+  {
+    "icon": "testIcons/twitch.svg",
+    "name": "Twitch",
+    "sizes": [
+      {"name": "Profile Banner", "size": {"width": 1200, "height": 480}},
+      {"name": "Offline Banner", "size": {"width": 1920, "height": 480}},
+      {"name": "Avatar", "size": {"width": 256, "height": 256}},
+      {"name": "Panels", "size": {"width": 320, "height": 100}},
+      {"name": "Thumbnail", "size": {"width": 1280, "height": 720}},
+      {"name": "Overlay", "size": {"width": 1920, "height": 1080}},
+      {"name": "Emotes", "size": {"width": 112, "height": 112}},
+      {"name": "Badges", "size": {"width": 72, "height": 72}}
+    ]
+  },
+  {
+    "icon": "testIcons/tiktok.svg",
+    "name": "TikTok",
+    "sizes": [
+      {"name": "Profile Photo", "size": {"width": 200, "height": 200}}
+    ]
+  },
+  {
+    "icon": "testIcons/youtube.svg",
+    "name": "YouTube",
+    "sizes": [
+      {"name": "Banner", "size": {"width": 2048, "height": 1152}},
+      {"name": "Video", "size": {"width": 1280, "height": 720}},
+      {"name": "Channel Icon", "size": {"width": 800, "height": 800}},
+      {"name": "Thumbnail", "size": {"width": 1280, "height": 720}}
+    ]
+  },
+  {
+    "icon": "testIcons/google ads.svg",
+    "name": "Google Ads",
+    "sizes": [
+      {"name": "Vertical Display Network", "size": {"width": 600, "height": 1067}},
+      {"name": "Landscape Display Network", "size": {"width": 1628, "height": 1200}},
+      {"name": "Square Display Network", "size": {"width": 1200, "height": 1200}},
+      {"name": "Square", "size": {"width": 250, "height": 250}},
+      {"name": "Small Square", "size": {"width": 200, "height": 200}},
+      {"name": "Banner", "size": {"width": 468, "height": 60}},
+      {"name": "Leaderboard", "size": {"width": 728, "height": 98}},
+      {"name": "Inline Rectangle", "size": {"width": 300, "height": 250}},
+      {"name": "Large Rectangle", "size": {"width": 336, "height": 280}},
+      {"name": "Skyscraper", "size": {"width": 120, "height": 600}},
+      {"name": "Wide Skyscraper", "size": {"width": 160, "height": 600}},
+      {"name": "Half Page ad", "size": {"width": 300, "height": 600}},
+      {"name": "Large Leaderboard", "size": {"width": 970, "height": 90}},
+      {"name": "Medium Rectangle", "size": {"width": 300, "height": 250}},
+      {"name": "Mobile banner", "size": {"width": 300, "height": 50}},
+      {"name": "Mobile banner", "size": {"width": 320, "height": 50}},
+      {"name": "Mobile large banner", "size": {"width": 320, "height": 100}}
+    ]
+  },
+  {
+    "icon": "testIcons/reddit.svg",
+    "name": "Reddit",
+    "sizes": [
+      {"name": "Small Ad Banner", "size": {"width": 1920, "height": 128}},
+      {"name": "Medium Ad Banner", "size": {"width": 1920, "height": 256}},
+      {"name": "Large Ad", "size": {"width": 1920, "height": 384}}
+    ]
+  },
+  {
+    "icon": "icons/custom-size.svg",
+    "name": "Art & Illustration",
+    "sizes": [
+      {"name": "B5", "size": {"width": 498, "height": 708}},
+      {"name": "B4", "size": {"width": 728, "height": 1031}},
+      {"name": "A5", "size": {"width": 1748, "height": 2480}},
+      {"name": "A4", "size": {"width": 2480, "height": 3508}},
+      {"name": "A3", "size": {"width": 3605, "height": 4961}},
+      {"name": "A2", "size": {"width": 4961, "height": 7016}}
+    ]
+  }
+]

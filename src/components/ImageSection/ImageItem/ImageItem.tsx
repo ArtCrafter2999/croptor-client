@@ -1,30 +1,39 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./ImageItem.module.scss"
 import csx from "classnames";
 import Dropdown from "../Dropdown/Dropdown";
 import Switch from "../Switch/Switch";
 import TrashButton from "../../TrashButton/TrashButton";
 import Checkmark from "../../Checkmark/Checkmark";
+import {Horizontal, ImageParams, Parameters, Vertical} from "../../../reducer/reducer";
 
 type Props = {
-    image?: string
-    name?: string
+    params: ImageParams | Parameters
     classname?: string
-    empty?: boolean;
+    onChange: (d: ImageParams | Parameters) => void;
+    onTrash?: (image: string) => void;
 }
 const ImageItem = ({
-                       image = "https://img.freepik.com/free-photo/grunge-black-concrete-textured-background_53876-124541.jpg",
-                       name = "sdsfdsfsfffffffffffffffffffffffdsfsdf",
-                       classname, empty
+                       params,
+                       classname,
+                       onChange,
+                       onTrash
                    }: Props) => {
-    const [isCheckmark, setCheckmark] = useState<boolean>(false);
-    const [fitNCrop, setFitNCrop] = useState<boolean>(true);
-    const [horizontal, setHorizontal] = useState<string>("center");
-    const [vertical, setVertical] = useState<string>("center");
+    const [isCheckmark, setCheckmark] = useState<boolean>(params.useDefault);
+    const [fitNCrop, setFitNCrop] = useState<boolean>(params.fitNCrop);
+    const [horizontal, setHorizontal] = useState<Horizontal>(params.horizontalSnap);
+    const [vertical, setVertical] = useState<Vertical>(params.verticalSnap);
 
-    function onTrash() {
+    useEffect(() => {
+        onChange({
+            ...params,
+            useDefault: isCheckmark,
+            fitNCrop,
+            horizontalSnap: horizontal,
+            verticalSnap: vertical
+        });
+    }, [isCheckmark, fitNCrop, horizontal, vertical]);
 
-    }
 
     return (
         <div className={csx(styles.item, classname)}>
@@ -33,37 +42,37 @@ const ImageItem = ({
                 <Checkmark value={isCheckmark}/>
             </div>
             <div className={styles.imageContainer}>
-                {!empty &&
+                {"image" in params &&
 					<>
 						<div className={styles.image}>
 							<img
-								src={image}
+								src={(params as ImageParams).image}
 								alt={"image not loaded"}/>
 						</div>
-						<span>{name}</span>
+						<span>{(params as ImageParams).name}</span>
 					</>
                 }
             </div>
             <div>
-                <Dropdown options={["top", "center", "bottom"]} icon={"icons/vertical-snap-active.svg"}
-                          selectedOption={vertical} selectOption={setVertical}
+                <Dropdown options={["Top", "Center", "Bottom"]} icon={"icons/vertical-snap-active.svg"}
+                          selectedOption={vertical} selectOption={(v) => setVertical(v as Vertical)}
                           title={"Align cropping option vertically"}/>
                 <Switch classname={styles.switch} value={fitNCrop} setValue={setFitNCrop} text={"Fit & Crop"}
                         title={"Resize image to the borders and then crop"}/>
             </div>
             <div>
-                <Dropdown options={["left", "center", "right"]} icon={"icons/horizontal-snap-active.svg"}
-                          selectedOption={horizontal} selectOption={setHorizontal}
+                <Dropdown options={["Left", "Center", "Right"]} icon={"icons/horizontal-snap-active.svg"}
+                          selectedOption={horizontal} selectOption={(v) => setHorizontal(v as Horizontal)}
                           title={"Align cropping option horizontally"}/>
             </div>
             <div className={styles.buttonContainer}>
-                {!empty &&
+                {"image" in params &&
 					<div className={styles.button} title={"Set custom center"}>Set Center</div>
                 }
             </div>
             <div className={styles.buttonContainer}>
-                {!empty &&
-					<TrashButton onClick={onTrash} title={"Remove image from list"}/>
+                {"image" in params &&
+					<TrashButton onClick={() => onTrash && onTrash(params.image)} title={"Remove image from list"}/>
                 }
             </div>
         </div>

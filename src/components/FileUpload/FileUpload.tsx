@@ -18,7 +18,7 @@ const checkFileSize = (files: FileList | File[]) => {
 
 type Props = {
     // children: ReactNode;
-    onFilesDropped: (files: FileList | File[]) => void;
+    onFilesDropped: (files: File[]) => void;
 }
 const FileUpload = ({onFilesDropped}: Props) => {
     const [active, setActive] = useState(false);
@@ -39,7 +39,7 @@ const FileUpload = ({onFilesDropped}: Props) => {
 
         if (files) {
             if (checkFileSize(files)) {
-                onFilesDropped(files);
+                onFilesDropped((Array.from(files)));
                 setIsDragOver(false);
                 setActive(false);
             } else {
