@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="47.7" height="47.7" viewBox="0 0 47.7 47.7">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        fill: #00dede;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #fff;
+        stroke-miterlimit: 10;
+        stroke-width: 2.18px;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="set_center_feature" data-name="set center feature">
+      <g id="dragable_target" data-name="dragable target">
+        <circle class="cls-1" cx="23.9" cy="23.9" r="17.8"/>
+        <circle class="cls-2" cx="23.9" cy="23.9" r="6.4"/>
+        <circle class="cls-3" cx="23.9" cy="23.9" r="22.8"/>
+      </g>
+    </g>
+  </g>
+</svg>

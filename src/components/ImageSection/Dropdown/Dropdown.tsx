@@ -21,8 +21,8 @@ const Dropdown = ({options, selectedOption, selectOption, icon, classname, ...re
             }
         }
         window.addEventListener("click", onClick);
-        return () => window.addEventListener("click", onClick);
-    }, [ref.current]);
+        return () => window.removeEventListener("click", onClick);
+    }, [ref.current, isOpen]);
 
     return (
         <>
@@ -34,7 +34,7 @@ const Dropdown = ({options, selectedOption, selectOption, icon, classname, ...re
                 <img src={"icons/vector-down.svg"}/>
                 {isOpen &&
 					<div className={styles.options}>
-                        {options.map(o => <span onClick={() => selectOption(o)}>{o}</span>)}
+                        {options.map(o => <span key={o} onClick={() => selectOption(o)}>{o}</span>)}
 					</div>
                 }
             </div>

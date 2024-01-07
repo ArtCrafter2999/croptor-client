@@ -10,6 +10,7 @@ const ImageSection = () => {
         <div className={styles.section}>
             {Object.values(imageDataDictionary).map(data =>
                 <ImageItem
+                    key={data.image}
                     params={data}
                     onChange={d =>
                         dispatch({

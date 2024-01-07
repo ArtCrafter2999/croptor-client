@@ -15,14 +15,8 @@ const TopPart = ({name, onPrev, onNext, onSave}: Props) => {
     const [newTitle, setNewTitle] = useState<string>();
     const [isFocused, setFocused] = useState<boolean>(false);
 
-    function handleOnInputHover(e: React.MouseEvent<HTMLInputElement>) {
-        e.currentTarget.style.width = '0';
-        e.currentTarget.style.width =  e.currentTarget.scrollWidth + 'px';
-    }
     function handleChange(e: ChangeEvent<HTMLInputElement>) {
-        setNewTitle(e.target.value)
-        e.currentTarget.style.width = '0';
-        e.currentTarget.style.width =  e.currentTarget.scrollWidth + 'px';
+        setNewTitle(e.target.value ?? "")
     }
     function handleOnHover() {
         setNewTitle(name);
@@ -47,7 +41,7 @@ const TopPart = ({name, onPrev, onNext, onSave}: Props) => {
                 <img src={"icons/vector-left.svg"} alt={"previous"}/>
             </div>
             <div className={styles.presetName}>
-                {newTitle?
+                {newTitle !== undefined?
                     <input
                         type={"text"}
                         maxLength={20}
@@ -56,7 +50,6 @@ const TopPart = ({name, onPrev, onNext, onSave}: Props) => {
                         onFocus={() => setFocused(true)}
                         onBlur={handleBlur}
                         onKeyDown={e => e.key === "Enter" && handleBlur()}
-                        onMouseOver={handleOnInputHover}
                         onMouseLeave={handleMouseLeave}
                     /> :
                     <span onMouseOver={handleOnHover}>{name}</span>

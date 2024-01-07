@@ -2,7 +2,7 @@ import {Dispatch} from "react";
 
 type FilesDictionary = { [url: string]: File };
 type ImageDataDictionary = { [url: string]: ImageParams };
-type Position = { x: number, y: number };
+export type Position = { x: number, y: number };
 
 export type Horizontal = "Left" | "Center" | "Right";
 export type Vertical = "Top" | "Center" | "Bottom";

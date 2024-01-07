@@ -6,6 +6,8 @@ import Switch from "../Switch/Switch";
 import TrashButton from "../../TrashButton/TrashButton";
 import Checkmark from "../../Checkmark/Checkmark";
 import {Horizontal, ImageParams, Parameters, Vertical} from "../../../reducer/reducer";
+import Modal from "../../Modal/Modal";
+import SetCenterModal from "../../SetCenterModal/SetCenterModal";
 
 type Props = {
     params: ImageParams | Parameters
@@ -23,6 +25,8 @@ const ImageItem = ({
     const [fitNCrop, setFitNCrop] = useState<boolean>(params.fitNCrop);
     const [horizontal, setHorizontal] = useState<Horizontal>(params.horizontalSnap);
     const [vertical, setVertical] = useState<Vertical>(params.verticalSnap);
+    const [isSetCenter, setSetCenter] = useState<boolean>(false);
+
 
     useEffect(() => {
         onChange({
@@ -67,7 +71,11 @@ const ImageItem = ({
             </div>
             <div className={styles.buttonContainer}>
                 {"image" in params &&
-					<div className={styles.button} title={"Set custom center"}>Set Center</div>
+					<div className={styles.button} title={"Set custom center"} onClick={() => setSetCenter(true)}
+                    >
+                        {/*{params.centerPosition? params.centerPosition.x + " " + params.centerPosition.y: "Set Center"}*/}
+                        Set Center
+                    </div>
                 }
             </div>
             <div className={styles.buttonContainer}>
@@ -75,6 +83,13 @@ const ImageItem = ({
 					<TrashButton onClick={() => onTrash && onTrash(params.image)} title={"Remove image from list"}/>
                 }
             </div>
+            {"image" in params &&
+				<Modal isOpen={isSetCenter} setOpen={setSetCenter}>
+					<SetCenterModal
+						params={(params as ImageParams)}
+						onOk={(centerPosition) => onChange({...params, centerPosition})}/>
+				</Modal>
+            }
         </div>
     );
 };

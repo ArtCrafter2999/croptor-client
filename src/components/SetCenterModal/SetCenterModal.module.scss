@@ -1,0 +1,24 @@
+.modal {
+  height: 98%;
+  width: 100vh;
+  display: flex;
+
+  & > img {
+    -webkit-user-drag: none;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}
+
+.draggable {
+  position: absolute;
+  z-index: 1001;
+  cursor: grab;
+}
+
+.draggableDiv {
+  img {
+    transform: translate(-50%, -50%);
+  }
+}
