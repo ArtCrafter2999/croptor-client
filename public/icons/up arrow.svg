@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="7.5" height="6.7" viewBox="0 0 7.5 6.7">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #00dfdf;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="account">
+      <g id="backend">
+        <g id="plan">
+          <g id="Update">
+            <path class="cls-1" d="M3.1.4.1,5.5A.8.8,0,0,0,.8,6.7H6.7a.8.8,0,0,0,.7-1.2L4.4.4A.8.8,0,0,0,3.1.4L.1,5.5A.8.8,0,0,0,.8,6.7H6.7a.8.8,0,0,0,.7-1.2L4.4.4A.8.8,0,0,0,3.1.4Z"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

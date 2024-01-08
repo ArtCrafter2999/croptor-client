@@ -11,6 +11,7 @@ import CustomSizes from "./components/CustomSizes/CustomSizes";
 import FileUpload from "./components/FileUpload/FileUpload";
 import reducer, {Action, Category, ReducerState} from "./reducer/reducer";
 import defaultSizes from "./defaultSizes.json";
+import Authorization from "./components/Authorization/Authorization";
 
 export const AppContext = createContext<ReducerState & {dispatch: Dispatch<Action>}>(null as any);
 
@@ -50,6 +51,7 @@ const App = () => {
         <AppContext.Provider value={{...state, dispatch}}>
             <div className={styles.app}>
                 <Logo/>
+                <Authorization/>
                 <div className={styles.workspace}>
                     <Header/>
                     <GlobalParameters/>

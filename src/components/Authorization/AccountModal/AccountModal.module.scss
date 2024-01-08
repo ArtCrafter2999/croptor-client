@@ -1,0 +1,175 @@
+.modal {
+  position: relative;
+  background-color: #E6FAF9;
+  width: 50vw;
+  height: 72vh;
+  border-radius: 10px;
+
+  .tabs {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    display: flex;
+    span {
+      cursor: pointer;
+      color: #758c9a;
+      font-weight: 500;
+      font-size: 18px;
+      margin-right: 10px;
+      &:hover {
+        color: #567070;
+      }
+      &.active {
+        color: black;
+      }
+    }
+  }
+
+  .list {
+    flex: 1;
+    display: grid;
+    margin-left: 30px;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    align-items: end;
+    & > * {
+      //border: black solid 1px;
+    }
+    span.name {
+      margin: 0 20px;
+      height: 22px;
+      font-size: 20px;
+
+    }
+
+    div.field, div.button {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      .field, .button{
+        font-size: 20px;
+        height: 22px;
+        width: calc(100% - 12px);
+        border-radius: 4px;
+        background-color: #00dede;
+        padding: 0 6px;
+        color: white;
+      }
+      .button {
+        cursor: pointer;
+        text-align: center;
+        &:hover {
+          background-color: #00afaf;
+        }
+      }
+    }
+
+    div.ok {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      background-color: #00dede;
+      height: 22px;
+      color: white;
+      &:hover {
+        background-color: #00afaf;
+      }
+    }
+  }
+
+  .account {
+    color: #758c9a;
+    margin: 8% {
+      top: 20vh
+    };
+    display: flex;
+    flex-wrap: wrap;
+
+    .imageContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+      }
+
+      span {
+        margin-top: 20px;
+      }
+    }
+    .list {
+      grid-template-columns: auto 1fr 36px;
+      & > *:last-child {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .plan {
+    color: #758c9a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    .list {
+      max-width: 300px;
+      margin-bottom: 100px;
+      grid-template-columns: auto 1fr;
+      .field {
+        flex-direction: row;
+        .numberField {
+          flex: 0 0 30px;
+        }
+      }
+      & > * {
+        margin-top: 20px;
+      }
+    }
+    .button {
+      position: absolute;
+      bottom: 32%;
+      right: 18%;
+      color: white;
+      background-color: #00dede;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 18px;
+      &:hover {
+        background-color: #00afaf;
+      }
+    }
+  }
+}
+
+span.edit {
+  cursor: pointer;
+  color: #567070;
+
+  &:hover {
+    color: #00dede;
+  }
+}
+.numberField {
+  color: #00dede;
+  font-size: 20px;
+  display: grid;
+  margin-left: 5px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 3px;
+  img {
+    cursor: pointer;
+    width: 10px;
+    height: 10px;
+  }
+  span {
+    grid-area: 1 / 2 / 3 / 3;
+  }
+}
