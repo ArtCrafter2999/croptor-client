@@ -7,17 +7,25 @@ footer.footer {
   height: 60px;
   color: #758c9a;
   font-size: 13px;
-  span {
+  user-select: none;
+  -webkit-user-drag: none;
+  & > span {
+    color: #758c9a;
+    span {
+      cursor: pointer;
+    }
+    &:first-child {
+      margin-top: 14px;
+    }
     &:nth-child(2) {
       margin: {
         top: 4px;
         bottom: 8px;
       }
     }
+
     & > * {
-      color: #758c9a;
       margin: {
-        top: 14px;
         right: 4px;
         left: 4px;
       }

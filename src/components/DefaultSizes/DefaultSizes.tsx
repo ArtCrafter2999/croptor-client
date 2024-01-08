@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import styles from "./DefaultSizes.module.scss"
 import CategoryItem from "./CategoryItem/CategoryItem";
 import {AppContext} from "../../App";
-import {PresetSize} from "../../reducer/reducer";
 import SizeList from "./SizeList";
 
 const DefaultSizes = () => {

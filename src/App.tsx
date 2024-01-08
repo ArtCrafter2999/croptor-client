@@ -1,4 +1,4 @@
-import React, {createContext, Dispatch, useEffect, useReducer, useState} from 'react';
+import React, {createContext, Dispatch, useReducer} from 'react';
 import styles from "./App.module.scss"
 import Footer from "./components/Footer/Footer";
 import Logo from "./components/Logo/Logo";
