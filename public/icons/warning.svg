@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14.5" height="12.7" viewBox="0 0 14.5 12.7">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #f3e021;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="uploaded_images" data-name="uploaded images">
+      <g id="image_1" data-name="image 1">
+        <g id="note">
+          <g id="note_logo" data-name="note logo">
+            <path class="cls-1" d="M6.7.3.1,11.8a.6.6,0,0,0,.5.9H13.9a.6.6,0,0,0,.5-.9L7.7.3a.6.6,0,0,0-1,0L.1,11.8a.6.6,0,0,0,.5.9H13.9a.6.6,0,0,0,.5-.9L7.7.3A.6.6,0,0,0,6.7.3Z"/>
+            <rect class="cls-2" x="6.7" y="3.1" width="1.1" height="5.09" rx="0.6"/>
+            <circle class="cls-2" cx="7.3" cy="9.7" r="0.6"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

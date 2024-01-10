@@ -6,7 +6,8 @@
 
 * {
   font-family: "Mona-Sans", sans-serif;
-  font-size: 1.4rem;
+  font-size: .9rem;
+  letter-spacing: .05rem;
 }
 
 a {
@@ -26,7 +27,7 @@ input[type="text"] {
   color: #567070;
   background: none;
   border: none {
-    bottom: #567070 solid 2px;
+    bottom: #567070 solid 1px;
   };
   outline: none;
   text-align: center;
@@ -34,9 +35,9 @@ input[type="text"] {
 
 .app {
   padding: {
-    right: 126px;
-    left: 103px;
-    top: 50px
+    right: 8.0rem;
+    left: 13rem;
+    top: 1.0rem
   };
 
   .workspace {
@@ -52,7 +53,7 @@ input[type="text"] {
     }
 
     width: 100%;
-    height: calc(100vh - 110px);
+    height: calc(100vh - 8.0rem);
   }
 }
 
@@ -85,19 +86,19 @@ input[type="text"] {
 * {
   /* For WebKit-based browsers (Chrome, Safari) */
   &::-webkit-scrollbar {
-    width: 6px; /* Set the width of the scrollbar */
-    height: 6px; /* Set the width of the scrollbar */
+    width: .5rem; /* Set the width of the scrollbar */
+    height: .5rem; /* Set the width of the scrollbar */
   }
 
   /* Track (background) of the scrollbar */
   &::-webkit-scrollbar-track {
-    margin: 2px;
-    border-radius: 4px;
+    margin: .2rem;
+    border-radius: .4rem;
   }
 
   /* Handle (thumb) of the scrollbar */
   &::-webkit-scrollbar-thumb {
     background-color: #87d7d7;
-    border-radius: 6px; /* Rounded corners for the scrollbar handle */
+    border-radius: .6rem; /* Rounded corners for the scrollbar handle */
   }
 }

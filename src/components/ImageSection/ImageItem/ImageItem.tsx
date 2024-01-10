@@ -52,6 +52,11 @@ const ImageItem = ({
 							<img
 								src={(params as ImageParams).image}
 								alt={"image not loaded"}/>
+							<div className={styles.icon}>
+								<img
+									src={"icons/warning.svg"}
+									alt={"warning"}/>
+							</div>
 						</div>
 						<span>{(params as ImageParams).name}</span>
 					</>
@@ -72,10 +77,10 @@ const ImageItem = ({
             <div className={styles.buttonContainer}>
                 {"image" in params &&
 					<div className={styles.button} title={"Set custom center"} onClick={() => setSetCenter(true)}
-                    >
+					>
                         {/*{params.centerPosition? params.centerPosition.x + " " + params.centerPosition.y: "Set Center"}*/}
-                        Set Center
-                    </div>
+						Set Center
+					</div>
                 }
             </div>
             <div className={styles.buttonContainer}>

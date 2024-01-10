@@ -9,8 +9,15 @@ footer.footer {
   font-size: 1.3rem;
   user-select: none;
   -webkit-user-drag: none;
+  span {
+    font-size: .9rem;
+    color: #bdccd4;
+    font-weight: 600;
+    &:hover {
+      color: #666666;
+    }
+  }
   & > span {
-    color: #758c9a;
     span {
       cursor: pointer;
     }

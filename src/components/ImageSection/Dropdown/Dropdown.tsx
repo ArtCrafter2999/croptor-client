@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import styles from "./Dropdown.module.scss"
+import usePopup from "../../usePopup";
 
 type Props = {
     options: string[]
@@ -11,18 +12,7 @@ type Props = {
 }
 
 const Dropdown = ({options, selectedOption, selectOption, icon, classname, ...rest}: Props) => {
-    const [isOpen, setOpen] = useState<boolean>(false);
-    const ref = useRef<HTMLDivElement>();
-
-    useEffect(() => {
-        function onClick(e: MouseEvent) {
-            if(isOpen && ref.current && !ref.current.contains(e.target as any)) {
-                setOpen(false);
-            }
-        }
-        window.addEventListener("click", onClick);
-        return () => window.removeEventListener("click", onClick);
-    }, [ref.current, isOpen]);
+    const [isOpen, setOpen, ref] = usePopup();
 
     return (
         <>

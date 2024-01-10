@@ -1,21 +1,22 @@
 .item {
   display: flex;
   width: 100%;
-  margin: 7px 0;
+  margin: .7rem 0;
   font-weight: 600;
   cursor: pointer;
   user-select: none;
   color: #567070;
 
   .checkmark {
-    flex: 0 0 20px;
-    margin-right: 4px;
+    flex: 0 0 2.0rem;
+    margin-right: .4rem;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   .name, .size {
-    margin-top: 3px;
+    margin-top: .3rem;
+    font-size: .8rem;
   }
   .name {
     flex: 1;

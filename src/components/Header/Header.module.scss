@@ -6,22 +6,32 @@
   .buttonContainer {
     flex: 1;
     display: flex;
-    justify-content: center;
 
-    span, input {
-      color: #567070;
-      margin-top: 8px;
+    &:first-child {
+      margin-left: 1rem;
     }
+    &:last-child {
+      justify-content: end;
+      margin-right: 7rem;
+    }
+
     span {
+      color: #567070;
+      font-weight: 600;
+      margin-top: 8px;
+      font-size: 0.9rem;
       white-space: nowrap;
       user-select: none;
     }
+
     input {
-      width: 50px;
-      height: 14px;
-      font-size: 1.4rem;
+      color: #999999;
+      width: 3.6rem;
+      height: 1.0rem;
+      font-size: 0.9rem;
       font-weight: 550;
-      margin:{
+      margin: {
+        top: 6px;
         left: 14px;
         right: 8px;
       }
@@ -34,10 +44,10 @@
   --color: #567070;
   text-transform: uppercase;
   font-weight: 700;
-  height: 18px;
+  height: 1.3rem;
   min-width: fit-content;
-  font-size: 1.4rem;
-  border: var(--color) solid 2px;
+  font-size: 0.9rem;
+  border: var(--color) solid 1px;
   color: var(--color);
   border-radius: 20px;
   padding: {
@@ -51,6 +61,7 @@
     left: 16px;
   };
   cursor: pointer;
+
   &:hover {
     color: white;
     background: var(--color);

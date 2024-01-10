@@ -44,7 +44,7 @@ const TopPart = ({name, onPrev, onNext, onSave}: Props) => {
                 {newTitle !== undefined?
                     <input
                         type={"text"}
-                        maxLength={20}
+                        maxLength={16}
                         value={newTitle}
                         onChange={handleChange}
                         onFocus={() => setFocused(true)}

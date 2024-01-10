@@ -1,7 +1,7 @@
 .category {
   color: #567070;
   font-size: 1.3rem;
-  margin-top: 12px;
+  margin-top: 1.2rem;
 
   .row {
     cursor: pointer;
@@ -13,20 +13,21 @@
     span {
       user-select: none;
       margin: {
-        top: 3px;
-        left: 8px
+        top: .3rem;
+        left: .8rem;
       }
       font-weight: 600;
+      font-size: .8rem;
     }
 
     img {
-      width: 20px;
-      height: 20px;
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 
   .sizes {
-    padding-left: 24px;
-    width: calc(100% - 24px);
+    padding-left: 1.8rem;
+    width: calc(100% - 1.8rem);
   }
 }
