@@ -14,7 +14,7 @@
       cursor: pointer;
       color: #758c9a;
       font-weight: 500;
-      font-size: 18px;
+      font-size: 1.8rem;
       margin-right: 10px;
       &:hover {
         color: #567070;
@@ -38,7 +38,7 @@
     span.name {
       margin: 0 20px;
       height: 22px;
-      font-size: 20px;
+      font-size: 2.0rem;
 
     }
 
@@ -47,7 +47,7 @@
       flex-direction: column;
       align-items: end;
       .field, .button{
-        font-size: 20px;
+        font-size: 2.0rem;
         height: 22px;
         width: calc(100% - 12px);
         border-radius: 4px;
@@ -140,7 +140,7 @@
       padding: 2px 6px;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 18px;
+      font-size: 1.8rem;
       &:hover {
         background-color: #00afaf;
       }
@@ -158,7 +158,7 @@ span.edit {
 }
 .numberField {
   color: #00dede;
-  font-size: 20px;
+  font-size: 2.0rem;
   display: grid;
   margin-left: 5px;
   grid-template-columns: repeat(2, 1fr);

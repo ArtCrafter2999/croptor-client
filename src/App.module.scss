@@ -6,6 +6,7 @@
 
 * {
   font-family: "Mona-Sans", sans-serif;
+  font-size: 1.4rem;
 }
 
 a {
@@ -16,6 +17,11 @@ img {
   user-select: none;
   -webkit-user-drag: none;
 }
+
+html {
+  font-size: 62.5%;
+}
+
 input[type="text"] {
   color: #567070;
   background: none;
@@ -69,6 +75,7 @@ input[type="text"] {
     pointer-events: auto;
     background-color: rgba(0, 0, 0, 0.7);
   }
+
   &.show {
     pointer-events: auto;
     background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
