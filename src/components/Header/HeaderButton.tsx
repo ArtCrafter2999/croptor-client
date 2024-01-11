@@ -1,20 +1,22 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import styles from "./Header.module.scss"
+import csx from "classnames";
 
 type Props = {
-    text: string
+    children: ReactNode
     color: string;
+    className?: string;
     onClick?: () => void;
     [x: string]: any;
 }
 
-const HeaderButton = ({text, color, onClick, ...rest}: Props) => {
+const HeaderButton = ({children, color, onClick, className, ...rest}: Props) => {
     const style: React.CSSProperties = {}
     // @ts-ignore
     style['--color'] = color;
     return (
-        <div className={styles.button} style={style} onClick={onClick} {...rest}>
-            {text}
+        <div className={csx(styles.button, className)} style={style} onClick={onClick} {...rest}>
+            {children}
         </div>
     );
 };

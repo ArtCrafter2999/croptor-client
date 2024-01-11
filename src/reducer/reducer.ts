@@ -1,21 +1,23 @@
-import {Dispatch} from "react";
-
-type FilesDictionary = { [url: string]: File };
-type ImageDataDictionary = { [url: string]: ImageParams };
+type FilesDictionary = { [fileName: string]: File };
+type ImageDataDictionary = { [fileName: string]: ImageParams };
+type SizesDictionary = { [fileName: string]: Size };
 export type Position = { x: number, y: number };
 
 export type Horizontal = "Left" | "Center" | "Right";
 export type Vertical = "Top" | "Center" | "Bottom";
-export type Parameters = {
+
+export type GlobalParams = {
     useDefault: boolean;
     horizontalSnap: Horizontal;
     verticalSnap: Vertical;
     fitNCrop: boolean;
 }
+export type Parameters = GlobalParams & {
+    centerPosition: Position | null;
+}
 export type ImageParams = Parameters & {
     image: string
     name: string
-    centerPosition: Position | null;
 }
 export type Size = {
     width: number,
@@ -39,8 +41,9 @@ export type CategorySize = {
 }
 
 export type ReducerState = {
-    defaultParams: Parameters;
+    defaultParams: GlobalParams;
     imageDataDictionary: ImageDataDictionary;
+    sizesDictionary: SizesDictionary;
     filesDictionary: FilesDictionary;
     selectedPreset: Preset;
     defaultSizes: Category[]
@@ -48,16 +51,17 @@ export type ReducerState = {
 }
 
 export type Action =
-    { action: "defaultParams", value: Parameters } |
+    { action: "defaultParams", value: GlobalParams } |
     { action: "imageParams", value: ImageParams } |
+    { action: "saveImageSize", value: { name: string, size: Size } } |
     { action: "addFiles", value: File[] } |
     { action: "resetFiles" } |
     { action: "removeImage", value: string } |
     { action: "addSizeToPreset", value: PresetSize } |
     { action: "removeSizeFromPreset", value: { name?: string, size: Size } } |
     { action: "addCustomSize", value: Size } |
-    { action: "removePreset"} |
-    { action: "changePresetTitle", value: string}
+    { action: "removePreset" } |
+    { action: "changePresetTitle", value: string }
 
 
 function reducer(state: ReducerState, action: Action): ReducerState {
@@ -68,6 +72,8 @@ function reducer(state: ReducerState, action: Action): ReducerState {
             return imageParams(state, action.value);
         case "addFiles":
             return addFiles(state, action.value);
+        case "saveImageSize":
+            return saveImageSize(state, action.value);
         case "resetFiles":
             return ResetFiles(state);
         case "removeImage":
@@ -85,14 +91,14 @@ function reducer(state: ReducerState, action: Action): ReducerState {
     }
 }
 
-function defaultParams(state: ReducerState, params: Parameters): ReducerState {
+function defaultParams(state: ReducerState, params: GlobalParams): ReducerState {
     const defaultParams = params
     return {...state, defaultParams};
 }
 
 function imageParams(state: ReducerState, data: ImageParams): ReducerState {
     const imageDataDictionary = {...state.imageDataDictionary};
-    imageDataDictionary[data.image] = data;
+    imageDataDictionary[data.name] = data;
     return {...state, imageDataDictionary};
 }
 
@@ -101,8 +107,8 @@ function addFiles(state: ReducerState, value: File[]): ReducerState {
     const imageDataDictionary = {...state.imageDataDictionary};
     for (const file of value) {
         const blob = URL.createObjectURL(file);
-        filesDictionary[blob] = file;
-        imageDataDictionary[blob] = {
+        filesDictionary[file.name] = file;
+        imageDataDictionary[file.name] = {
             ...state.defaultParams,
             image: blob,
             name: file.name,
@@ -110,6 +116,12 @@ function addFiles(state: ReducerState, value: File[]): ReducerState {
         };
     }
     return {...state, filesDictionary, imageDataDictionary};
+}
+
+function saveImageSize(state: ReducerState, value: { name: string; size: Size }): ReducerState {
+    const sizesDictionary = {...state.sizesDictionary};
+    sizesDictionary[value.name] = value.size;
+    return {...state, sizesDictionary};
 }
 
 function ResetFiles(state: ReducerState): ReducerState {
@@ -148,12 +160,14 @@ function addCustomSize(state: ReducerState, value: Size): ReducerState {
     customSizes.push(value);
     return {...state, customSizes};
 }
+
 function removePreset(state: ReducerState): ReducerState {
     const selectedPreset: Preset = {name: "new preset", sizes: []};
     return {...state, selectedPreset}
 }
+
 function changePresetTitle(state: ReducerState, value: string): ReducerState {
-    const selectedPreset: Preset = { name: value, sizes: state.selectedPreset.sizes};
+    const selectedPreset: Preset = {name: value, sizes: state.selectedPreset.sizes};
     return {...state, selectedPreset}
 }
 

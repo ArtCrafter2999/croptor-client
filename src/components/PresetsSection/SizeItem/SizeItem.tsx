@@ -2,18 +2,24 @@ import React, {useState} from 'react';
 import styles from "./SizeItem.module.scss"
 import {PresetSize, Size} from "../../../reducer/reducer"
 import TrashButton from "../../TrashButton/TrashButton";
+import csx from "classnames";
 
 type Props = {
     presetSize: PresetSize;
     onRemove?: () => void;
+    classname?: string
+    [x: string]: any
 }
 
-const SizeItem = ({presetSize: {size, name, icon}, onRemove}: Props) => {
+const SizeItem = ({presetSize: {size, name, icon}, onRemove, classname, ...rest}: Props) => {
     const sizeString = size.width + "x" + size.height;
     const [isHover, setHover] = useState<boolean>(false);
 
     return (
-        <div className={styles.item} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+        <div className={csx(styles.item, classname)}
+             onMouseEnter={() => setHover(true)}
+             onMouseLeave={() => setHover(false)}
+             {...rest}>
             <img src={icon} alt={name}/>
             {name ?
                 <>
@@ -22,8 +28,8 @@ const SizeItem = ({presetSize: {size, name, icon}, onRemove}: Props) => {
                 </> :
                 <span className={styles.name}>{sizeString}</span>
             }
-            <div  className={styles.trash}>
-                {isHover &&
+            <div className={styles.trash}>
+                {onRemove && isHover &&
 					<TrashButton onClick={onRemove}/>
                 }
             </div>

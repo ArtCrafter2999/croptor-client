@@ -16,7 +16,9 @@ const Authorization = () => {
                 {isAuthorized ?
                     <img className={styles.noImage} src={"icons/user.svg"} onClick={() => setOpen(prev => !prev)}/>
                     :
-                    <HeaderButton text={"Login"} color={"#00dede"} onClick={() => setAuthorized(true)}/>
+                    <HeaderButton color={"#00dede"} onClick={() => setAuthorized(true)}>
+                        Login
+                    </HeaderButton>
                 }
                 {isOpen &&
 					<div className={styles.popupContainer}>

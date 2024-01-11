@@ -1,6 +1,6 @@
 .section {
   grid-area: 3 / 1 / 12 / 6;
-  overflow-y: auto;
+  overflow-y: visible;
   &> div {
     margin: 5px 0;
   }

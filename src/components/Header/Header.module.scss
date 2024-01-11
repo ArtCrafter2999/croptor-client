@@ -62,8 +62,24 @@
   };
   cursor: pointer;
 
+  &.upload > * {
+    width: 5.85rem;
+  }
+
+  .animation {
+    height: 2rem;
+    margin-top: -.5rem;
+
+    path {
+      fill: var(--color);
+    }
+  }
   &:hover {
     color: white;
     background: var(--color);
+    .animation path {
+      fill: white;
+    };
   }
+
 }

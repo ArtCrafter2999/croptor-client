@@ -1,49 +1,64 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styles from "./ImageItem.module.scss"
 import csx from "classnames";
 import Dropdown from "../Dropdown/Dropdown";
 import Switch from "../Switch/Switch";
 import TrashButton from "../../TrashButton/TrashButton";
 import Checkmark from "../../Checkmark/Checkmark";
-import {Horizontal, ImageParams, Parameters, Vertical} from "../../../reducer/reducer";
+import {
+    GlobalParams,
+    Horizontal,
+    ImageParams, Parameters,
+    PresetSize,
+    Size,
+    Vertical
+} from "../../../reducer/reducer";
 import Modal from "../../Modal/Modal";
 import SetCenterModal from "../../SetCenterModal/SetCenterModal";
+import {AppContext} from "../../../App";
+import Warning from "./Warning";
+import ObservableParams from "./ObservableParams";
+import {stat} from "fs";
 
 type Props = {
     params: ImageParams | Parameters
     classname?: string
-    onChange: (d: ImageParams | Parameters) => void;
-    onTrash?: (image: string) => void;
+    onChange: (d: Parameters) => void;
 }
 const ImageItem = ({
                        params,
                        classname,
-                       onChange,
-                       onTrash
+                       onChange
                    }: Props) => {
-    const [isCheckmark, setCheckmark] = useState<boolean>(params.useDefault);
-    const [fitNCrop, setFitNCrop] = useState<boolean>(params.fitNCrop);
-    const [horizontal, setHorizontal] = useState<Horizontal>(params.horizontalSnap);
-    const [vertical, setVertical] = useState<Vertical>(params.verticalSnap);
     const [isSetCenter, setSetCenter] = useState<boolean>(false);
+    const state = new ObservableParams(params, onChange)
+    const {sizesDictionary, selectedPreset, dispatch} = useContext(AppContext)
+    const [isWarningHover, setWarningHover] = useState<boolean>(false);
+    const originalSize: Size | undefined = "name" in params ? sizesDictionary[params.name] : undefined;
+    const incapableSizes: PresetSize[] = []
+    if (originalSize && !params.fitNCrop) {
+        selectedPreset.sizes.forEach(s => {
+            if (!originalSize) return;
+            if (s.size.width > originalSize.width || s.size.height > originalSize.height)
+                incapableSizes.push(s);
+        })
+    }
 
+    function handleWarningHover() {
+        if (incapableSizes.length > 0)
+            setWarningHover(true);
+    }
 
-    useEffect(() => {
-        onChange({
-            ...params,
-            useDefault: isCheckmark,
-            fitNCrop,
-            horizontalSnap: horizontal,
-            verticalSnap: vertical
-        });
-    }, [isCheckmark, fitNCrop, horizontal, vertical]);
-
+    function handleRemove() {
+        if ("name" in params)
+            dispatch({action: "removeImage", value: params.name});
+    }
 
     return (
         <div className={csx(styles.item, classname)}>
-            <div className={styles.checkboxContainer} onClick={() => setCheckmark(prev => !prev)}
+            <div className={styles.checkboxContainer} onClick={() => state.useDefault = !state.useDefault}
                  title="Use default parameters">
-                <Checkmark value={isCheckmark}/>
+                <Checkmark value={state.useDefault}/>
             </div>
             <div className={styles.imageContainer}>
                 {"image" in params &&
@@ -52,10 +67,18 @@ const ImageItem = ({
 							<img
 								src={(params as ImageParams).image}
 								alt={"image not loaded"}/>
-							<div className={styles.icon}>
-								<img
-									src={"icons/warning.svg"}
-									alt={"warning"}/>
+							<div className={styles.icon}
+								 onMouseEnter={handleWarningHover}
+								 onMouseLeave={() => setWarningHover(false)}
+							>
+                                {incapableSizes.length > 0 &&
+									<img
+										src={"icons/warning.svg"}
+										alt={"warning"}/>
+                                }
+                                {isWarningHover &&
+									<Warning incapableSizes={incapableSizes}/>
+                                }
 							</div>
 						</div>
 						<span>{(params as ImageParams).name}</span>
@@ -64,14 +87,16 @@ const ImageItem = ({
             </div>
             <div>
                 <Dropdown options={["Top", "Center", "Bottom"]} icon={"icons/vertical-snap-active.svg"}
-                          selectedOption={vertical} selectOption={(v) => setVertical(v as Vertical)}
+                          selectedOption={state.verticalSnap} selectOption={(v) => state.verticalSnap = v as Vertical}
                           title={"Align cropping option vertically"}/>
-                <Switch classname={styles.switch} value={fitNCrop} setValue={setFitNCrop} text={"Fit & Crop"}
+                <Switch classname={styles.switch} value={state.fitNCrop} setValue={(v) => state.fitNCrop = v}
+                        text={"Fit & Crop"}
                         title={"Resize image to the borders and then crop"}/>
             </div>
             <div>
                 <Dropdown options={["Left", "Center", "Right"]} icon={"icons/horizontal-snap-active.svg"}
-                          selectedOption={horizontal} selectOption={(v) => setHorizontal(v as Horizontal)}
+                          selectedOption={state.horizontalSnap}
+                          selectOption={(v) => state.horizontalSnap = v as Horizontal}
                           title={"Align cropping option horizontally"}/>
             </div>
             <div className={styles.buttonContainer}>
@@ -85,14 +110,14 @@ const ImageItem = ({
             </div>
             <div className={styles.buttonContainer}>
                 {"image" in params &&
-					<TrashButton onClick={() => onTrash && onTrash(params.image)} title={"Remove image from list"}/>
+					<TrashButton onClick={handleRemove} title={"Remove image from list"}/>
                 }
             </div>
             {"image" in params &&
 				<Modal isOpen={isSetCenter} setOpen={setSetCenter}>
 					<SetCenterModal
 						params={(params as ImageParams)}
-						onOk={(centerPosition) => onChange({...params, centerPosition})}/>
+						onOk={(centerPosition) => state.centerPosition = centerPosition}/>
 				</Modal>
             }
         </div>

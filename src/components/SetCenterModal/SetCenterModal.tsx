@@ -4,6 +4,8 @@ import Draggable, {DraggableData, DraggableEvent} from 'react-draggable';
 import {ImageParams, Position, Size} from "../../reducer/reducer";
 import {ModalContext} from "../Modal/Modal";
 import HeaderButton from "../Header/HeaderButton";
+import {AppContext} from "../../App";
+import header from "../Header/Header";
 
 type Props = {
     params: ImageParams;
@@ -11,22 +13,15 @@ type Props = {
 }
 
 const SetCenterModal = ({params, onOk}: Props) => {
+    const {sizesDictionary} = useContext(AppContext)
     const {closeModal} = useContext(ModalContext)
     const [position, setPosition] = useState<Position>();
     const [displayedSize, setDisplayedSize] = useState<Size>();
-    const [originalSize, setOriginalSize] = useState<Size>();
     const [selectedPos, setSelectedPos] = useState<Position | null>(params.centerPosition);
     const [isMouseDown, setMouseDown] = useState<boolean>(false);
-
-
     const imageRef = useRef<HTMLImageElement>();
 
-    useEffect(() => {
-        const img = new Image();
-        img.src = params.image;
-        img.onload = () =>
-            setOriginalSize({width: img.width, height: img.height})
-    }, [params]);
+    const originalSize = sizesDictionary[params.name]
 
     useEffect(() => {
         if (!displayedSize || position) return;
@@ -34,10 +29,27 @@ const SetCenterModal = ({params, onOk}: Props) => {
     }, [displayedSize]);
 
     useEffect(() => {
-        if (!imageRef.current) return;
-        const imageRect = imageRef.current.getBoundingClientRect();
-        setDisplayedSize({width: imageRect.width, height: imageRect.height});
-    }, [imageRef.current]);
+        function updateDisplayedSize() {
+            if (!originalSize) return;
+            let width: number;
+            let height: number;
+            if (originalSize.width > originalSize.height) {
+                width = document.documentElement.clientWidth * 0.70;
+                height = originalSize.height * (width / originalSize.width);
+            } else {
+                height = document.documentElement.clientHeight * 0.95;
+                width = originalSize.width * (height / originalSize.height);
+            }
+            setDisplayedSize({width, height});
+            setPosition({x: 0, y: height/2});
+        }
+
+        updateDisplayedSize()
+
+        window.addEventListener("resize", updateDisplayedSize);
+        return () => window.removeEventListener("resize", updateDisplayedSize);
+    }, [originalSize]);
+
     useEffect(() => {
         if (!originalSize || !displayedSize || !position) return;
 
@@ -46,6 +58,7 @@ const SetCenterModal = ({params, onOk}: Props) => {
 
         setSelectedPos({x: originalX, y: originalY});
     }, [position]);
+
     function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
         if (e.target !== e.currentTarget) return;
         console.log("mouseDown")
@@ -68,20 +81,31 @@ const SetCenterModal = ({params, onOk}: Props) => {
     return (
         <div className={styles.modal} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
             {displayedSize &&
-				<Draggable
-					defaultClassName={styles.draggable}
-					defaultClassNameDragging={styles.drag}
-					bounds={{top: 0, left: 0, right: displayedSize?.width, bottom: displayedSize?.height}}
-					onDrag={(_, p) => setPosition({x: p.x, y: p.y})}
-					position={position}
-				>
-					<div className={styles.draggableDiv}>
-						<img src={"icons/draggable-target.svg"}/>
-					</div>
-				</Draggable>
+				<>
+					<Draggable
+						defaultClassName={styles.draggable}
+						defaultClassNameDragging={styles.drag}
+						bounds={{
+                            top: 0,
+                            left: -displayedSize.width / 2,
+                            right: displayedSize.width / 2,
+                            bottom: displayedSize.height
+                        }}
+						onDrag={(_, p) => setPosition(p)}
+						position={position}
+					>
+						<div className={styles.draggableDiv}>
+							<img src={"icons/draggable-target.svg"}/>
+						</div>
+					</Draggable>
+					<img style={displayedSize} src={params.image} onMouseDown={handleMouseDown}
+						 onMouseUp={handleMouseUp}
+						 ref={imageRef as any}/>
+				</>
             }
-            <img src={params.image} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} ref={imageRef as any}/>
-            <HeaderButton text={"Ok"} color={"#00dede"} onClick={handleOk}/>
+            <HeaderButton color={"#00dede"} onClick={handleOk}>
+                Ok
+            </HeaderButton>
         </div>
     );
 };

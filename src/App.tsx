@@ -1,4 +1,4 @@
-import React, {createContext, Dispatch, useReducer} from 'react';
+import React, {createContext, Dispatch, useEffect, useReducer} from 'react';
 import styles from "./App.module.scss"
 import Footer from "./components/Footer/Footer";
 import Logo from "./components/Logo/Logo";
@@ -13,7 +13,7 @@ import reducer, {Action, Category, ReducerState} from "./reducer/reducer";
 import defaultSizes from "./defaultSizes.json";
 import Authorization from "./components/Authorization/Authorization";
 
-export const AppContext = createContext<ReducerState & {dispatch: Dispatch<Action>}>(null as any);
+export const AppContext = createContext<ReducerState & { dispatch: Dispatch<Action> }>(null as any);
 
 const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico', "jfif"];
 const App = () => {
@@ -26,6 +26,7 @@ const App = () => {
         },
         imageDataDictionary: {},
         filesDictionary: {},
+        sizesDictionary: {},
         selectedPreset: {name: "vogue 12", sizes: []},
         defaultSizes: defaultSizes as Category[],
         customSizes: [],
@@ -47,13 +48,32 @@ const App = () => {
         }
     }
 
+    useEffect(() => {
+        Object.values(state.imageDataDictionary).forEach((data) => {
+            if (state.sizesDictionary[data.name]) return;
+            const img = new Image();
+            img.src = data.image;
+            img.onload = () =>
+                dispatch({
+                    action: "saveImageSize",
+                    value: {
+                        name: data.name,
+                        size: {
+                            width: img.width,
+                            height: img.height
+                        }
+                    }
+                })
+        })
+    }, [state.imageDataDictionary]);
+
     return (
         <AppContext.Provider value={{...state, dispatch}}>
             <div className={styles.app}>
                 <Logo/>
                 <Authorization/>
                 <div className={styles.workspace}>
-                    <Header/>
+                    <Header onFilesUploaded={handleFileDropped}/>
                     <GlobalParameters/>
                     <ImageSection/>
                     <PresetsSection/>

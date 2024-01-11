@@ -1,6 +1,6 @@
 .item {
   display: grid;
-  grid-template-columns: 5rem calc(100%/6 + 1rem) repeat(4, 1fr);
+  grid-template-columns: 5rem calc(100%/6 + 1rem) repeat(4, minmax(calc(100%/6), 1fr));
   height: 70px;
   margin: 5px;
 
@@ -38,9 +38,27 @@
         display: flex;
         justify-content: end;
         align-items: center;
+        position: relative;
         img {
           width: 1.4rem;
           height: 1.4rem;
+        }
+        .warning {
+          position: absolute;
+          border-radius: .4rem;
+          background-color: white;
+          z-index: 10;
+          width: 30rem;
+          left: 4rem;
+          top: 0;
+          p {
+            margin: .8rem 1.4rem;
+            font-size: .85rem;
+            color: #567070;
+          }
+          .sizeItem img {
+            margin-top: .3rem;
+          }
         }
       }
     }

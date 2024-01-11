@@ -1,7 +1,6 @@
 .modal {
-  height: 98%;
-  width: 100vh;
   display: flex;
+  justify-content: center;
 
   & > img {
     -webkit-user-drag: none;

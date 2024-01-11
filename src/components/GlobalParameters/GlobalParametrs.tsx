@@ -11,7 +11,7 @@ const GlobalParameters = () => {
     }
     return (
         <div className={styles.section}>
-            <ImageItem params={defaultParams} onChange={handleChange} classname={styles.item}/>
+            <ImageItem params={{...defaultParams, centerPosition: null}} onChange={handleChange} classname={styles.item}/>
         </div>
     );
 };
