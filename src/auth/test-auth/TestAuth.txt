@@ -1,0 +1,33 @@
+import { ReactElement, useState } from 'react';
+import { GetServerData, TestDto} from '../../api/GetServerData.txt';
+
+const apiClient = new GetServerData(baseUrl: string = process.env.REACT_APP_API_URI ?? "https://sparkle.net.ua");
+
+
+
+const TestAuth = () => {
+
+  const [responce, setResponce] = useState<TestDto | undefined>(undefined);
+  async function testAuth() {
+    const responce = await apiClient.testAuth();
+    setResponce(responce);
+  }
+
+  const handleKeyDown = () => {
+    testAuth();
+  }
+
+  return (
+    <div>
+      <button onClick={handleKeyDown}>Send</button>
+      {responce ?
+        <div>
+          <p>UserName: {responce.userName}</p>
+          <p>Number: {responce.number}</p>
+        </div>
+        : <p>Click "Send" to send request</p>}
+
+    </div>
+  );
+}
+export default TestAuth;

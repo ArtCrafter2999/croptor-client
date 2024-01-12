@@ -4,6 +4,7 @@ import HeaderButton from "../Header/HeaderButton";
 import Modal from "../Modal/Modal";
 import AccountModal from "./AccountModal/AccountModal";
 import usePopup from "../usePopup";
+import {signinRedirect} from "../../auth/user-service";
 
 const Authorization = () => {
     const [isAuthorized, setAuthorized] = useState<boolean>(false);
@@ -16,7 +17,7 @@ const Authorization = () => {
                 {isAuthorized ?
                     <img className={styles.noImage} src={"icons/user.svg"} onClick={() => setOpen(prev => !prev)}/>
                     :
-                    <HeaderButton color={"#00dede"} onClick={() => setAuthorized(true)}>
+                    <HeaderButton color={"#00dede"} onClick={() => signinRedirect()}>
                         Login
                     </HeaderButton>
                 }
