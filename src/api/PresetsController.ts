@@ -29,6 +29,20 @@ export class PresetsController extends ClientBase {
         return this.sendRequest({url, options});
     }
 
+    removeCustomSize(size: Size): Promise<void> {
+        let url = `/presets/sizes`;
+
+        const content = JSON.stringify(size);
+
+        let options: RequestInit = {
+            body: content,
+            method: "DELETE",
+            headers: {}
+        };
+
+        return this.sendRequest({url, options});
+    }
+
     getPresets(): Promise<string[]> {
         let url = `/presets`;
 

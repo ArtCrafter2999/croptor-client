@@ -76,6 +76,7 @@ export type Action =
     { action: "addSizeToPreset", value: PresetSize } |
     { action: "removeSizeFromPreset", value: { name?: string, size: Size } } |
     { action: "addCustomSize", value: Size } |
+    { action: "removeCustomSize", value: Size } |
     { action: "removePreset" } |
     { action: "changePresetTitle", value: string }
 
@@ -106,6 +107,8 @@ function reducer(state: ReducerState | null, action: Action): ReducerState | nul
             return removeSizeFromPreset(state, action.value);
         case "addCustomSize":
             return addCustomSize(state, action.value)
+        case "removeCustomSize":
+            return removeCustomSize(state, action.value)
         case "removePreset":
             return removePreset(state);
         case "changePresetTitle":
@@ -181,7 +184,14 @@ function addCustomSize(state: ReducerState, value: Size): ReducerState {
         return state;
     customSizes.push(value);
     state.api?.presets.addCustomSize(value);
-    state.api?.presets.addCustomSize(value);
+    return {...state, customSizes};
+}
+
+function removeCustomSize(state: ReducerState, value: Size): ReducerState {
+    const customSizes = [...state.customSizes];
+    const index = customSizes.findIndex(s => value.width === s.width && value.height === s.width);
+    customSizes.splice(index,1)
+    state.api?.presets.removeCustomSize(value);
     return {...state, customSizes};
 }
 

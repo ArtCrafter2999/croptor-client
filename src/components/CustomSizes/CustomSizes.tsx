@@ -6,11 +6,10 @@ import SizeList from "../DefaultSizes/SizeList";
 import {CategorySize} from "../../models/Sizes";
 
 const CustomSizes = () => {
-    const {customSizes, api} = useContext(AppContext)
+    const {customSizes, dispatch} = useContext(AppContext)
 
     function handleRemove(_: unknown, s: CategorySize) {
-        // api?.presets.removeCustomSize(s);
-        console.log("remove: ", s);
+        dispatch({action: "removeCustomSize", value: s});
     }
 
     return (
