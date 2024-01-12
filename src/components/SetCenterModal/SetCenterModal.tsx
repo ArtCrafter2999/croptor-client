@@ -1,11 +1,13 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import styles from "./SetCenterModal.module.scss"
 import Draggable, {DraggableData, DraggableEvent} from 'react-draggable';
-import {ImageParams, Position, Size} from "../../reducer/reducer";
+import {Position} from "../../reducer/reducer";
 import {ModalContext} from "../Modal/Modal";
 import HeaderButton from "../Header/HeaderButton";
 import {AppContext} from "../../App";
 import header from "../Header/Header";
+import {Size} from "../../models/Sizes";
+import {ImageParams} from "../../models/Params";
 
 type Props = {
     params: ImageParams;

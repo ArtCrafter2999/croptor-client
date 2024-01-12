@@ -11,7 +11,7 @@ const DefaultSizes = () => {
         <div className={styles.section}>
             {defaultSizes.map(c => (
                 <CategoryItem icon={c.icon} name={c.name} key={c.name}>
-                    <SizeList icon={c.icon} list={c.sizes}/>
+                    <SizeList icon={c.icon} list={c.sizes} category={c.name}/>
                 </CategoryItem>
             ))}
 

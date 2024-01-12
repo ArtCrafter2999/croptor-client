@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import styles from "./GlobalParameters.module.scss"
 import ImageItem from "../ImageSection/ImageItem/ImageItem";
 import {AppContext} from "../../App";
-import {Parameters} from "../../reducer/reducer";
+import {Parameters} from "../../models/Params";
 
 const GlobalParameters = () => {
     const {defaultParams, dispatch} = useContext(AppContext)

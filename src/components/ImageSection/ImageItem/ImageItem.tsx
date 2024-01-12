@@ -5,20 +5,14 @@ import Dropdown from "../Dropdown/Dropdown";
 import Switch from "../Switch/Switch";
 import TrashButton from "../../TrashButton/TrashButton";
 import Checkmark from "../../Checkmark/Checkmark";
-import {
-    GlobalParams,
-    Horizontal,
-    ImageParams, Parameters,
-    PresetSize,
-    Size,
-    Vertical
-} from "../../../reducer/reducer";
 import Modal from "../../Modal/Modal";
 import SetCenterModal from "../../SetCenterModal/SetCenterModal";
 import {AppContext} from "../../../App";
 import Warning from "./Warning";
 import ObservableParams from "./ObservableParams";
-import {stat} from "fs";
+import {PresetSize, Size} from "../../../models/Sizes";
+import {Horizontal, Vertical} from "../../../models/Alignment";
+import {ImageParams, Parameters} from "../../../models/Params";
 
 type Props = {
     params: ImageParams | Parameters
@@ -39,7 +33,7 @@ const ImageItem = ({
     if (originalSize && !params.fitNCrop) {
         selectedPreset.sizes.forEach(s => {
             if (!originalSize) return;
-            if (s.size.width > originalSize.width || s.size.height > originalSize.height)
+            if (s.width > originalSize.width || s.height > originalSize.height)
                 incapableSizes.push(s);
         })
     }

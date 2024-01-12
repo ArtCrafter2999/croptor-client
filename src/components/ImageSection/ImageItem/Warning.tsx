@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./ImageItem.module.scss"
-import {PresetSize} from "../../../reducer/reducer";
 import SizeItem from "../../PresetsSection/SizeItem/SizeItem";
+import {PresetSize} from "../../../models/Sizes";
 
 type Props = {
     incapableSizes: PresetSize[]
@@ -14,7 +14,7 @@ const Warning = ({incapableSizes}: Props) => {
                 Please switch on FIT & CROP function or edit preset settings</p>
             <div>
                 {incapableSizes.map(s =>
-                    <SizeItem key={s.name ?? "" + s.size.width + "x" + s.size.height}
+                    <SizeItem key={s.name ?? "" + s.width + "x" + s.height}
                               presetSize={s}
                               classname={styles.sizeItem}
                     />)}

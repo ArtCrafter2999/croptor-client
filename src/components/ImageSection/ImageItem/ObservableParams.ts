@@ -1,4 +1,6 @@
-import {GlobalParams, Horizontal, ImageParams, Parameters, Position, Vertical} from "../../../reducer/reducer";
+import {Position} from "../../../reducer/reducer";
+import {Horizontal, Vertical} from "../../../models/Alignment";
+import {GlobalParams, ImageParams, Parameters} from "../../../models/Params";
 
 class ObservableParams implements Parameters {
     private _centerPosition: Position | null;

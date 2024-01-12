@@ -1,21 +1,23 @@
 import React, {useContext} from 'react';
-import {CategorySize, PresetSize} from "../../reducer/reducer";
 import SizeItem from "./SizeItem/SizeItem";
 import {AppContext} from "../../App";
+import {CategorySize, PresetSize} from "../../models/Sizes";
 
 type Props = {
     icon: string;
     list: CategorySize[]
+    category: string
+    onRemove?: (category: string, s: CategorySize) => void;
 }
 
-const SizeList = ({icon, list}: Props) => {
+const SizeList = ({icon, list, onRemove, category}: Props) => {
     const {selectedPreset, dispatch} = useContext(AppContext)
 
     function handleClick(value: boolean, size: PresetSize) {
         if (value) {
             dispatch({action:"addSizeToPreset", value: size})
         } else {
-            dispatch({action:"removeSizeFromPreset", value: size})
+            dispatch({action:"removeSizeFromPreset", value: {name: size.name, size: size}})
         }
     }
 
@@ -23,14 +25,15 @@ const SizeList = ({icon, list}: Props) => {
         <>
             {list.map(s =>
                 <SizeItem
-                    key={s.name ?? "" + s.size.width + "x" + s.size.height}
+                    key={s.name ?? "" + s.width + "x" + s.height}
                     name={s.name}
-                    size={s.size}
+                    size={s}
                     isSelected={!!selectedPreset.sizes.find(ps =>
                         ps.name === s.name &&
-                        ps.size.width === s.size.width &&
-                        ps.size.height === s.size.height)}
-                    onClick={(v) => handleClick(v, {icon: icon, name: s.name, size: s.size})}
+                        ps.width === s.width &&
+                        ps.height === s.height)}
+                    onClick={(v) => handleClick(v, {...s, icon: icon})}
+                    onRemove={onRemove === undefined? undefined: () => onRemove(category, s)}
                 />)}
         </>
     );

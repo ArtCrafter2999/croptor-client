@@ -6,6 +6,10 @@
   cursor: pointer;
   user-select: none;
   color: #567070;
+  div {
+    display: flex;
+    width: 100%;
+  }
 
   .checkmark {
     flex: 0 0 2.0rem;
@@ -14,15 +18,24 @@
     justify-content: center;
     align-items: center;
   }
+
   .name, .size {
     margin-top: .3rem;
     font-size: .8rem;
   }
+
   .name {
     flex: 1;
   }
+
   .size {
     text-align: end;
     flex: 0 0 50px
+  }
+
+  .trash {
+    flex: 0 0 1.7rem;
+    width: 1.6rem;
+    height: 1.6rem;
   }
 }

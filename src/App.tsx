@@ -9,28 +9,20 @@ import ImageSection from "./components/ImageSection/ImageSection";
 import PresetsSection from "./components/PresetsSection/PresetsSection";
 import CustomSizes from "./components/CustomSizes/CustomSizes";
 import FileUpload from "./components/FileUpload/FileUpload";
-import reducer, {Action, Category, ReducerState} from "./reducer/reducer";
+import reducer, {Action, Category, LoadData, ReducerState} from "./reducer/reducer";
 import defaultSizes from "./defaultSizes.json";
 import Authorization from "./components/Authorization/Authorization";
+import {Api} from "./api/Api";
 
 export const AppContext = createContext<ReducerState & { dispatch: Dispatch<Action> }>(null as any);
 
 const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico', "jfif"];
 const App = () => {
-    const [state, dispatch] = useReducer(reducer, {
-        defaultParams: {
-            useDefault: true,
-            fitNCrop: true,
-            horizontalSnap: "Center",
-            verticalSnap: "Center"
-        },
-        imageDataDictionary: {},
-        filesDictionary: {},
-        sizesDictionary: {},
-        selectedPreset: {name: "vogue 12", sizes: []},
-        defaultSizes: defaultSizes as Category[],
-        customSizes: [],
-    })
+    const [state, dispatch] = useReducer(reducer, null as ReducerState | null)
+
+    useEffect(() => {
+        LoadData().then(newState => dispatch({action:"updateState", value: newState}));
+    }, []);
 
     function handleFileDropped(files: File[]) {
         const images: File[] = [];
@@ -49,6 +41,7 @@ const App = () => {
     }
 
     useEffect(() => {
+        if(!state) return;
         Object.values(state.imageDataDictionary).forEach((data) => {
             if (state.sizesDictionary[data.name]) return;
             const img = new Image();
@@ -65,8 +58,9 @@ const App = () => {
                     }
                 })
         })
-    }, [state.imageDataDictionary]);
+    }, [state, state?.imageDataDictionary]);
 
+    if(!state) return <></>
     return (
         <AppContext.Provider value={{...state, dispatch}}>
             <div className={styles.app}>

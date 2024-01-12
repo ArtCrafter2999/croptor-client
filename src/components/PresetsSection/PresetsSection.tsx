@@ -3,21 +3,24 @@ import styles from "./PresetsSection.module.scss"
 import TopPart from "./TopPart/TopPart";
 import SizeItem from "./SizeItem/SizeItem";
 import {AppContext} from "../../App";
-import {PresetSize} from "../../reducer/reducer";
+import {PresetSize} from "../../models/Sizes";
 
 const PresetsSection = () => {
-    const {selectedPreset, dispatch} = useContext(AppContext)
+    const {selectedPreset, dispatch, api} = useContext(AppContext)
 
     function handleRemove(s: PresetSize) {
-        dispatch({action:"removeSizeFromPreset", value: s});
+        dispatch({action:"removeSizeFromPreset", value: {name: s.name, size: s}});
+    }
+    function handleSave() {
+        api?.presets.savePreset(selectedPreset);
     }
 
     return (
         <div className={styles.section}>
-            <TopPart name={selectedPreset.name}/>
+            <TopPart name={selectedPreset.name} onSave={handleSave}/>
             <div>
                 {selectedPreset.sizes.map(s =>
-                    <SizeItem key={s.name ?? "" + s.size.width + "x" + s.size.height}
+                    <SizeItem key={s.name ?? "" + s.width + "x" + s.height}
                               presetSize={s}
                               onRemove={() => handleRemove(s)}/>)}
 

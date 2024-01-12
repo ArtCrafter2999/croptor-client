@@ -4,15 +4,17 @@ import HeaderButton from "./HeaderButton";
 import {AppContext} from "../../App";
 import Lottie from "lottie-react";
 import animation from "./animation.json"
+import {CategorySize} from "../../models/Sizes";
+import {ImageParamsDto} from "../../models/Params";
 
 type Props = {
     onFilesUploaded: (f: File[]) => void;
 }
-const Header = ({onFilesUploaded} : Props) => {
-    const {imageDataDictionary, selectedPreset, dispatch} = useContext(AppContext)
+const Header = ({onFilesUploaded}: Props) => {
+    const {filesDictionary, imageDataDictionary, selectedPreset, dispatch, api, defaultParams} = useContext(AppContext)
     const [width, setWidth] = useState<string>("");
     const [height, setHeight] = useState<string>("");
-    const [isBatched, setBatched] = useState<boolean>(false);
+    const [downloadLink, setDownloadLink] = useState<string>();
 
     const ref = useRef<HTMLInputElement>();
 
@@ -48,14 +50,34 @@ const Header = ({onFilesUploaded} : Props) => {
     }
 
     function handleBatch() {
-        setBatched(true)
         setAnimation(true);
-        setTimeout(() => setAnimation(false), 2000);
+        if (api) {
+            const sizes: CategorySize[] = selectedPreset.sizes;
+            const files: File[] = Object.values(filesDictionary);
+            const params: { [fileName: string]: ImageParamsDto } = {}
+            Object.values(imageDataDictionary)
+                .map<(ImageParamsDto & { name: string })>(data =>
+                    data.useDefault ?
+                        {...defaultParams, centerPosition: null, name: data.name} :
+                        {...data}
+                ).forEach(param => params[param.name] = param);
+            api.images.crop(files, {sizes, params}).then((link) => {
+                setDownloadLink(link);
+            });
+        } else {
+            setDownloadLink("not link");
+            setTimeout(() => setAnimation(false), 1000);
+        }
     }
+
     function handleUpload() {
         if (ref.current?.files) {
             onFilesUploaded(Array.from(ref.current.files))
         }
+    }
+
+    function handleDownload() {
+        window.open(downloadLink, '_blank');
     }
 
     const [isAnimation, setAnimation] = useState<boolean>(false);
@@ -66,22 +88,26 @@ const Header = ({onFilesUploaded} : Props) => {
         <header className={styles.section}>
             <input type={"file"} style={{display: "none"}} ref={ref as any} onChange={handleUpload}/>
             <div className={styles.buttonContainer}>
-                {isBatched ?
-                    <HeaderButton className={styles.upload} color={"#808bc7"}
-                                  onClick={() => setAnimation(prev => !prev)}>
-                        {isAnimation ?
-                            <Lottie className={styles.animation} animationData={animation} loop={true}/>
-                            :
-                            "Download"
-                        }
-                    </HeaderButton> :
-                    <HeaderButton className={styles.upload} color={"#808bc7"}
-                                  onClick={() => ref.current?.click()}>
-                        Upload
+                {isAnimation ?
+                    <HeaderButton className={styles.upload} color={"#808bc7"}>
+                        <Lottie className={styles.animation} animationData={animation} loop={true}/>
                     </HeaderButton>
+                    :
+                    downloadLink ?
+                        <HeaderButton className={styles.upload} color={"#808bc7"}
+                                      onClick={handleDownload}
+                        >
+                            Download
+                        </HeaderButton> :
+                        <HeaderButton className={styles.upload} color={"#808bc7"}
+                                      onClick={() => ref.current?.click()}
+                        >
+                            Upload
+                        </HeaderButton>
+
                 }
                 <HeaderButton color={"#f3e021"} onClick={handleBatch}>
-                    Batch {batchAmount}
+                    Batch {batchAmount > 0 && batchAmount}
                 </HeaderButton>
                 <HeaderButton color={"#f9446e"} onClick={handleReset}>
                     Reset

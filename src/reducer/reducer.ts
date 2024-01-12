@@ -1,56 +1,72 @@
+import {Api} from "../api/Api";
+import {CategorySize, PresetSize, Size} from "../models/Sizes";
+import {Preset} from "../models/Preset";
+import {GlobalParams, ImageParams, ImageParamsDictionary} from "../models/Params";
+import defaultSizes from "../defaultSizes.json";
+
 type FilesDictionary = { [fileName: string]: File };
-type ImageDataDictionary = { [fileName: string]: ImageParams };
 type SizesDictionary = { [fileName: string]: Size };
 export type Position = { x: number, y: number };
 
-export type Horizontal = "Left" | "Center" | "Right";
-export type Vertical = "Top" | "Center" | "Bottom";
-
-export type GlobalParams = {
-    useDefault: boolean;
-    horizontalSnap: Horizontal;
-    verticalSnap: Vertical;
-    fitNCrop: boolean;
-}
-export type Parameters = GlobalParams & {
-    centerPosition: Position | null;
-}
-export type ImageParams = Parameters & {
-    image: string
-    name: string
-}
-export type Size = {
-    width: number,
-    height: number,
-}
-export type PresetSize = CategorySize & {
-    icon: string;
-}
-export type Preset = {
-    name: string;
-    sizes: PresetSize[];
-}
 export type Category = {
     icon: string;
     name: string;
     sizes: CategorySize[];
 }
-export type CategorySize = {
-    name?: string;
-    size: Size
-}
 
 export type ReducerState = {
     defaultParams: GlobalParams;
-    imageDataDictionary: ImageDataDictionary;
+    imageDataDictionary: ImageParamsDictionary;
     sizesDictionary: SizesDictionary;
     filesDictionary: FilesDictionary;
     selectedPreset: Preset;
     defaultSizes: Category[]
     customSizes: Size[]
+    api: Api | null
+    presets: string[]
+}
+
+export async function LoadData(): Promise<ReducerState> {
+    const api: Api | null =
+        // new Api(process.env.REACT_APP_API_URI as string);
+        null as Api | null;
+
+    let presets: string[]
+    let selectedPreset: Preset
+    let customSizes: Size[]
+
+    if (api) {
+        presets = await api.presets.getPresets();
+        selectedPreset = presets.length > 0 ?
+            await api.presets.getPreset(presets[0]) :
+            {name: "new preset", sizes: []};
+        customSizes = await api.presets.getCustomSizes()
+    } else {
+        presets = [];
+        selectedPreset = {name: "new preset", sizes: []};
+        customSizes = [];
+    }
+
+    return {
+        defaultParams: {
+            useDefault: true,
+            fitNCrop: true,
+            horizontalSnap: "Center",
+            verticalSnap: "Center"
+        },
+        imageDataDictionary: {},
+        filesDictionary: {},
+        sizesDictionary: {},
+        selectedPreset,
+        defaultSizes: defaultSizes as Category[],
+        customSizes,
+        api,
+        presets: presets
+    };
 }
 
 export type Action =
+    { action: "updateState", value: ReducerState } |
     { action: "defaultParams", value: GlobalParams } |
     { action: "imageParams", value: ImageParams } |
     { action: "saveImageSize", value: { name: string, size: Size } } |
@@ -64,8 +80,14 @@ export type Action =
     { action: "changePresetTitle", value: string }
 
 
-function reducer(state: ReducerState, action: Action): ReducerState {
+function reducer(state: ReducerState | null, action: Action): ReducerState | null {
+    if (!state) {
+        if (action.action === "updateState") return action.value;
+        else return null;
+    }
     switch (action.action) {
+        case "updateState":
+            return action.value;
         case "defaultParams":
             return defaultParams(state, action.value);
         case "imageParams":
@@ -146,8 +168,8 @@ function removeSizeFromPreset(state: ReducerState, value: { name?: string; size:
     const selectedPreset = {...state.selectedPreset}
     const index = selectedPreset.sizes.findIndex(s =>
         s.name === value.name &&
-        s.size.width === value.size.width &&
-        s.size.height === value.size.height);
+        s.width === value.size.width &&
+        s.height === value.size.height);
     if (index < 0) return state;
     selectedPreset.sizes.splice(index, 1);
     return {...state, selectedPreset}
@@ -158,6 +180,8 @@ function addCustomSize(state: ReducerState, value: Size): ReducerState {
     if (customSizes.findIndex(v => v.height === value.height && v.width === value.width) > -1)
         return state;
     customSizes.push(value);
+    state.api?.presets.addCustomSize(value);
+    state.api?.presets.addCustomSize(value);
     return {...state, customSizes};
 }
 
