@@ -62,8 +62,7 @@ export class ClientBase {
                         "Unauthorized",
                         status,
                         _responseText,
-                        _headers,
-                        JSON.parse(_responseText) as ProblemDetails));
+                        _headers));
         } else if (status === 403) {
             return response.text()
                 .then((_responseText) =>
