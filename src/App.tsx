@@ -12,6 +12,7 @@ import FileUpload from "./components/FileUpload/FileUpload";
 import reducer, {Action, LoadData, ReducerState} from "./reducer/reducer";
 import Authorization from "./components/Authorization/Authorization";
 import {User} from "./models/User";
+import AuthProvider from "./auth/AuthProvider";
 
 export const AppContext = createContext<ReducerState & { dispatch: Dispatch<Action> }>(null as any);
 
@@ -64,8 +65,8 @@ const App = () => {
         const token = localStorage.getItem("token");
         if (token && state && state.api) {
             state.api.user.get().then((u) => {
-            setUser(u);
-            console.log(u)
+                setUser(u);
+                console.log(u)
             });
         }
     }, [state, state?.api])
@@ -93,6 +94,6 @@ const App = () => {
     );
 };
 
-export const UserContext = createContext<{user: (User | undefined), setUser: React.Dispatch<React.SetStateAction<User | undefined>> }>({} as any)
+export const UserContext = createContext<{ user: (User | undefined), setUser: React.Dispatch<React.SetStateAction<User | undefined>> }>({} as any)
 
 export default App;

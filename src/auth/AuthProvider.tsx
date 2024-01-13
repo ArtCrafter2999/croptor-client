@@ -7,8 +7,7 @@ import userManager from "./user-service";
 
 const AuthProvider = ({
                           children
-                      }: { children: ReactNode }): any => {
-    const location = useLocation();
+                      }: { children: (user: User | null) => ReactNode }): any => {
     const [isLoaded, setLoaded] = useState<boolean>(false);
     const [user, setUser] = useState<User | null>(null);
     let userManagerRef = useRef<UserManager>();
@@ -56,14 +55,8 @@ const AuthProvider = ({
 
     if (!isLoaded)
         return <></>
-    else if (user === null) {
-        console.log("SignInRedirect");
-        localStorage.setItem('CallbackRedirect', location.pathname);
-        signinRedirect();
-        return <></>
-    } else {
-        //console.log(user);
-        return React.Children.only(children);
+    else {
+        return children(user);
     }
 }
 

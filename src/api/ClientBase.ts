@@ -79,8 +79,7 @@ export class ClientBase {
                         "Server error",
                         status,
                         _responseText,
-                        _headers,
-                        JSON.parse(_responseText) as ProblemDetails));
+                        _headers));
         } else{
             return response.text().then((_responseText) =>
                 this.throwException(

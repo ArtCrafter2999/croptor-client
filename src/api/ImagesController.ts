@@ -21,7 +21,7 @@ export class ImagesController extends ClientBase {
             body: formData,
             method: "POST",
             headers: {
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "multipart/form-data",
             }
         };
 
