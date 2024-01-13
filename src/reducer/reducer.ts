@@ -36,11 +36,11 @@ export async function LoadData(): Promise<ReducerState> {
     let customSizes: Size[]
 
     if (api) {
-        presets = await api.presets.getPresets();
+        presets = await api.presets.getPresets().catch(() => presets);
         selectedPreset = presets.length > 0 ?
             await api.presets.getPreset(presets[0]) :
             {name: "new preset", sizes: []};
-        customSizes = await api.presets.getCustomSizes()
+        customSizes = await api.presets.getCustomSizes().catch(() => []);
     } else {
         presets = [];
         selectedPreset = {name: "new preset", sizes: []};

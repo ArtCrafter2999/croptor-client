@@ -56,10 +56,14 @@ export class ClientBase {
                         _headers,
                         JSON.parse(_responseText) as ProblemDetails));
         } else if (status === 401) {
-            return signinSilent().then(u => {
-                console.warn("unauthorized");
-                return this.sendRequest(request);
-            });
+            return response.text()
+                .then((_responseText) =>
+                    this.throwException(
+                        "Unauthorized",
+                        status,
+                        _responseText,
+                        _headers,
+                        JSON.parse(_responseText) as ProblemDetails));
         } else if (status === 403) {
             return response.text()
                 .then((_responseText) =>
