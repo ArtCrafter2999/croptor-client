@@ -10,13 +10,11 @@ const AuthProvider = ({
                       }: { children: (user: User | null) => ReactNode }): any => {
     const [isLoaded, setLoaded] = useState<boolean>(false);
     const [user, setUser] = useState<User | null>(null);
-    let userManagerRef = useRef<UserManager>();
     useEffect(() => {
         loadUser().then(user => {
             setUser(user);
             setLoaded(true);
         });
-        userManagerRef.current = userManager;
         const onUserLoaded = (user: User) => {
             console.log('User loaded ', user);
             setAuthHeader(user.access_token);
@@ -36,19 +34,19 @@ const AuthProvider = ({
             console.log('User signed out');
         };
 
-        userManagerRef.current.events.addUserLoaded(onUserLoaded);
-        userManagerRef.current.events.addUserUnloaded(onUserUnloaded);
-        userManagerRef.current.events.addAccessTokenExpired(onAccessTokenExpired);
-        userManagerRef.current.events.addAccessTokenExpiring(onAccessTokenExpiring);
-        userManagerRef.current.events.addUserSignedOut(onUserSignedOut);
+        userManager.events.addUserLoaded(onUserLoaded);
+        userManager.events.addUserUnloaded(onUserUnloaded);
+        userManager.events.addAccessTokenExpired(onAccessTokenExpired);
+        userManager.events.addAccessTokenExpiring(onAccessTokenExpiring);
+        userManager.events.addUserSignedOut(onUserSignedOut);
 
         return () => {
-            if (userManagerRef && userManagerRef.current) {
-                userManagerRef.current.events.removeUserLoaded(onUserLoaded);
-                userManagerRef.current.events.removeUserUnloaded(onUserUnloaded);
-                userManagerRef.current.events.removeAccessTokenExpired(onAccessTokenExpired);
-                userManagerRef.current.events.removeAccessTokenExpiring(onAccessTokenExpiring);
-                userManagerRef.current.events.removeUserSignedOut(onUserSignedOut);
+            if (userManager) {
+                userManager.events.removeUserLoaded(onUserLoaded);
+                userManager.events.removeUserUnloaded(onUserUnloaded);
+                userManager.events.removeAccessTokenExpired(onAccessTokenExpired);
+                userManager.events.removeAccessTokenExpiring(onAccessTokenExpiring);
+                userManager.events.removeUserSignedOut(onUserSignedOut);
             }
         }
     }, [userManager]);
