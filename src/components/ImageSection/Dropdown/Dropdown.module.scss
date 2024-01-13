@@ -29,8 +29,8 @@
       height: .6rem;
       margin: {
         left: .4rem;
-        right: 3px;
-        top: 3px;
+        right: .3rem;
+        top: .3rem;
       }
     }
   }
@@ -44,12 +44,12 @@
   width: 70%;
   top: 1.4rem;
   right: 10%;
-  max-height: 100px;
+  max-height: 10.0rem;
   display: flex;
   align-items: center;
   flex-direction: column;
   //padding: 0.7rem 0;
-  border-radius: 4px;
+  border-radius: .4rem;
 
   & > * {
     margin: 0.11rem 0;

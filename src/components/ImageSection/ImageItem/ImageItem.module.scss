@@ -1,8 +1,8 @@
 .item {
   display: grid;
   grid-template-columns: 5rem calc(100%/6 + 1rem) repeat(4, minmax(calc(100%/6), 1fr));
-  height: 70px;
-  margin: 5px;
+  height: 7.0rem;
+  margin: .5rem;
 
   & > div {
     //border: black solid 1px;
@@ -31,7 +31,7 @@
         height: 4.5rem;
         object-fit: cover;
         //border: black solid 1px;
-        border-radius: 5px;
+        border-radius: .5rem;
       }
       .icon {
         width: 3rem;
@@ -83,8 +83,8 @@
       }
       user-select: none;
       color: #567070;
-      border: #00dede 1px solid;
-      border-radius: 30px;
+      border: #00dede .1rem solid;
+      border-radius: 3.0rem;
       font-weight: 700;
       font-size: 0.9rem;
       white-space: nowrap;
@@ -106,5 +106,5 @@
 }
 
 .switch {
-  margin-top: 6px;
+  margin-top: .6rem;
 }

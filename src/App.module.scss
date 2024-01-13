@@ -20,14 +20,14 @@ img {
 }
 
 html {
-  font-size: 62.5%;
+  font-size: .76vw; //TODO: Лінивий спосіб щоб нічого не налазило одне на одне
 }
 
 input[type="text"] {
   color: #567070;
   background: none;
   border: none {
-    bottom: #567070 solid 1px;
+    bottom: #567070 solid .1rem;
   };
   outline: none;
   text-align: center;
@@ -43,13 +43,14 @@ input[type="text"] {
   .workspace {
     display: grid;
     grid-template-columns: repeat(11, 1fr);
-    grid-template-rows: repeat(11, 1fr);
-    grid-column-gap: 12px;
-    grid-row-gap: 10px;
+    grid-template-rows: 1fr auto repeat(9, 1fr);
+    grid-column-gap: 1.2rem;
+    grid-row-gap: 1.0rem;
 
     & > div {
       background: #E6FAF9;
-      border-radius: 5px;
+      border-radius: .5rem;
+      //padding-right: 5px;
     }
 
     width: 100%;
@@ -86,7 +87,8 @@ input[type="text"] {
 * {
   /* For WebKit-based browsers (Chrome, Safari) */
   &::-webkit-scrollbar {
-    width: .5rem; /* Set the width of the scrollbar */
+    width: 1.5rem;
+    //width: .5rem; /* Set the width of the scrollbar */
     height: .5rem; /* Set the width of the scrollbar */
   }
 
@@ -98,7 +100,9 @@ input[type="text"] {
 
   /* Handle (thumb) of the scrollbar */
   &::-webkit-scrollbar-thumb {
+    background-clip: padding-box;
     background-color: #87d7d7;
-    border-radius: .6rem; /* Rounded corners for the scrollbar handle */
+    border-radius: 1rem; /* Rounded corners for the scrollbar handle */
+    border: .50rem solid rgba(0, 0, 0, 0);
   }
 }

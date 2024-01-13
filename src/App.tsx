@@ -1,4 +1,4 @@
-import React, {createContext, Dispatch, useEffect, useReducer} from 'react';
+import React, {createContext, Dispatch, useEffect, useReducer, useState} from 'react';
 import styles from "./App.module.scss"
 import Footer from "./components/Footer/Footer";
 import Logo from "./components/Logo/Logo";
@@ -9,10 +9,9 @@ import ImageSection from "./components/ImageSection/ImageSection";
 import PresetsSection from "./components/PresetsSection/PresetsSection";
 import CustomSizes from "./components/CustomSizes/CustomSizes";
 import FileUpload from "./components/FileUpload/FileUpload";
-import reducer, {Action, Category, LoadData, ReducerState} from "./reducer/reducer";
-import defaultSizes from "./defaultSizes.json";
+import reducer, {Action, LoadData, ReducerState} from "./reducer/reducer";
 import Authorization from "./components/Authorization/Authorization";
-import {Api} from "./api/Api";
+import {User} from "./models/User";
 
 export const AppContext = createContext<ReducerState & { dispatch: Dispatch<Action> }>(null as any);
 
@@ -21,7 +20,7 @@ const App = () => {
     const [state, dispatch] = useReducer(reducer, null as ReducerState | null)
 
     useEffect(() => {
-        LoadData().then(newState => dispatch({action:"updateState", value: newState}));
+        LoadData().then(newState => dispatch({action: "updateState", value: newState}));
     }, []);
 
     function handleFileDropped(files: File[]) {
@@ -41,7 +40,7 @@ const App = () => {
     }
 
     useEffect(() => {
-        if(!state) return;
+        if (!state) return;
         Object.values(state.imageDataDictionary).forEach((data) => {
             if (state.sizesDictionary[data.name]) return;
             const img = new Image();
@@ -60,25 +59,40 @@ const App = () => {
         })
     }, [state, state?.imageDataDictionary]);
 
-    if(!state) return <></>
+    const [user, setUser] = useState<User>();
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token && state && state.api) {
+            state.api.user.get().then((u) => {
+            setUser(u);
+            console.log(u)
+            });
+        }
+    }, [state, state?.api])
+
+    if (!state) return <></>
     return (
-        <AppContext.Provider value={{...state, dispatch}}>
-            <div className={styles.app}>
-                <Logo/>
-                <Authorization/>
-                <div className={styles.workspace}>
-                    <Header onFilesUploaded={handleFileDropped}/>
-                    <GlobalParameters/>
-                    <ImageSection/>
-                    <PresetsSection/>
-                    <CustomSizes/>
-                    <DefaultSizes/>
+        <UserContext.Provider value={{user, setUser}}>
+            <AppContext.Provider value={{...state, dispatch}}>
+                <div className={styles.app}>
+                    <Logo/>
+                    <Authorization/>
+                    <div className={styles.workspace}>
+                        <Header onFilesUploaded={handleFileDropped}/>
+                        <GlobalParameters/>
+                        <ImageSection/>
+                        <PresetsSection/>
+                        <CustomSizes/>
+                        <DefaultSizes/>
+                    </div>
+                    <FileUpload onFilesDropped={handleFileDropped}/>
+                    <Footer/>
                 </div>
-                <FileUpload onFilesDropped={handleFileDropped}/>
-                <Footer/>
-            </div>
-        </AppContext.Provider>
+            </AppContext.Provider>
+        </UserContext.Provider>
     );
 };
+
+export const UserContext = createContext<{user: (User | undefined), setUser: React.Dispatch<React.SetStateAction<User | undefined>> }>({} as any)
 
 export default App;

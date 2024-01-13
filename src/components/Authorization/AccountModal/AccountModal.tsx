@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import styles from "./AccountModal.module.scss"
 import csx from "classnames";
+import {UserContext} from "../../../App";
+import {format} from "date-fns";
 
 enum Tab {
     Account,
@@ -8,8 +10,10 @@ enum Tab {
 }
 
 const AccountModal = () => {
+    const {user} = useContext(UserContext)
     const [selectedTab, selectTab] = useState<Tab>(Tab.Account);
     const [monthAmount, setMonthAmount] = useState<number>(1);
+    if(!user) throw new Error("User can't be undefined at this point");
     return (
         <div className={styles.modal}>
             <div className={styles.tabs}>
@@ -33,7 +37,7 @@ const AccountModal = () => {
                             <span className={styles.name}>Name</span>
                             <div className={styles.field}>
                                 <span className={styles.edit}>edit</span>
-                                <span className={styles.field}>iceid</span>
+                                <span className={styles.field}>{user.name}</span>
                             </div>
                             <div className={styles.ok}>ok</div>
                         </>
@@ -41,7 +45,7 @@ const AccountModal = () => {
                             <span className={styles.name}>Email</span>
                             <div className={styles.field}>
                                 <span className={styles.edit}>edit</span>
-                                <span className={styles.field}>iceid@outlook.com</span>
+                                <span className={styles.field}>{user.email}</span>
                             </div>
                             <div className={styles.ok}>ok</div>
                         </>
@@ -57,11 +61,11 @@ const AccountModal = () => {
                     <div className={styles.list}>
                         <span className={styles.name}>Current Plan</span>
                         <div className={styles.field}>
-                            <span className={styles.field}>Pro / Free</span>
+                            <span className={styles.field}>{user.plan}</span>
                         </div>
                         <span className={styles.name}>Valid Till</span>
                         <div className={styles.field}>
-                            <span className={styles.field}>03.04.2024</span>
+                            <span className={styles.field}>{format(new Date(user.expires), "dd.MM.yyyy")}</span>
                         </div>
                         <span className={styles.name}>Update </span>
                         <div className={styles.field}>

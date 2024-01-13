@@ -1,6 +1,6 @@
 .part {
-  margin: 10px 40px {
-    bottom: 40px;
+  margin: 1.0rem 4.0rem {
+    bottom: 4.0rem;
   };
   display: grid;
   grid-template-columns: repeat(4, 1fr) auto auto;
@@ -36,7 +36,7 @@
   }
   input {
     //background-color: black;
-    margin-top: 2px;
+    margin-top: .2rem;
     font-weight: 600;
   }
 }

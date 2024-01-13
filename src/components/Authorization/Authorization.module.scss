@@ -9,7 +9,7 @@
     height: 2.5rem;
     border-radius: 50%;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 1.0rem;
 
     &.noImage {
       border: #00dede solid .15rem;
@@ -25,7 +25,7 @@
       height: 16.2rem;
       background-color: white;
       border-radius: .2rem;
-      box-shadow: .11rem .11rem 2px #999999;
+      box-shadow: .11rem .11rem .2rem #999999;
       user-select: none;
       .head {
         border-top-left-radius: .2rem;
@@ -76,5 +76,13 @@
         }
       }
     }
+  }
+}
+.button {
+  color: #b3c0cd;
+  cursor: pointer;
+  font-size: 1.3rem;
+  &:hover {
+    color: #666666;
   }
 }

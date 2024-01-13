@@ -18,7 +18,7 @@
     span {
       color: #567070;
       font-weight: 600;
-      margin-top: 8px;
+      margin-top: .8rem;
       font-size: 0.9rem;
       white-space: nowrap;
       user-select: none;
@@ -31,9 +31,9 @@
       font-size: 0.9rem;
       font-weight: 550;
       margin: {
-        top: 6px;
-        left: 14px;
-        right: 8px;
+        top: .6rem;
+        left: 1rem;
+        right: .8rem;
       }
     }
   }
@@ -47,18 +47,18 @@
   height: 1.3rem;
   min-width: fit-content;
   font-size: 0.9rem;
-  border: var(--color) solid 1px;
+  border: var(--color) solid .1rem;
   color: var(--color);
-  border-radius: 20px;
+  border-radius: 2.0rem;
   padding: {
-    top: 4px;
-    bottom: 1px;
+    top: .4rem;
+    bottom: .1rem;
     right: 0.9rem;
     left: 0.9rem;
   };
   margin: {
-    right: 4px;
-    left: 16px;
+    right: .4rem;
+    left: 1.6rem;
   };
   cursor: pointer;
 
