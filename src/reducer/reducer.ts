@@ -28,15 +28,15 @@ export type ReducerState = {
 
 export async function LoadData(): Promise<ReducerState> {
     const api: Api | null =
-        // new Api(process.env.REACT_APP_API_URI as string);
-        null as Api | null;
+        new Api(process.env.REACT_APP_API_URI as string);
+        // null as Api | null;
 
     let presets: string[]
     let selectedPreset: Preset
     let customSizes: Size[]
 
     if (api) {
-        presets = await api.presets.getPresets().catch(() => presets);
+        presets = await api.presets.getPresets().catch(() => []);
         selectedPreset = presets.length > 0 ?
             await api.presets.getPreset(presets[0]) :
             {name: "new preset", sizes: []};
