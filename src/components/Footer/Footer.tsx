@@ -10,10 +10,10 @@ const Footer = () => {
         <>
             <footer className={styles.footer}>
                 <span>
-                    <span onClick={() => setContent(termsOfService)}>Terms of Service</span>
-                    <span onClick={() => setContent(refundPolicy)}>Refund Policy</span>
-                    <span onClick={() => setContent(privacyPolicy)}>Privacy Policy</span>
-                    <span onClick={() => setContent(contactUs)}>Contact Us</span>
+                    <span className={styles.button} onClick={() => setContent(termsOfService)}>Terms of Service</span>
+                    <span className={styles.button} onClick={() => setContent(refundPolicy)}>Refund Policy</span>
+                    <span className={styles.button} onClick={() => setContent(privacyPolicy)}>Privacy Policy</span>
+                    <span className={styles.button} onClick={() => setContent(contactUs)}>Contact Us</span>
                 </span>
                 <span>©Croptor 2024 All Rights Reserved</span>
             </footer>

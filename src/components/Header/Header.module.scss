@@ -3,17 +3,14 @@
   grid-area: 1 / 1 / 2 / 12;
   align-items: end;
 
+  &:first-child {
+    margin-left: 2rem;
+  }
+
   .buttonContainer {
     flex: 1;
     display: flex;
-
-    &:first-child {
-      margin-left: 1rem;
-    }
-    &:last-child {
-      justify-content: end;
-      margin-right: 7rem;
-    }
+    margin-right: 7rem;
 
     span {
       color: #567070;
@@ -53,8 +50,8 @@
   padding: {
     top: .4rem;
     bottom: .1rem;
-    right: 0.9rem;
-    left: 0.9rem;
+    right: 1.1rem;
+    left: 1.1rem;
   };
   margin: {
     right: .4rem;
