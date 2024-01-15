@@ -2,17 +2,25 @@ import React, {useContext} from 'react';
 import styles from "./PresetsSection.module.scss"
 import TopPart from "./TopPart/TopPart";
 import SizeItem from "./SizeItem/SizeItem";
-import {AppContext} from "../../App";
+import {AppContext, UserContext} from "../../App";
 import {PresetSize} from "../../models/Sizes";
 
-const PresetsSection = () => {
+type Props = {
+    setError: (message: string) => void;
+}
+const PresetsSection = ({setError}: Props) => {
     const {selectedPreset, dispatch, api} = useContext(AppContext)
+    const {user} = useContext(UserContext)
 
     function handleRemove(s: PresetSize) {
-        dispatch({action:"removeSizeFromPreset", value: {name: s.name, size: s}});
+        dispatch({action: "removeSizeFromPreset", value: {name: s.name, size: s}});
     }
+
     function handleSave() {
-        api?.presets.savePreset(selectedPreset);
+        if (!user || user.plan === "Free")
+            setError("To save presets please upgrade to PRO PLAN");
+        else
+            api?.presets.savePreset(selectedPreset);
     }
 
     return (

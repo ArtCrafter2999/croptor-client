@@ -1,9 +1,11 @@
 .modal {
-  width: 44vw;
-  height: 77vh;
+  max-width: 44vw;
+  max-height: 77vh;
   background-color: white;
   border-radius: 1.0rem;
   color: #567070;
   overflow: auto;
   padding: 4.0rem;
+  box-shadow: .11rem .11rem .2rem rgba(75, 69, 91, .27);
+  user-select: text;
 }

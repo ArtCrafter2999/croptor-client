@@ -1,10 +1,9 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import csx from "classnames";
 import styles from "./FileUpload.module.scss";
 import addStyles from "../../App.module.scss";
 
 const MAX_FILE_SIZE_MB = 100;
-const FREE_MAX_FILES_AMOUNT = 3;
 
 const checkFileSize = (files: FileList | File[]) => {
     for (let i = 0; i < files.length; i++) {
@@ -16,6 +15,7 @@ const checkFileSize = (files: FileList | File[]) => {
     return true; // All files are within the size limit
 };
 
+
 type Props = {
     // children: ReactNode;
     onFilesDropped: (files: File[]) => void;
@@ -23,36 +23,28 @@ type Props = {
 const FileUpload = ({onFilesDropped}: Props) => {
     const [active, setActive] = useState(false);
     const [isDragOver, setIsDragOver] = useState(false);
-    const [isMoreThanLimit, setMoreThanLimit] = useState(false);
-    const errorModal = useRef<HTMLDivElement>();
 
     const handleDragOver = (event: { preventDefault: () => void, shiftKey: boolean }) => {
         event.preventDefault();
-        if (isMoreThanLimit) return;
         setIsDragOver(true);
         // console.log("set true handle");
     };
+
 
     const handleDrop = (event: { preventDefault: () => void, dataTransfer: DataTransfer | null, shiftKey: boolean }) => {
         event.preventDefault();
         const files = event.dataTransfer?.files
 
         if (files) {
-            if (checkFileSize(files)) {
-                onFilesDropped((Array.from(files)));
-                setIsDragOver(false);
-                setActive(false);
-            } else {
-                setMoreThanLimit(true);
-                setIsDragOver(false);
-            }
+            onFilesDropped((Array.from(files)));
         }
+        setActive(false);
+        setIsDragOver(false);
     };
     const handleDragLeave = (event?: { preventDefault: () => void }) => {
         event?.preventDefault();
         setIsDragOver(false);
         setActive(false);
-        setMoreThanLimit(false);
         // console.log("set false handle");
     };
 
@@ -80,8 +72,8 @@ const FileUpload = ({onFilesDropped}: Props) => {
                 }
             }
         }
+
         function onDragOver(e: DragEvent) {
-            if (isMoreThanLimit) return;
             if (e.dataTransfer && Array.from(e.dataTransfer.types).includes('Files'))
                 setActive(true);
         }
@@ -94,13 +86,6 @@ const FileUpload = ({onFilesDropped}: Props) => {
         }
     }, [])
 
-    useEffect(() => {
-        if (isMoreThanLimit) {
-            document.addEventListener("click", () => handleDragLeave())
-        }
-        return document.removeEventListener("click", () => handleDragLeave())
-    }, [isMoreThanLimit])
-
     return (
         <div
             onDragOver={handleDragOver}
@@ -112,12 +97,6 @@ const FileUpload = ({onFilesDropped}: Props) => {
             {isDragOver &&
 				<div className={styles.modalWindow}>
 					<h1>Upload Files</h1>
-				</div>
-            }
-            {isMoreThanLimit &&
-				<div className={csx(styles.modalWindow, styles.shake)} ref={errorModal as any}>
-					<h1><b>Too Many</b> Files</h1>
-					<p>You can buy <b>Pro Plan</b> to have more than {FREE_MAX_FILES_AMOUNT} files</p>
 				</div>
             }
         </div>

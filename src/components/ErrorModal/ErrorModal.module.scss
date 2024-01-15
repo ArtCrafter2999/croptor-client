@@ -1,0 +1,42 @@
+.modal {
+  width: 31.73rem;
+  height: 14.783rem;
+  background-color: white;
+  border-radius: 1.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: .11rem .11rem .2rem rgba(75, 69, 91, .27);
+  //animation: shake 0.35s ease-in-out;
+  p {
+    margin: 3rem 4rem {
+      bottom: 2rem;
+    };
+    font-size: 1.5rem;
+    color: #00dede;
+  }
+  span {
+    padding: .5rem 1rem;
+    border-radius: 1.27rem;
+    background-color: #00dede;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 1.2rem;
+    &:hover {
+      background-color: #00afaf;
+    }
+  }
+}
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25%, 75% {
+    transform: translateX(-1.5rem);
+  }
+  50% {
+    transform: translateX(1.5rem);
+  }
+}

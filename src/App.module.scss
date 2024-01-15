@@ -75,12 +75,12 @@ input[type="text"] {
 
   &.active {
     pointer-events: auto;
-    background-color: rgba(0, 0, 0, 0.7);
+    //background-color: rgba(0, 0, 0, 0.7);
   }
 
   &.show {
     pointer-events: auto;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+    //background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
   }
 }
 

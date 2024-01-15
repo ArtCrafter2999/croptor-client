@@ -86,7 +86,7 @@ const Header = ({onFilesUploaded}: Props) => {
 
     return (
         <header className={styles.section}>
-            <input type={"file"} style={{display: "none"}} ref={ref as any} onChange={handleUpload}/>
+            <input type={"file"} multiple style={{display: "none"}} ref={ref as any} onChange={handleUpload}/>
             <div className={styles.buttonContainer}>
                 {isAnimation ?
                     <HeaderButton className={styles.upload} color={"#808bc7"}>
