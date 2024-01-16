@@ -2,11 +2,11 @@ import { UserManager, UserManagerSettings } from "oidc-client";
 import setAuthHeader from "./setAuthHeader";
 
 const userManagerSettings: UserManagerSettings = {
-    client_id: 'interactive',
+    client_id: 'web',
     client_secret: process.env.REACT_APP_SECRET,
     redirect_uri: process.env.REACT_APP_REDIRECT_URI,
     response_type: 'code',
-    scope: 'openid profile croptor.read croptor.write plan',
+    scope: 'openid profile croptor',
     authority: process.env.REACT_APP_AUTHORITY,
     post_logout_redirect_uri: process.env.REACT_APP_LOGOUT_REDIRECT_URI,
 };
