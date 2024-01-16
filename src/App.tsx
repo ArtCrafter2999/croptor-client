@@ -12,19 +12,28 @@ import FileUpload from "./components/FileUpload/FileUpload";
 import reducer, {Action, LoadData, ReducerState} from "./reducer/reducer";
 import Authorization from "./components/Authorization/Authorization";
 import {User} from "./models/User";
-import AuthProvider from "./auth/AuthProvider";
+import Modal from "./components/Modal/Modal";
+import ErrorModal from "./components/ErrorModal/ErrorModal";
+
+
+const FREE_MAX_FILES_AMOUNT = 3;
 
 export const AppContext = createContext<ReducerState & { dispatch: Dispatch<Action> }>(null as any);
 
 const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico', "jfif"];
 const App = () => {
     const [state, dispatch] = useReducer(reducer, null as ReducerState | null)
+    const [user, setUser] = useState<User>();
+    const [isAuthModalOpen, setAuthModalOpen] = useState<boolean>(false);
+    const [error, setError] = useState<string>();
+    const [errorFunc, setErrorFunc] = useState<() => void>();
 
     useEffect(() => {
         LoadData().then(newState => dispatch({action: "updateState", value: newState}));
     }, []);
 
     function handleFileDropped(files: File[]) {
+        if(!state) return;
         const images: File[] = [];
         for (const file of files) {
             const lastDotIndex = file.name.lastIndexOf('.');
@@ -35,7 +44,12 @@ const App = () => {
                 images.push(file)
             }
         }
-        if (images.length > 0) {
+        if(Object.values(state.filesDictionary).length + images.length > FREE_MAX_FILES_AMOUNT && (!user || user.plan === "Free")){
+            setError(`To process more than ${FREE_MAX_FILES_AMOUNT} images at a time, please upgrade to PRO PLAN`)
+            setErrorFunc((prev) => () => setAuthModalOpen(true));
+        }
+        else
+            if (images.length > 0) {
             dispatch({action: "addFiles", value: images})
         }
     }
@@ -60,7 +74,6 @@ const App = () => {
         })
     }, [state, state?.imageDataDictionary]);
 
-    const [user, setUser] = useState<User>();
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token && state && state.api) {
@@ -77,17 +90,23 @@ const App = () => {
             <AppContext.Provider value={{...state, dispatch}}>
                 <div className={styles.app}>
                     <Logo/>
-                    <Authorization/>
+                    <Authorization isModalOpen={isAuthModalOpen} setModalOpen={setAuthModalOpen}/>
                     <div className={styles.workspace}>
-                        <Header onFilesUploaded={handleFileDropped}/>
+                        <Header onFilesUploaded={handleFileDropped} />
                         <GlobalParameters/>
                         <ImageSection/>
-                        <PresetsSection/>
+                        <PresetsSection setError={m => {
+                            setError(m);
+                            setErrorFunc((prev) => () => setAuthModalOpen(true));
+                        }}/>
                         <CustomSizes/>
                         <DefaultSizes/>
                     </div>
                     <FileUpload onFilesDropped={handleFileDropped}/>
                     <Footer/>
+                    <Modal isOpen={!!error} setOpen={() => setError(undefined)}>
+                        <ErrorModal error={error as string} button={"Upgrade"} onButtonClick={errorFunc}/>
+                    </Modal>
                 </div>
             </AppContext.Provider>
         </UserContext.Provider>

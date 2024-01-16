@@ -1,11 +1,10 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import styles from "./SetCenterModal.module.scss"
-import Draggable, {DraggableData, DraggableEvent} from 'react-draggable';
+import Draggable from 'react-draggable';
 import {Position} from "../../reducer/reducer";
 import {ModalContext} from "../Modal/Modal";
 import HeaderButton from "../Header/HeaderButton";
 import {AppContext} from "../../App";
-import header from "../Header/Header";
 import {Size} from "../../models/Sizes";
 import {ImageParams} from "../../models/Params";
 
@@ -25,6 +24,8 @@ const SetCenterModal = ({params, onOk}: Props) => {
 
     const originalSize = sizesDictionary[params.name]
 
+    console.log(selectedPos)
+
     useEffect(() => {
         if (!displayedSize || position) return;
         setPosition({x: displayedSize.width / 2, y: displayedSize.height / 2});
@@ -39,11 +40,11 @@ const SetCenterModal = ({params, onOk}: Props) => {
                 width = document.documentElement.clientWidth * 0.70;
                 height = originalSize.height * (width / originalSize.width);
             } else {
-                height = document.documentElement.clientHeight * 0.95;
+                height = document.documentElement.clientHeight * 0.80;
                 width = originalSize.width * (height / originalSize.height);
             }
             setDisplayedSize({width, height});
-            setPosition({x: 0, y: height/2});
+            setPosition({x: width / 2, y: 0});
         }
 
         updateDisplayedSize()
@@ -56,9 +57,9 @@ const SetCenterModal = ({params, onOk}: Props) => {
         if (!originalSize || !displayedSize || !position) return;
 
         const originalX = (position.x / displayedSize.width) * originalSize.width;
-        const originalY = (position.y / displayedSize.height) * originalSize.height;
+        const originalY = ((position.y + displayedSize.height / 2 - 10) / displayedSize.height) * originalSize.height;
 
-        setSelectedPos({x: originalX, y: originalY});
+        setSelectedPos({x: Math.floor(originalX), y: Math.floor(originalY)});
     }, [position]);
 
     function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
@@ -76,7 +77,7 @@ const SetCenterModal = ({params, onOk}: Props) => {
 
     function handleOk() {
         if (onOk && selectedPos)
-            onOk({x: Math.floor(selectedPos.x), y: Math.floor(selectedPos.y)});
+            onOk({x: selectedPos.x, y:selectedPos.y});
         closeModal();
     }
 
@@ -88,10 +89,10 @@ const SetCenterModal = ({params, onOk}: Props) => {
 						defaultClassName={styles.draggable}
 						defaultClassNameDragging={styles.drag}
 						bounds={{
-                            top: 0,
-                            left: -displayedSize.width / 2,
-                            right: displayedSize.width / 2,
-                            bottom: displayedSize.height
+                            top: -displayedSize.height / 2 + 10,
+                            left: 0,
+                            right: displayedSize.width,
+                            bottom: displayedSize.height /2 + 10
                         }}
 						onDrag={(_, p) => setPosition(p)}
 						position={position}
@@ -105,9 +106,11 @@ const SetCenterModal = ({params, onOk}: Props) => {
 						 ref={imageRef as any}/>
 				</>
             }
-            <HeaderButton color={"#00dede"} onClick={handleOk}>
-                Ok
-            </HeaderButton>
+            <div className={styles.row}>
+                <span onClick={handleOk}>
+                    Ok
+                </span>
+            </div>
         </div>
     );
 };

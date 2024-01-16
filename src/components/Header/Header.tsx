@@ -50,6 +50,7 @@ const Header = ({onFilesUploaded}: Props) => {
     }
 
     function handleBatch() {
+        // if(!animation)
         setAnimation(true);
         if (api) {
             const sizes: CategorySize[] = selectedPreset.sizes;
@@ -62,6 +63,7 @@ const Header = ({onFilesUploaded}: Props) => {
                         {...data}
                 ).forEach(param => params[param.name] = param);
             api.images.crop(files, {sizes, params}).then((link) => {
+                setAnimation(false);
                 setDownloadLink(link);
             });
         } else {
@@ -77,6 +79,7 @@ const Header = ({onFilesUploaded}: Props) => {
     }
 
     function handleDownload() {
+        console.log("open", downloadLink)
         window.open(downloadLink, '_blank');
     }
 
@@ -86,7 +89,7 @@ const Header = ({onFilesUploaded}: Props) => {
 
     return (
         <header className={styles.section}>
-            <input type={"file"} style={{display: "none"}} ref={ref as any} onChange={handleUpload}/>
+            <input type={"file"} multiple style={{display: "none"}} ref={ref as any} onChange={handleUpload}/>
             <div className={styles.buttonContainer}>
                 {isAnimation ?
                     <HeaderButton className={styles.upload} color={"#808bc7"}>

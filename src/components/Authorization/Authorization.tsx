@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import styles from "./Authorization.module.scss"
 import Modal from "../Modal/Modal";
 import AccountModal from "./AccountModal/AccountModal";
@@ -8,11 +8,27 @@ import {AppContext, UserContext} from "../../App";
 import csx from "classnames";
 import AuthProvider from "../../auth/AuthProvider";
 
-const Authorization = () => {
+type Props = {
+    isModalOpen: boolean;
+    setModalOpen: (v: boolean) => void;
+}
+const Authorization = ({isModalOpen, setModalOpen}: Props) => {
     const {api} = useContext(AppContext)
     const {user, setUser} = useContext(UserContext)
-    const [isModalOpen, setModalOpen] = useState<boolean>(false);
     const [isOpen, setOpen, ref] = usePopup()
+
+    useEffect(() => {
+        if(isModalOpen && !user) {
+            api? signinRedirect() :
+            setUser({
+                name: "iceid",
+                email: "iceid@outlook.com",
+                plan: "Free",
+                image: "https://content.freelancehunt.com/profile/photo/225/idon.png",
+                expires: new Date("2024-04-03")
+            });
+        }
+    }, [isModalOpen]);
 
     return (
         <>
@@ -61,9 +77,11 @@ const Authorization = () => {
                     }
                 </AuthProvider>
             </div>
-            <Modal isOpen={isModalOpen} setOpen={setModalOpen}>
-                <AccountModal/>
-            </Modal>
+            {user &&
+				<Modal isOpen={isModalOpen} setOpen={setModalOpen}>
+					<AccountModal/>
+				</Modal>
+            }
         </>
     );
 };
