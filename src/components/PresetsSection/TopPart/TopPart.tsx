@@ -9,9 +9,10 @@ type Props = {
     onPrev?: () => void;
     onNext?: () => void;
     onSave?: () => void;
+    onRemove?: () => void;
+    onChangeName?: (name: string) => void;
 }
-const TopPart = ({name, onPrev, onNext, onSave}: Props) => {
-    const {dispatch} = useContext(AppContext)
+const TopPart = ({name, onPrev, onNext, onSave, onRemove, onChangeName}: Props) => {
     const [newTitle, setNewTitle] = useState<string>();
     const [isFocused, setFocused] = useState<boolean>(false);
 
@@ -28,11 +29,9 @@ const TopPart = ({name, onPrev, onNext, onSave}: Props) => {
     function handleBlur() {
         if(!newTitle) return;
         setFocused(false);
-        dispatch({action: "changePresetTitle", value: newTitle});
+        onChangeName &&
+        onChangeName(newTitle);
         setNewTitle(undefined);
-    }
-    function handleRemove() {
-        dispatch({action: "removePreset"});
     }
 
     return (
@@ -59,7 +58,7 @@ const TopPart = ({name, onPrev, onNext, onSave}: Props) => {
                 <img src={"icons/vector-right.svg"} alt={"next"}/>
             </div>
             <SaveButton onClick={onSave} className={csx(styles.pointer, styles.icon)}/>
-            <TrashButton onClick={handleRemove} className={csx(styles.pointer, styles.icon)}/>
+            <TrashButton onClick={onRemove} className={csx(styles.pointer, styles.icon)}/>
         </div>
     );
 };

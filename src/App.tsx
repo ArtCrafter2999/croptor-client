@@ -79,15 +79,6 @@ const App = () => {
         })
     }, [state, state?.imageDataDictionary]);
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (token && state && state.api) {
-            state.api.user.get().then((u) => {
-                setUser(u);
-            });
-        }
-    }, [state, state?.api])
-
     if (!state) return <></>
     return (
         <UserContext.Provider value={{user, setUser}}>

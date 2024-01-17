@@ -3,6 +3,7 @@ import {CategorySize, PresetSize, Size} from "../models/Sizes";
 import {Preset} from "../models/Preset";
 import {GlobalParams, ImageParams, ImageParamsDictionary} from "../models/Params";
 import defaultSizes from "../defaultSizes.json";
+import {stat} from "fs";
 
 type FilesDictionary = { [fileName: string]: File };
 type SizesDictionary = { [fileName: string]: Size };
@@ -20,16 +21,17 @@ export type ReducerState = {
     sizesDictionary: SizesDictionary;
     filesDictionary: FilesDictionary;
     selectedPreset: Preset;
-    defaultSizes: Category[]
-    customSizes: Size[]
-    api: Api | null
-    presets: string[]
+    defaultSizes: Category[];
+    customSizes: Size[];
+    api: Api | null;
+    presetIds: string[];
+    presets: Preset[];
 }
 
 export async function LoadData(): Promise<ReducerState> {
     const api: Api | null =
         new Api(process.env.REACT_APP_API_URI as string);
-        // null as Api | null;
+    // null as Api | null;
 
     let presets: string[]
     let selectedPreset: Preset
@@ -61,7 +63,8 @@ export async function LoadData(): Promise<ReducerState> {
         defaultSizes: defaultSizes as Category[],
         customSizes,
         api,
-        presets: presets
+        presetIds: presets,
+        presets: [selectedPreset],
     };
 }
 
@@ -77,8 +80,11 @@ export type Action =
     { action: "removeSizeFromPreset", value: { name?: string, size: Size } } |
     { action: "addCustomSize", value: Size } |
     { action: "removeCustomSize", value: Size } |
-    { action: "removePreset" } |
-    { action: "changePresetTitle", value: string }
+    { action: "removePreset", value: number } |
+    { action: "selectPreset", value: number } |
+    { action: "handlePresetLoaded", value: { preset: Preset, index: number } } |
+    { action: "changePresetTitle", value: { index: number, title: string } } |
+    { action: "createPreset" }
 
 
 function reducer(state: ReducerState | null, action: Action): ReducerState | null {
@@ -86,6 +92,7 @@ function reducer(state: ReducerState | null, action: Action): ReducerState | nul
         if (action.action === "updateState") return action.value;
         else return null;
     }
+
     switch (action.action) {
         case "updateState":
             return action.value;
@@ -109,10 +116,16 @@ function reducer(state: ReducerState | null, action: Action): ReducerState | nul
             return addCustomSize(state, action.value)
         case "removeCustomSize":
             return removeCustomSize(state, action.value)
-        case "removePreset":
-            return removePreset(state);
         case "changePresetTitle":
             return changePresetTitle(state, action.value);
+        case "selectPreset":
+            return selectPreset(state, action.value);
+        case "handlePresetLoaded":
+            return handlePresetLoaded(state, action.value);
+        case "removePreset":
+            return removePreset(state, action.value);
+        case "createPreset":
+            return createPreset(state);
     }
 }
 
@@ -190,19 +203,57 @@ function addCustomSize(state: ReducerState, value: Size): ReducerState {
 function removeCustomSize(state: ReducerState, value: Size): ReducerState {
     const customSizes = [...state.customSizes];
     const index = customSizes.findIndex(s => value.width === s.width && value.height === s.width);
-    customSizes.splice(index,1)
+    customSizes.splice(index, 1)
     state.api?.presets.removeCustomSize(value);
     return {...state, customSizes};
 }
 
-function removePreset(state: ReducerState): ReducerState {
-    const selectedPreset: Preset = {name: "new preset", sizes: []};
-    return {...state, selectedPreset}
+function changePresetTitle(state: ReducerState, {index, title}: { index: number, title: string }): ReducerState {
+    const selectedPreset: Preset = {...state.selectedPreset, name: title};
+    const presets = [...state.presets];
+    presets[index] = selectedPreset;
+    return {...state, selectedPreset, presets}
 }
 
-function changePresetTitle(state: ReducerState, value: string): ReducerState {
-    const selectedPreset: Preset = {name: value, sizes: state.selectedPreset.sizes};
-    return {...state, selectedPreset}
+function selectPreset(state: ReducerState, value: number): ReducerState {
+    const selectedPreset = state.presets[value];
+    console.log(state.presets[value]);
+    return {...state, selectedPreset};
+}
+
+function handlePresetLoaded(state: ReducerState, {preset, index}: { preset: Preset; index: number }): ReducerState {
+    const presets = [...state.presets]
+    presets[index] = preset;
+    return {...state, presets};
+}
+
+function removePreset(state: ReducerState, index: number): ReducerState {
+    const presets = [...state.presets];
+    const presetIds = [...state.presetIds];
+    //{name: "new preset", sizes: []};
+    if (index >= 0 && index < presets.length) {
+        presets.splice(index, 1);
+        presetIds.splice(index, 1);
+        if (presets.length === 0) {
+            return createPreset({...state, presets, presetIds});
+        } else {
+            let selectedPreset: Preset;
+            if (presets[index]) {
+                selectedPreset = presets[index];
+            } else {
+                selectedPreset = presets[index - 1];
+            }
+            return {...state, presets, presetIds, selectedPreset}
+        }
+    }
+    return state;
+}
+
+function createPreset(state: ReducerState): ReducerState {
+    const presets = [...state.presets];
+    const selectedPreset = {name: "new preset", sizes: []};
+    presets.push(selectedPreset);
+    return {...state, presets, selectedPreset}
 }
 
 export default reducer;

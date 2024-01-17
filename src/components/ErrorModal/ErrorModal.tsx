@@ -10,7 +10,6 @@ type Props = {
 
 const ErrorModal = ({error, button, onButtonClick}: Props) => {
     const {closeModal} = useContext(ModalContext)
-    console.log(onButtonClick)
     return (
         <div className={styles.modal}>
             <p>{error}</p>

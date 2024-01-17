@@ -72,7 +72,22 @@ export class PresetsController extends ClientBase {
 
         let options: RequestInit = {
             body: content,
-            method: "Put",
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json-patch+json",
+            }
+        };
+        return this.sendRequest({url, options})
+    }
+
+    removePreset(id: string): Promise<void> {
+        let url = `/presets`;
+
+        const content = JSON.stringify({id});
+
+        let options: RequestInit = {
+            body: content,
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json-patch+json",
             }
