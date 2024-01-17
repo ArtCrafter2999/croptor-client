@@ -20,7 +20,7 @@ const FREE_MAX_FILES_AMOUNT = 3;
 
 export const AppContext = createContext<ReducerState & { dispatch: Dispatch<Action> }>(null as any);
 
-const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico', "jfif"];
+export const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico', "jfif"];
 
 export enum AuthTab {
     Account,

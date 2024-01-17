@@ -14,10 +14,14 @@ const AuthProvider = ({
     const {user, setUser} = useContext(UserContext)
     useEffect(() => {
         function GetUser() {
-            if(!localStorage.getItem("token") || user) return;
+            if (!localStorage.getItem("token") || user) return;
             api?.user.get()
-                .then(u => setUser(u)).catch(() => signinSilent());
+                .then(u => setUser(u)).catch(
+                () => {}
+                // signinSilent()
+            );
         }
+
         loadUser().then(user => {
             GetUser();
             setOidcUser(user);

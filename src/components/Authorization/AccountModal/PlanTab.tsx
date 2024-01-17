@@ -11,24 +11,18 @@ const PlanTab = () => {
     const submitRef = useRef<HTMLInputElement>();
     const [request, setRequest] = useState<WayForPayRequest>();
 
-    console.log(user)
+    if (!user) throw new Error("User can't be undefined at this point");
 
     useEffect(() => {
-        console.log(request)
-        // if (request && submitRef.current) {
-        //
-        // }
+        if (request && submitRef.current) {
+            submitRef.current.click();
+        }
     }, [request]);
-
-    if (!user) throw new Error("User can't be undefined at this point");
 
     function handleUpdate() {
         if (!api) return;
-        if (!request)
-            api.orders.create(monthAmount)
-                .then(r => setRequest(r))
-        else if (submitRef.current)
-            submitRef.current.click();
+        api.orders.create(monthAmount)
+            .then(r => setRequest(r))
     }
 
     const expires = new Date(user.expires)

@@ -25,6 +25,22 @@ export class ImagesController extends ClientBase {
 
         return this.sendRequest({ url, options });
     }
+
+    upload(file: File): Promise<string> {
+        let url = `/images/upload`;
+
+        const formData = new FormData();
+
+        formData.append("files", file);
+        let options: RequestInit = {
+            body: formData,
+            method: "POST",
+            headers: {
+            }
+        };
+
+        return this.sendRequest({ url, options });
+    }
 }
 
 type ImagesParamsDto = {
