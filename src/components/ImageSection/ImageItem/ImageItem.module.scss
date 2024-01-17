@@ -83,7 +83,7 @@
       }
       user-select: none;
       color: #567070;
-      border: #00dede .1rem solid;
+      border: #999 .1rem solid;
       border-radius: 3.0rem;
       font-weight: 700;
       font-size: 0.9rem;
@@ -92,8 +92,14 @@
         top: 0.2rem
       };
       &:hover {
-        background-color: #00dede;
+        background-color: #999;
         color: white;
+      }
+      &.active {
+        border: #00dede .1rem solid;
+        &:hover {
+          background-color: #00dede;
+        }
       }
     }
     img {

@@ -21,10 +21,15 @@ const FREE_MAX_FILES_AMOUNT = 3;
 export const AppContext = createContext<ReducerState & { dispatch: Dispatch<Action> }>(null as any);
 
 const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico', "jfif"];
+
+export enum AuthTab {
+    Account,
+    Plan
+}
 const App = () => {
     const [state, dispatch] = useReducer(reducer, null as ReducerState | null)
     const [user, setUser] = useState<User>();
-    const [isAuthModalOpen, setAuthModalOpen] = useState<boolean>(false);
+    const [authTab, setAuthTab] = useState<AuthTab>();
     const [error, setError] = useState<string>();
     const [errorFunc, setErrorFunc] = useState<() => void>();
 
@@ -46,7 +51,7 @@ const App = () => {
         }
         if(Object.values(state.filesDictionary).length + images.length > FREE_MAX_FILES_AMOUNT && (!user || user.plan === "Free")){
             setError(`To process more than ${FREE_MAX_FILES_AMOUNT} images at a time, please upgrade to PRO PLAN`)
-            setErrorFunc((prev) => () => setAuthModalOpen(true));
+            setErrorFunc((prev) => () => setAuthTab(AuthTab.Plan));
         }
         else
             if (images.length > 0) {
@@ -79,7 +84,6 @@ const App = () => {
         if (token && state && state.api) {
             state.api.user.get().then((u) => {
                 setUser(u);
-                console.log(u)
             });
         }
     }, [state, state?.api])
@@ -90,14 +94,14 @@ const App = () => {
             <AppContext.Provider value={{...state, dispatch}}>
                 <div className={styles.app}>
                     <Logo/>
-                    <Authorization isModalOpen={isAuthModalOpen} setModalOpen={setAuthModalOpen}/>
+                    <Authorization tab={authTab} setTab={setAuthTab}/>
                     <div className={styles.workspace}>
                         <Header onFilesUploaded={handleFileDropped} />
                         <GlobalParameters/>
                         <ImageSection/>
                         <PresetsSection setError={m => {
                             setError(m);
-                            setErrorFunc((prev) => () => setAuthModalOpen(true));
+                            setErrorFunc((prev) => () => setAuthTab(AuthTab.Plan));
                         }}/>
                         <CustomSizes/>
                         <DefaultSizes/>

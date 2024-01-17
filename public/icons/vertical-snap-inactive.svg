@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4.4" height="8.7" viewBox="0 0 4.4 8.7">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #999;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <g id="Layer_2" data-name="Layer 2">
+    <g id="uploaded_images" data-name="uploaded images">
+      <g id="image_1" data-name="image 1">
+        <g id="placement">
+          <g id="snap_icons" data-name="snap icons">
+            <g id="vertical">
+              <g id="inactive">
+                <line class="cls-1" x1="2.2" y1="0.5" x2="2.2" y2="8"/>
+                <line class="cls-1" x1="2.2" y1="0.5" x2="3.9" y2="2.2"/>
+                <line class="cls-1" x1="2.2" y1="0.5" x2="0.5" y2="2.2"/>
+                <line class="cls-1" x1="2.2" y1="8.2" x2="0.5" y2="6.5"/>
+                <line class="cls-1" x1="2.3" y1="8.2" x2="3.9" y2="6.5"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

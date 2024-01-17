@@ -1,18 +1,26 @@
-import React, {ReactNode, useEffect, useRef, useState} from 'react';
+import React, {ReactNode, useContext, useEffect, useRef, useState} from 'react';
 import {User, UserManager} from 'oidc-client';
 import setAuthHeader from './setAuthHeader';
-import {loadUser, signinRedirect} from './user-service';
-import {useLocation} from "react-router-dom";
+import {loadUser, signinSilent} from './user-service';
 import userManager from "./user-service";
+import {AppContext, UserContext} from "../App";
 
 const AuthProvider = ({
                           children
                       }: { children: (user: User | null) => ReactNode }): any => {
     const [isLoaded, setLoaded] = useState<boolean>(false);
-    const [user, setUser] = useState<User | null>(null);
+    const [oidcUser, setOidcUser] = useState<User | null>(null);
+    const {api} = useContext(AppContext)
+    const {user, setUser} = useContext(UserContext)
     useEffect(() => {
+        function GetUser() {
+            if(!localStorage.getItem("token") || user) return;
+            api?.user.get()
+                .then(u => setUser(u)).catch(() => signinSilent());
+        }
         loadUser().then(user => {
-            setUser(user);
+            GetUser();
+            setOidcUser(user);
             setLoaded(true);
         });
         const onUserLoaded = (user: User) => {
@@ -54,7 +62,7 @@ const AuthProvider = ({
     if (!isLoaded)
         return <></>
     else {
-        return children(user);
+        return children(oidcUser);
     }
 }
 

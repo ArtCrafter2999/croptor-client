@@ -133,6 +133,9 @@
         margin-top: 2.0rem;
       }
     }
+    form {
+      display: none;
+    }
     .button {
       position: absolute;
       bottom: 32%;
@@ -143,6 +146,8 @@
       border-radius: .4rem;
       cursor: pointer;
       font-size: 1.2rem;
+      outline: none;
+      border: none;
       &:hover {
         background-color: #00afaf;
       }

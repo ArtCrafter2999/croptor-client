@@ -5,6 +5,7 @@ export type Request = {
     options: RequestInit,
     addBaseUrl?: boolean
 }
+
 export class ClientBase {
     private baseUrl: string;
 
@@ -12,14 +13,16 @@ export class ClientBase {
         this.baseUrl = baseUrl;
     }
 
-    protected sendRequest(request: Request): Promise<any>{
+    protected sendRequest(request: Request): Promise<any> {
         return this.transformRequest(request).then(newRequest => window
             .fetch(newRequest.url, newRequest.options)
-            .then(response => this.process(response, request)));
+            .then(response => this.process(response, request)
+            )
+        );
     }
 
     protected transformRequest(request: Request) {
-        if(request.addBaseUrl !== false)
+        if (request.addBaseUrl !== false)
             request.url = this.baseUrl + request.url;
 
         request.options.headers = {
@@ -80,10 +83,10 @@ export class ClientBase {
                         status,
                         _responseText,
                         _headers));
-        } else{
+        } else {
             return response.text().then((_responseText) =>
                 this.throwException(
-                    "An unexpected server error ("+status+") occurred.",
+                    "An unexpected server error (" + status + ") occurred.",
                     status,
                     _responseText,
                     _headers,
@@ -92,6 +95,7 @@ export class ClientBase {
         }
     }
 }
+
 export interface ProblemDetails {
     type?: string | undefined;
     title?: string | undefined;
@@ -101,6 +105,7 @@ export interface ProblemDetails {
 
     [key: string]: any;
 }
+
 export class ApiException extends Error {
     override message: string;
     status: number;

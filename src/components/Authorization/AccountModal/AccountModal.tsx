@@ -1,32 +1,29 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import styles from "./AccountModal.module.scss"
 import csx from "classnames";
-import {UserContext} from "../../../App";
-import {format} from "date-fns";
+import {AuthTab, UserContext} from "../../../App";
 import PlanTab from "./PlanTab";
 
-enum Tab {
-    Account,
-    Plan
+type Props = {
+    tab: AuthTab;
+    setTab: (v:AuthTab) => void;
 }
-
-const AccountModal = () => {
+const AccountModal = ({tab, setTab}: Props) => {
     const {user} = useContext(UserContext)
-    const [selectedTab, selectTab] = useState<Tab>(Tab.Account);
     if(!user) throw new Error("User can't be undefined at this point");
     return (
         <div className={styles.modal}>
             <div className={styles.tabs}>
-                <span className={csx({[styles.active]: selectedTab === Tab.Account})}
-                      onClick={() => selectTab(Tab.Account)}>
+                <span className={csx({[styles.active]: tab === AuthTab.Account})}
+                      onClick={() => setTab(AuthTab.Account)}>
                     Account
                 </span>
-                <span className={csx({[styles.active]: selectedTab === Tab.Plan})}
-                      onClick={() => selectTab(Tab.Plan)}>
+                <span className={csx({[styles.active]: tab === AuthTab.Plan})}
+                      onClick={() => setTab(AuthTab.Plan)}>
                     Plan
                 </span>
             </div>
-            {selectedTab === Tab.Account ?
+            {tab === AuthTab.Account ?
                 <div className={styles.account}>
                     <div className={styles.imageContainer}>
                         <img src={"https://content.freelancehunt.com/profile/photo/225/idon.png"}/>

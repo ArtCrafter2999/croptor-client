@@ -14,7 +14,6 @@
     "date-fns": "^3.2.0",
     "lottie-react": "^2.4.0",
     "oidc-client": "^1.11.5",
-    "overshom-wayforpay": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.6",

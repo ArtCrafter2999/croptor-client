@@ -1,34 +1,40 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect} from 'react';
 import styles from "./Authorization.module.scss"
 import Modal from "../Modal/Modal";
 import AccountModal from "./AccountModal/AccountModal";
 import usePopup from "../usePopup";
 import {signinRedirect, signoutRedirect} from "../../auth/user-service";
-import {AppContext, UserContext} from "../../App";
+import {AppContext, AuthTab, UserContext} from "../../App";
 import csx from "classnames";
 import AuthProvider from "../../auth/AuthProvider";
 
 type Props = {
-    isModalOpen: boolean;
-    setModalOpen: (v: boolean) => void;
+    tab: AuthTab | undefined;
+    setTab: (v: AuthTab | undefined) => void;
+
 }
-const Authorization = ({isModalOpen, setModalOpen}: Props) => {
+const Authorization = ({tab, setTab}: Props) => {
     const {api} = useContext(AppContext)
     const {user, setUser} = useContext(UserContext)
-    const [isOpen, setOpen, ref] = usePopup()
+    const [isOpen, setOpen, ref] = usePopup();
 
     useEffect(() => {
-        if(isModalOpen && !user) {
-            api? signinRedirect() :
+        if(!!tab && !user) {
+            handleLogin();
+        }
+    }, [tab]);
+
+    function handleLogin() {
+        api? signinRedirect() :
             setUser({
+                id: "testID",
                 name: "iceid",
                 email: "iceid@outlook.com",
                 plan: "Free",
                 image: "https://content.freelancehunt.com/profile/photo/225/idon.png",
                 expires: new Date("2024-04-03")
             });
-        }
-    }, [isModalOpen]);
+    }
 
     return (
         <>
@@ -36,15 +42,7 @@ const Authorization = ({isModalOpen, setModalOpen}: Props) => {
                 <AuthProvider>
                     {(u) => {
                         return u === undefined || user === undefined ?
-                            <div className={styles.button} onClick={() => api ?
-                                signinRedirect() :
-                                setUser({
-                                    name: "iceid",
-                                    email: "iceid@outlook.com",
-                                    plan: "Free",
-                                    image: "https://content.freelancehunt.com/profile/photo/225/idon.png",
-                                    expires: new Date("2024-04-03")
-                                })}
+                            <div className={styles.button} onClick={handleLogin}
                             >
                                 Login
                             </div> :
@@ -59,7 +57,7 @@ const Authorization = ({isModalOpen, setModalOpen}: Props) => {
 											<div className={styles.content}>
 												<div>
 									<span className={styles.button} onClick={() => {
-                                        setModalOpen(true)
+                                        setTab(AuthTab.Account)
                                         setOpen(false);
                                     }}>Account</span>
 													<span>Plan: <b>{user.plan}</b></span>
@@ -78,8 +76,8 @@ const Authorization = ({isModalOpen, setModalOpen}: Props) => {
                 </AuthProvider>
             </div>
             {user &&
-				<Modal isOpen={isModalOpen} setOpen={setModalOpen}>
-					<AccountModal/>
+				<Modal isOpen={tab !== undefined} setOpen={() => setTab(undefined)}>
+					<AccountModal tab={tab as AuthTab} setTab={setTab}/>
 				</Modal>
             }
         </>

@@ -156,5 +156,5 @@ export const contactUs = `
 <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:normal;'><span style="font-size:1.5rem;color:#1F3864;">&nbsp;</span></p>
 <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:normal;'><span style="font-size:1.1rem;color:#1F3864;">Phone : +380933722467</span></p>
 <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:normal;'><span style="font-size:1.1rem;color:#1F3864;">Email :&nbsp;</span><a href="support@croptor.com"><span style="font-size:1.1rem;">support@croptor.com</span></a></p>
-<p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:normal;'><span style="font-size:1.1rem;color:#1F3864;">Adress : Cherkassy region, Ternovka, Zarechnaya 29, 20733</span></p>
+<p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:normal;'><span style="font-size:1.1rem;color:#1F3864;">Adress : Ukraine, Cherkassy region, Ternovka, Zarechnaya 29, 20733</span></p>
 `

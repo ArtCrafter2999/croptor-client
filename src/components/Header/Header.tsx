@@ -92,12 +92,12 @@ const Header = ({onFilesUploaded}: Props) => {
             <input type={"file"} multiple style={{display: "none"}} ref={ref as any} onChange={handleUpload}/>
             <div className={styles.buttonContainer}>
                 {isAnimation ?
-                    <HeaderButton className={styles.upload} color={"#808bc7"}>
+                    <HeaderButton className={styles.download} color={"#808bc7"}>
                         <Lottie className={styles.animation} animationData={animation} loop={true}/>
                     </HeaderButton>
                     :
                     downloadLink ?
-                        <HeaderButton className={styles.upload} color={"#808bc7"}
+                        <HeaderButton className={styles.download} color={"#808bc7"}
                                       onClick={handleDownload}
                         >
                             Download
@@ -109,10 +109,10 @@ const Header = ({onFilesUploaded}: Props) => {
                         </HeaderButton>
 
                 }
-                <HeaderButton color={"#f3e021"} onClick={handleBatch}>
+                <HeaderButton className={styles.upload} color={"#f3e021"} onClick={handleBatch}>
                     Batch {batchAmount > 0 && batchAmount}
                 </HeaderButton>
-                <HeaderButton color={"#f9446e"} onClick={handleReset}>
+                <HeaderButton className={styles.upload} color={"#f9446e"} onClick={handleReset}>
                     Reset
                 </HeaderButton>
             </div>

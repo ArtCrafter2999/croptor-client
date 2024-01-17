@@ -16,7 +16,7 @@
       color: #567070;
       font-weight: 600;
       margin-top: .8rem;
-      font-size: 0.9rem;
+      font-size: 1rem;
       white-space: nowrap;
       user-select: none;
     }
@@ -27,10 +27,13 @@
       height: 1.0rem;
       font-size: 0.9rem;
       font-weight: 550;
+      border: none {
+        bottom: #567070 solid .15rem;
+      };
       margin: {
         top: .6rem;
         left: 1rem;
-        right: .8rem;
+        right: 1rem;
       }
     }
   }
@@ -44,9 +47,11 @@
   height: 1.3rem;
   min-width: fit-content;
   font-size: 0.9rem;
-  border: var(--color) solid .1rem;
+  border: var(--color) solid .15rem;
   color: var(--color);
   border-radius: 2.0rem;
+  display: flex;
+  justify-content: center;
   padding: {
     top: .4rem;
     bottom: .1rem;
@@ -59,8 +64,11 @@
   };
   cursor: pointer;
 
-  &.upload > * {
-    width: 5.85rem;
+  &.upload {
+    width: 3rem;
+  }
+  &.download {
+    width: 5.83rem;
   }
 
   .animation {

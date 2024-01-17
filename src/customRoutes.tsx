@@ -21,6 +21,10 @@ const customRoutes: CustomRoute[] = [
     {
         path: "/signout-oidc",
         component: <SignOutOidc />,
+    },
+    {
+        path: "/resign-oidc",
+        component: <SignOutOidc />,
     }
 ]
 export default customRoutes;

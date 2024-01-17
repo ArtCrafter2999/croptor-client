@@ -1,43 +1,74 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import styles from "./AccountModal.module.scss"
 import {format} from "date-fns";
-import {UserContext} from "../../../App";
+import {AppContext, UserContext} from "../../../App";
+import {WayForPayRequest} from "../../../models/WayForPayRequest";
 
 const PlanTab = () => {
     const {user} = useContext(UserContext)
+    const {api} = useContext(AppContext)
     const [monthAmount, setMonthAmount] = useState<number>(1);
-    const [isPayment, setPayment] = useState<boolean>(false);
+    const submitRef = useRef<HTMLInputElement>();
+    const [request, setRequest] = useState<WayForPayRequest>();
+
+    console.log(user)
+
+    useEffect(() => {
+        console.log(request)
+        // if (request && submitRef.current) {
+        //
+        // }
+    }, [request]);
 
     if (!user) throw new Error("User can't be undefined at this point");
 
-    async function handleUpdate() {
-
+    function handleUpdate() {
+        if (!api) return;
+        if (!request)
+            api.orders.create(monthAmount)
+                .then(r => setRequest(r))
+        else if (submitRef.current)
+            submitRef.current.click();
     }
+
+    const expires = new Date(user.expires)
+    const currentDate: Date = new Date();
 
     return (
         <div className={styles.plan}>
-            {!isPayment ?
-                <>
-                    <div className={styles.list}>
-                        <span className={styles.name}>Current Plan</span>
-                        <div className={styles.field}>
-                            <span className={styles.field}>{user.plan}</span>
-                        </div>
-                        <span className={styles.name}>Valid Till</span>
-                        <div className={styles.field}>
-                            <span className={styles.field}>{format(new Date(user.expires), "dd.MM.yyyy")}</span>
-                        </div>
-                        <span className={styles.name}>Update </span>
-                        <div className={styles.field}>
-                            <span className={styles.field}>$9/mo</span>
-                            <NumberField number={monthAmount} setNumber={setMonthAmount}/>
-                        </div>
+            <>
+                <div className={styles.list}>
+                    <span className={styles.name}>Current Plan</span>
+                    <div className={styles.field}>
+                        <span className={styles.field}>{user.plan}</span>
                     </div>
-                    <div className={styles.button} onClick={handleUpdate}>Update</div>
-                </>
-                :
-                <></>
-            }
+                    {expires > currentDate &&
+						<>
+							<span className={styles.name}>Valid Till</span>
+							<div className={styles.field}>
+								<span className={styles.field}>{format(expires, "dd.MM.yyyy")}</span>
+							</div>
+						</>
+                    }
+                    <span className={styles.name}>Update </span>
+                    <div className={styles.field}>
+                        <span className={styles.field}>$9/mo</span>
+                        <NumberField number={monthAmount} setNumber={setMonthAmount}/>
+                    </div>
+                </div>
+                <form method="post" action="https://secure.wayforpay.com/pay" acceptCharset="utf-8">
+                    {request &&
+                        Object.keys(request)
+                            .map(k => {
+                                if (k.startsWith("product"))
+                                    return <input name={k + "[]"} value={request[k]}/>
+                                return <input name={k} value={request[k]}/>
+                            })
+                    }
+                    <input type={"submit"} ref={submitRef as any}/>
+                </form>
+                <div className={styles.button} onClick={handleUpdate}>UPDATE</div>
+            </>
         </div>
     );
 };

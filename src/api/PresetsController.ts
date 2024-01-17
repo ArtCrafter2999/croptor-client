@@ -30,14 +30,16 @@ export class PresetsController extends ClientBase {
     }
 
     removeCustomSize(size: Size): Promise<void> {
-        let url = `/presets/sizes`;
+        let url = `/presets/size`;
 
         const content = JSON.stringify(size);
 
         let options: RequestInit = {
             body: content,
             method: "DELETE",
-            headers: {}
+            headers: {
+                "Content-Type": "application/json-patch+json",
+            }
         };
 
         return this.sendRequest({url, options});

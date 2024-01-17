@@ -37,7 +37,11 @@ const ImageItem = ({
                 incapableSizes.push(s);
         })
     }
-
+    useEffect(() => {
+        if(params.useDefault && params.centerPosition){
+            state.centerPosition = null;
+        }
+    }, [params.useDefault]);
     function handleWarningHover() {
         if (incapableSizes.length > 0)
             setWarningHover(true);
@@ -80,22 +84,28 @@ const ImageItem = ({
                 }
             </div>
             <div>
-                <Dropdown options={["Top", "Center", "Bottom"]} icon={"icons/vertical-snap-active.svg"}
-                          selectedOption={state.verticalSnap} selectOption={(v) => state.verticalSnap = v as Vertical}
+                <Dropdown options={["Top", "Center", "Bottom"]} icon={`icons/vertical-snap-${params.centerPosition ? "inactive": "active"}.svg`}
+                          selectedOption={state.verticalSnap} selectOption={(v) => {
+                    state.verticalSnap = v as Vertical
+                    state.centerPosition = null;
+                }}
                           title={"Align cropping option vertically"}/>
                 <Switch classname={styles.switch} value={state.fitNCrop} setValue={(v) => state.fitNCrop = v}
                         text={"Fit & Crop"}
                         title={"Resize image to the borders and then crop"}/>
             </div>
             <div>
-                <Dropdown options={["Left", "Center", "Right"]} icon={"icons/horizontal-snap-active.svg"}
+                <Dropdown options={["Left", "Center", "Right"]} icon={`icons/horizontal-snap-${params.centerPosition ? "inactive": "active"}.svg`}
                           selectedOption={state.horizontalSnap}
-                          selectOption={(v) => state.horizontalSnap = v as Horizontal}
+                          selectOption={(v) => {
+                              state.horizontalSnap = v as Horizontal;
+                              state.centerPosition = null;
+                          }}
                           title={"Align cropping option horizontally"}/>
             </div>
             <div className={styles.buttonContainer}>
                 {"image" in params &&
-					<div className={styles.button} title={"Set custom center"} onClick={() => setSetCenter(true)}
+					<div className={csx(styles.button, {[styles.active]: !!params.centerPosition})} title={"Set custom center"} onClick={() => setSetCenter(true)}
 					>
                         {/*{params.centerPosition? params.centerPosition.x + " " + params.centerPosition.y: "Set Center"}*/}
 						Set Center
