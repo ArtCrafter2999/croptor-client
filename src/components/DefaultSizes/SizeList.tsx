@@ -8,9 +8,10 @@ type Props = {
     list: CategorySize[]
     category: string
     onRemove?: (category: string, s: CategorySize) => void;
+    onEdit?: (s: CategorySize) => void;
 }
 
-const SizeList = ({icon, list, onRemove, category}: Props) => {
+const SizeList = ({icon, list, onRemove, category, onEdit}: Props) => {
     const {selectedPreset, dispatch} = useContext(AppContext)
 
     function handleClick(value: boolean, size: PresetSize) {
@@ -34,6 +35,7 @@ const SizeList = ({icon, list, onRemove, category}: Props) => {
                         ps.height === s.height)}
                     onClick={(v) => handleClick(v, {...s, icon: icon})}
                     onRemove={onRemove === undefined? undefined: () => onRemove(category, s)}
+                    onEdit={onEdit === undefined? undefined: () => onEdit(s)}
                 />)}
         </>
     );

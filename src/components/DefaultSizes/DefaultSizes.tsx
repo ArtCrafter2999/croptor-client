@@ -1,37 +1,79 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import styles from "./DefaultSizes.module.scss"
 import CategoryItem from "./CategoryItem/CategoryItem";
-import {AppContext} from "../../App";
+import {AppContext, UserContext} from "../../App";
 import SizeList from "./SizeList";
+import Modal from "../Modal/Modal";
+import AddModal from "./AddModal/AddModal";
+import {Category} from "../../reducer/reducer";
+import {CategorySize} from "../../models/Sizes";
+import EditCategoryModal from "./EditCategoryModal/EditCategoryModal";
+import EditSizeModal from "./EditSizeModal/EditSizeModal";
 
 const DefaultSizes = () => {
-    const {defaultSizes} = useContext(AppContext)
+    const {defaultSizes, api} = useContext(AppContext)
+    const {user} = useContext(UserContext)
+    const [isAdd, setAdd] = useState<boolean>(false);
+    const [category, setCategory] = useState<Category>(defaultSizes[0]);
+    const [categoryToEdit, setCategoryToEdit] = useState<Category>();
+    const [sizeToEdit, setSizeToEdit] = useState<CategorySize>();
+
+    function handleRemoveSize() {
+        api?.defaultSizes.removeSize()
+    }
+
+    function handleAdd(category: Category) {
+        setAdd(true)
+        setCategory(category);
+    }
+
+    function handleRemoveCategory() {
+        api?.defaultSizes.removeCategory()
+    }
 
     return (
         <div className={styles.section}>
             {defaultSizes.map(c => (
-                <CategoryItem icon={c.icon} name={c.name} key={c.name}>
-                    <SizeList icon={c.icon} list={c.sizes} category={c.name}/>
+                <CategoryItem icon={c.icon} name={c.name} key={c.name}
+                              onAdd={
+                                  // user?.plan === "Admin" ?
+                                  () => handleAdd(c)
+                                  // :  undefined
+                              }
+                              onRemove={
+                                  // user?.plan === "Admin" ?
+                                  handleRemoveCategory
+                                  // :  undefined
+                              }
+                              onEdit={
+                                  // user?.plan === "Admin" ?
+                                  () => setCategoryToEdit(c)
+                                  // :  undefined
+                              }
+                >
+                    <SizeList icon={c.icon} list={c.sizes} category={c.name}
+                              onRemove={
+                                  // user?.plan === "Admin" ?
+                                  handleRemoveSize
+                                  // :  undefined
+                              }
+                              onEdit={
+                                  // user?.plan === "Admin" ?
+                                  setSizeToEdit
+                                  // :  undefined
+                              }
+                    />
                 </CategoryItem>
             ))}
-
-            {/*<CategoryItem icon={"testIcons/youtube.svg"} name={"Youtube"}/>*/}
-            {/*<CategoryItem icon={"testIcons/twitter.svg"} name={"Twitter"}/>*/}
-            {/*<CategoryItem icon={"testIcons/pinterest.svg"} name={"Pinterest"}>*/}
-            {/*    <SizeItem name={"Pin"} size={{width: 800, height: 1200}} isSelected={true}/>*/}
-            {/*    <SizeItem name={"Profile"}  size={{width: 165, height: 165}} isSelected={false}/>*/}
-            {/*    <SizeItem name={"Small Thumbnail"}  size={{width: 55, height: 55}} isSelected={false}/>*/}
-            {/*    <SizeItem name={"Board Cover"}  size={{width: 222, height: 150}} isSelected={false}/>*/}
-            {/*</CategoryItem>*/}
-            {/*<CategoryItem icon={"testIcons/instagram.svg"} name={"Instagram"}/>*/}
-            {/*<CategoryItem icon={"testIcons/twitch.svg"} name={"Twitch"}/>*/}
-            {/*<CategoryItem icon={"testIcons/tiktok.svg"} name={"Tiktok"}/>*/}
-            {/*<CategoryItem icon={"testIcons/snapchat.svg"} name={"Snapchat"}/>*/}
-            {/*<CategoryItem icon={"testIcons/reddit.svg"} name={"Reddit"}/>*/}
-            {/*<CategoryItem icon={"testIcons/google ads.svg"} name={"Google ads"}>*/}
-            {/*    <SizeItem name={"Large Rectangle"}  size={{width: 336, height: 280}} isSelected={true}/>*/}
-            {/*    <SizeItem name={"Medium Rectangle"}  size={{width: 300, height: 250}} isSelected={false}/>*/}
-            {/*</CategoryItem>*/}
+            <Modal isOpen={isAdd} setOpen={setAdd}>
+                <AddModal categories={defaultSizes.map(c => c.name)} category={category.name}/>
+            </Modal>
+            <Modal isOpen={!!categoryToEdit} setOpen={() => setCategoryToEdit(undefined)}>
+                <EditCategoryModal category={categoryToEdit as Category}/>
+            </Modal>
+            <Modal isOpen={!!sizeToEdit} setOpen={() => setSizeToEdit(undefined)}>
+                <EditSizeModal sizeToChange={sizeToEdit as CategorySize}/>
+            </Modal>
         </div>
     );
 };

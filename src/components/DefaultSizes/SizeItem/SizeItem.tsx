@@ -10,10 +10,12 @@ type Props = {
     isSelected: boolean;
     onClick?: (v: boolean) => void;
     onRemove?: () => void;
+    onEdit?: () => void;
 }
 
-const SizeItem = ({name, size, isSelected, onClick, onRemove}: Props) => {
+const SizeItem = ({name, size, isSelected, onClick, onRemove, onEdit}: Props) => {
     const [isHover, setHover] = useState<boolean>(false);
+    const [isEditHover, setEditHover] = useState<boolean>(false);
 
     const sizeString = size.width + "x" + size.height;
     return (
@@ -35,9 +37,18 @@ const SizeItem = ({name, size, isSelected, onClick, onRemove}: Props) => {
                 }
             </div>
             {onRemove &&
-				<div className={styles.trash}>
+				<div className={styles.button}>
                     {isHover &&
 						<TrashButton onClick={onRemove}/>
+                    }
+				</div>
+            }
+            {onEdit &&
+				<div className={styles.button} onClick={onEdit}>
+                    {isHover &&
+						<img src={`icons/edit-${isEditHover ? "hover" : "active"}.svg`} alt={"add"}
+							 onMouseEnter={() => setEditHover(true)}
+							 onMouseLeave={() => setEditHover(false)}/>
                     }
 				</div>
             }

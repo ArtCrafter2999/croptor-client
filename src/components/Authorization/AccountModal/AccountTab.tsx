@@ -1,8 +1,9 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import styles from "./AccountModal.module.scss"
-import {AppContext, imageExtensions, UserContext} from "../../../App";
+import {AppContext, UserContext} from "../../../App";
 import csx from "classnames";
 import {UserToSave} from "../../../models/User";
+import {imageExtensions} from "../../../isFileAnImage";
 
 const AccountTab = () => {
     const {api} = useContext(AppContext)

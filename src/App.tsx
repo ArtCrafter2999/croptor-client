@@ -14,13 +14,12 @@ import Authorization from "./components/Authorization/Authorization";
 import {User} from "./models/User";
 import Modal from "./components/Modal/Modal";
 import ErrorModal from "./components/ErrorModal/ErrorModal";
+import isFileAnImage, {imageExtensions} from "./isFileAnImage";
 
 
 const FREE_MAX_FILES_AMOUNT = 3;
 
 export const AppContext = createContext<ReducerState & { dispatch: Dispatch<Action> }>(null as any);
-
-export const imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'ico', "jfif"];
 
 export enum AuthTab {
     Account,
@@ -41,11 +40,7 @@ const App = () => {
         if(!state) return;
         const images: File[] = [];
         for (const file of files) {
-            const lastDotIndex = file.name.lastIndexOf('.');
-
-            if (lastDotIndex === -1) continue;
-            const extension = file.name.slice(lastDotIndex + 1).toLowerCase();
-            if (imageExtensions.includes(extension)) {
+            if (isFileAnImage(file)) {
                 images.push(file)
             }
         }
