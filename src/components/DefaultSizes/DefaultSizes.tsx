@@ -6,7 +6,7 @@ import SizeList from "./SizeList";
 import Modal from "../Modal/Modal";
 import AddModal from "./AddModal/AddModal";
 import {Category} from "../../reducer/reducer";
-import {CategorySize} from "../../models/Sizes";
+import {CategorySize, PresetSize} from "../../models/Sizes";
 import EditCategoryModal from "./EditCategoryModal/EditCategoryModal";
 import EditSizeModal from "./EditSizeModal/EditSizeModal";
 
@@ -18,8 +18,8 @@ const DefaultSizes = () => {
     const [categoryToEdit, setCategoryToEdit] = useState<Category>();
     const [sizeToEdit, setSizeToEdit] = useState<CategorySize>();
 
-    function handleRemoveSize() {
-        api?.defaultSizes.removeSize()
+    function handleRemoveSize(categoryId: string, size: PresetSize) {
+        api?.defaultSizes.removeSize(categoryId, size);
     }
 
     function handleAdd(category: Category) {
@@ -27,8 +27,9 @@ const DefaultSizes = () => {
         setCategory(category);
     }
 
-    function handleRemoveCategory() {
-        api?.defaultSizes.removeCategory()
+    function handleRemoveCategory(category: Category) {
+        if(category.id)
+            api?.defaultSizes.removeCategory(category.id)
     }
 
     return (
@@ -42,7 +43,7 @@ const DefaultSizes = () => {
                               }
                               onRemove={
                                   user?.plan === "Admin" ?
-                                  handleRemoveCategory
+                                  () => handleRemoveCategory(c)
                                   :  undefined
                               }
                               onEdit={
@@ -59,20 +60,23 @@ const DefaultSizes = () => {
                               }
                               onEdit={
                                   user?.plan === "Admin" ?
-                                  setSizeToEdit
+                                      (s) => {
+                                          setSizeToEdit(s);
+                                          setCategory(c);
+                                      }
                                   :  undefined
                               }
                     />
                 </CategoryItem>
             ))}
             <Modal isOpen={isAdd} setOpen={setAdd}>
-                <AddModal categories={defaultSizes.map(c => c.name)} category={category.name}/>
+                <AddModal categories={defaultSizes} category={category}/>
             </Modal>
             <Modal isOpen={!!categoryToEdit} setOpen={() => setCategoryToEdit(undefined)}>
                 <EditCategoryModal category={categoryToEdit as Category}/>
             </Modal>
             <Modal isOpen={!!sizeToEdit} setOpen={() => setSizeToEdit(undefined)}>
-                <EditSizeModal sizeToChange={sizeToEdit as CategorySize}/>
+                <EditSizeModal category={category} sizeToChange={sizeToEdit as CategorySize}/>
             </Modal>
         </div>
     );

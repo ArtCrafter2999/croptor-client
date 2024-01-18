@@ -10,11 +10,11 @@ const ImageSection = () => {
             {Object.values(imageDataDictionary).map(data =>
                 <ImageItem
                     key={data.image}
-                    params={data.useDefault? {...data, ...defaultParams} : data}
+                    params={data.useDefault? {...data, ...defaultParams, useDefault: data.useDefault} : data}
                     onChange={d =>
                         dispatch({
                             action: "imageParams",
-                            value: {...data, ...d, useDefault: data.useDefault !== d.useDefault && d.useDefault}
+                            value: {...data, ...d, useDefault: d.useDefault}
                         })
                     }
                 />

@@ -1,7 +1,7 @@
 import React, {useContext, useRef, useState} from 'react';
 import styles from "./Header.module.scss"
 import HeaderButton from "./HeaderButton";
-import {AppContext} from "../../App";
+import {AppContext, UserContext} from "../../App";
 import Lottie from "lottie-react";
 import animation from "./animation.json"
 import {CategorySize} from "../../models/Sizes";
@@ -11,6 +11,7 @@ type Props = {
     onFilesUploaded: (f: File[]) => void;
 }
 const Header = ({onFilesUploaded}: Props) => {
+    const {user} = useContext(UserContext)
     const {filesDictionary, imageDataDictionary, selectedPreset, dispatch, api, defaultParams} = useContext(AppContext)
     const [width, setWidth] = useState<string>("");
     const [height, setHeight] = useState<string>("");
@@ -19,7 +20,8 @@ const Header = ({onFilesUploaded}: Props) => {
     const ref = useRef<HTMLInputElement>();
 
     function handleReset() {
-        dispatch({action: "resetFiles"});
+        dispatch({action: "resetFiles", value: user?.plan ?? "Free" });
+        setDownloadLink(undefined)
     }
 
     function handleAddCustom() {

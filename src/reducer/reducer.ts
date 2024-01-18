@@ -3,13 +3,13 @@ import {CategorySize, PresetSize, Size} from "../models/Sizes";
 import {Preset} from "../models/Preset";
 import {GlobalParams, ImageParams, ImageParamsDictionary} from "../models/Params";
 import defaultSizes from "../defaultSizes.json";
-import {stat} from "fs";
 
 type FilesDictionary = { [fileName: string]: File };
 type SizesDictionary = { [fileName: string]: Size };
 export type Position = { x: number, y: number };
 
 export type Category = {
+    id?: string
     icon: string;
     name: string;
     sizes: CategorySize[];
@@ -74,7 +74,7 @@ export type Action =
     { action: "imageParams", value: ImageParams } |
     { action: "saveImageSize", value: { name: string, size: Size } } |
     { action: "addFiles", value: File[] } |
-    { action: "resetFiles" } |
+    { action: "resetFiles", value: "Free" | "Pro" | "Admin" } |
     { action: "removeImage", value: string } |
     { action: "addSizeToPreset", value: PresetSize } |
     { action: "removeSizeFromPreset", value: { name?: string, size: Size } } |
@@ -105,7 +105,7 @@ function reducer(state: ReducerState | null, action: Action): ReducerState | nul
         case "saveImageSize":
             return saveImageSize(state, action.value);
         case "resetFiles":
-            return ResetFiles(state);
+            return ResetFiles(state, action.value);
         case "removeImage":
             return removeImage(state, action.value);
         case "addSizeToPreset":
@@ -130,7 +130,15 @@ function reducer(state: ReducerState | null, action: Action): ReducerState | nul
 }
 
 function defaultParams(state: ReducerState, params: GlobalParams): ReducerState {
-    const defaultParams = params
+    const defaultParams = params;
+    if (state.defaultParams.useDefault !== params.useDefault) {
+        const imageDataDictionary = {...state.imageDataDictionary};
+        const imageDataKeys = Object.keys(imageDataDictionary);
+        for (const key of imageDataKeys) {
+            imageDataDictionary[key].useDefault = params.useDefault
+        }
+        return {...state, defaultParams, imageDataDictionary};
+    }
     return {...state, defaultParams};
 }
 
@@ -162,7 +170,13 @@ function saveImageSize(state: ReducerState, value: { name: string; size: Size })
     return {...state, sizesDictionary};
 }
 
-function ResetFiles(state: ReducerState): ReducerState {
+function ResetFiles(state: ReducerState, plan: "Free" | "Pro" | "Admin"): ReducerState {
+    if (plan === "Free") {
+        const selectedPreset = {...state.selectedPreset}
+        selectedPreset.sizes = []
+        const presets = [selectedPreset];
+        return {...state, filesDictionary: {}, imageDataDictionary: {}, presets, selectedPreset}
+    }
     return {...state, filesDictionary: {}, imageDataDictionary: {}};
 }
 

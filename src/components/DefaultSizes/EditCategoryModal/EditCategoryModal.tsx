@@ -17,7 +17,14 @@ const EditCategoryModal = ({category}: Props) => {
     const [title, setTitle] = useState<string>(category.name);
 
     function handleEdit() {
-        api?.defaultSizes.editCategory();
+        if(!api) return;
+        function upload(file: File| undefined): Promise<string | undefined> {
+            if(!api) throw new Error("api cant be undefined at this point")
+            if(file)
+                return api.images.upload(file);
+            return Promise.resolve(undefined);
+        }
+        upload(file).then(uri => api.defaultSizes.editCategory(category.id as string, title, uri));
         closeModal()
     }
 

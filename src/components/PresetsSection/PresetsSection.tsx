@@ -20,9 +20,9 @@ const PresetsSection = ({setError}: Props) => {
     }
 
     function handleSave() {
-        // if (!user || user.plan === "Free")
-        //     setError("To save presets please upgrade to PRO PLAN");
-        // else
+        if (!user || user.plan === "Free")
+            setError("To save presets please upgrade to PRO PLAN");
+        else
             api?.presets.savePreset(selectedPreset);
     }
 

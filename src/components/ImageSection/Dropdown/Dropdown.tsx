@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import styles from "./Dropdown.module.scss"
 import usePopup from "../../usePopup";
+import csx from "classnames";
 
 type Props = {
     options: string[]
@@ -16,7 +17,7 @@ const Dropdown = ({options, selectedOption, selectOption, icon, classname, ...re
 
     return (
         <>
-            <div className={styles.dropdown} onClick={() => setOpen(prev => !prev)} ref={ref as any} {...rest}>
+            <div className={csx(styles.dropdown, classname)} onClick={() => setOpen(prev => !prev)} ref={ref as any} {...rest}>
                 {icon &&
 					<img src={icon} className={styles.icon}/>
                 }

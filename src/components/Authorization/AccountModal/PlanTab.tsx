@@ -36,14 +36,13 @@ const PlanTab = () => {
                     <div className={styles.field}>
                         <span className={styles.field}>{user.plan}</span>
                     </div>
-                    {expires > currentDate &&
+
 						<>
 							<span className={styles.name}>Valid Till</span>
 							<div className={styles.field}>
-								<span className={styles.field}>{format(expires, "dd.MM.yyyy")}</span>
+								<span className={styles.field}>{expires > currentDate ? format(expires, "dd.MM.yyyy") : user.plan + " Plan"}</span>
 							</div>
 						</>
-                    }
                     <span className={styles.name}>Update </span>
                     <div className={styles.field}>
                         <span className={styles.field}>$9/mo</span>

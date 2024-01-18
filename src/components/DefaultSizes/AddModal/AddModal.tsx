@@ -4,6 +4,7 @@ import content from "../ModalContent.module.scss"
 import csx from "classnames";
 import AddSize from "./Tabs/AddSize";
 import AddCategory from "./Tabs/AddCategory";
+import {Category} from "../../../reducer/reducer";
 
 enum Tab {
     AddSize,
@@ -13,8 +14,8 @@ enum Tab {
 }
 
 type Props = {
-    category: string
-    categories: string[]
+    category: Category
+    categories: Category[]
 }
 const AddModal = ({category, categories}: Props) => {
     const [tab, setTab] = useState<Tab>(Tab.AddSize);
@@ -37,7 +38,7 @@ const AddModal = ({category, categories}: Props) => {
             </div>
             <div className={content.content}>
                 {
-                    (tab === Tab.AddSize && <AddSize categories={categories} defaultCategory={category}/>) ||
+                    (tab === Tab.AddSize && <AddSize defaultCategory={category} categories={categories}/>) ||
                     (tab === Tab.AddCategory && <AddCategory/>)
                 }
             </div>

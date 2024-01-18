@@ -19,13 +19,13 @@ const Authorization = ({tab, setTab}: Props) => {
     const [isOpen, setOpen, ref] = usePopup();
 
     useEffect(() => {
-        if(!!tab && !user) {
+        if (!!tab && !user) {
             handleLogin();
         }
     }, [tab]);
 
     function handleLogin() {
-        api? signinRedirect() :
+        api ? signinRedirect() :
             setUser({
                 id: "testID",
                 name: "iceid",
@@ -56,10 +56,10 @@ const Authorization = ({tab, setTab}: Props) => {
 											<div className={styles.head}><span>{user.name}</span></div>
 											<div className={styles.content}>
 												<div>
-									<span className={styles.button} onClick={() => {
-                                        setTab(AuthTab.Account)
-                                        setOpen(false);
-                                    }}>Account</span>
+                                                    <span className={styles.button} onClick={() => {
+                                                        setTab(AuthTab.Account)
+                                                        setOpen(false);
+                                                    }}>Account</span>
 													<span>Plan: <b>{user.plan}</b></span>
 												</div>
 												<div className={styles.end}>

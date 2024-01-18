@@ -36,11 +36,11 @@ const SetCenterModal = ({params, onOk}: Props) => {
             if (!originalSize) return;
             let width: number;
             let height: number;
-            if (originalSize.width > originalSize.height) {
-                width = document.documentElement.clientWidth * 0.60;
+            if (originalSize.width > originalSize.height * 2) {
+                width = document.documentElement.clientWidth * 0.50;
                 height = originalSize.height * (width / originalSize.width);
             } else {
-                height = document.documentElement.clientHeight * 0.60;
+                height = document.documentElement.clientHeight * 0.70;
                 width = originalSize.width * (height / originalSize.height);
             }
             setDisplayedSize({width, height});

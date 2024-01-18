@@ -3,21 +3,22 @@ import styles from "../../ModalContent.module.scss"
 import {Size} from "../../../../models/Sizes";
 import {ModalContext} from "../../../Modal/Modal";
 import {AppContext} from "../../../../App";
+import {Category} from "../../../../reducer/reducer";
 
 type Props = {
-    defaultCategory: string,
-    categories: string[];
+    defaultCategory: Category
+    categories: Category[];
 }
 
 const AddSize = ({defaultCategory, categories}: Props) => {
     const {api} = useContext(AppContext)
     const {closeModal} = useContext(ModalContext)
-    const [category, setCategory] = useState<string>(defaultCategory);
+    const [category, setCategory] = useState<Category>(defaultCategory);
     const [title, setTitle] = useState<string>("new size");
     const [size, setSize] = useState<Size>({width: 1, height: 1});
 
     function handleCreate() {
-        api?.defaultSizes.addSize();
+        api?.defaultSizes.addSize(category.id as string, {...size, name: title, icon: category.icon});
         closeModal()
     }
 
@@ -25,8 +26,10 @@ const AddSize = ({defaultCategory, categories}: Props) => {
         <>
             <div className={styles.inputGroup}>
                 <span>Category</span>
-                <select value={category} onChange={e => setCategory(e.target.value)}>
-                    {categories.map(c => <option value={c}>{c}</option>)}
+                <select value={category.id ?? category.name}
+                        onChange={e => setCategory(
+                            categories.find(c => c.id === e.target.value || c.name === e.target.value) as Category)}>
+                    {categories.map(c => <option value={c.id}>{c.name}</option>)}
                 </select>
             </div>
             <div className={styles.inputGroup}>

@@ -11,7 +11,15 @@ const AddCategory = () => {
     const [file, setFile] = useState<File>();
     const [title, setTitle] = useState<string>("new category");
     function handleCreate() {
-        api?.defaultSizes.addCategory();
+        if(!api) return;
+        function upload(file: File| undefined): Promise<string | undefined> {
+            if(!api) throw new Error("api cant be undefined at this point")
+            if(file)
+                return api.images.upload(file);
+            return Promise.resolve(undefined);
+        }
+        upload(file).then(uri => api.defaultSizes.addCategory(title, uri))
+
         closeModal()
     }
     function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {

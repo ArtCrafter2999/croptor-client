@@ -1,6 +1,6 @@
 .item {
   display: grid;
-  grid-template-columns: 5rem calc(100%/6 + 1rem) repeat(4, minmax(calc(100%/6), 1fr));
+  grid-template-columns: 5rem calc(100% / 6 + 1rem) repeat(3, minmax(calc(100% / 6), 1fr)) 6rem;
   height: 7.0rem;
   margin: .5rem;
 
@@ -25,7 +25,7 @@
     .image {
       display: flex;
 
-      & > img{
+      & > img {
         margin-left: 1.4rem;
         width: 4.5rem;
         height: 4.5rem;
@@ -33,16 +33,19 @@
         //border: black solid 1px;
         border-radius: .5rem;
       }
+
       .icon {
         width: 3rem;
         display: flex;
         justify-content: end;
         align-items: center;
         position: relative;
+
         img {
           width: 1.4rem;
           height: 1.4rem;
         }
+
         .warning {
           position: absolute;
           border-radius: .4rem;
@@ -51,13 +54,23 @@
           width: 33rem;
           left: 4rem;
           top: 0;
+
           p {
             margin: 1.6rem;
-            font-size: .9rem;
+            font-size: 1.2rem;
+            line-height: 130%;
             color: #567070;
           }
-          .sizeItem img {
-            margin-top: .3rem;
+
+          .sizeItem {
+            span {
+              font-size: .9rem;
+              margin-top: .5rem;
+            }
+
+            img {
+              margin-top: .3rem;
+            }
           }
         }
       }
@@ -76,14 +89,15 @@
     display: flex;
     justify-content: center;
     align-items: start;
+
     .button {
-      margin:{
+      margin: {
         top: 1rem;
         left: 2rem;
       }
       user-select: none;
       color: #567070;
-      border: #999 .1rem solid;
+      border: #999 .15rem solid;
       border-radius: 3.0rem;
       font-weight: 700;
       font-size: 0.9rem;
@@ -91,17 +105,21 @@
       padding: 0.2rem 1.8rem {
         top: 0.2rem
       };
+
       &:hover {
         background-color: #999;
         color: white;
       }
+
       &.active {
         border: #00dede .1rem solid;
+
         &:hover {
           background-color: #00dede;
         }
       }
     }
+
     img {
       margin-top: 1rem;
       width: 1.7rem;
@@ -113,4 +131,7 @@
 
 .switch {
   margin-top: .6rem;
+}
+.bitSpace > span {
+  margin-left: .1rem;
 }

@@ -7,6 +7,7 @@ footer.footer {
   height: 5.0rem;
   color: #758c9a;
   font-size: 1.3rem;
+  margin-top: .4rem;
   user-select: none;
   -webkit-user-drag: none;
   span {
@@ -26,8 +27,8 @@ footer.footer {
     }
     &:nth-child(2) {
       margin: {
-        top: .4rem;
-        bottom: .8rem;
+        top: 1.2rem;
+        bottom: .4rem;
       }
     }
 

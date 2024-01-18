@@ -22,16 +22,20 @@ const TopPart = ({name, onPrev, onNext, onSave, onRemove, onChangeName}: Props) 
     function handleOnHover() {
         setNewTitle(name);
     }
+    function handleFocus() {
+        setFocused(true);
+        setNewTitle("");
+    }
     function handleMouseLeave() {
         if (!isFocused)
             setNewTitle(undefined);
     }
     function handleBlur() {
-        if(!newTitle) return;
         setFocused(false);
+        setNewTitle(undefined);
+        if(!newTitle) return;
         onChangeName &&
         onChangeName(newTitle);
-        setNewTitle(undefined);
     }
 
     return (
@@ -46,7 +50,7 @@ const TopPart = ({name, onPrev, onNext, onSave, onRemove, onChangeName}: Props) 
                         maxLength={16}
                         value={newTitle}
                         onChange={handleChange}
-                        onFocus={() => setFocused(true)}
+                        onFocus={handleFocus}
                         onBlur={handleBlur}
                         onKeyDown={e => e.key === "Enter" && handleBlur()}
                         onMouseLeave={handleMouseLeave}

@@ -7,7 +7,7 @@ type Props = {
     icon: string;
     list: CategorySize[]
     category: string
-    onRemove?: (category: string, s: CategorySize) => void;
+    onRemove?: (category: string, s: PresetSize) => void;
     onEdit?: (s: CategorySize) => void;
 }
 
@@ -34,7 +34,7 @@ const SizeList = ({icon, list, onRemove, category, onEdit}: Props) => {
                         ps.width === s.width &&
                         ps.height === s.height)}
                     onClick={(v) => handleClick(v, {...s, icon: icon})}
-                    onRemove={onRemove === undefined? undefined: () => onRemove(category, s)}
+                    onRemove={onRemove === undefined? undefined: () => onRemove(category, {...s, icon: icon})}
                     onEdit={onEdit === undefined? undefined: () => onEdit(s)}
                 />)}
         </>

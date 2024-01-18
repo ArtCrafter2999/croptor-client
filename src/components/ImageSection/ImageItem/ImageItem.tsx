@@ -96,6 +96,7 @@ const ImageItem = ({
             </div>
             <div>
                 <Dropdown options={["Left", "Center", "Right"]} icon={`icons/horizontal-snap-${params.centerPosition ? "inactive": "active"}.svg`}
+                          classname={styles.bitSpace}
                           selectedOption={state.horizontalSnap}
                           selectOption={(v) => {
                               state.horizontalSnap = v as Horizontal;
