@@ -46,6 +46,13 @@ const AccountTab = () => {
             .then(uri => setImageToChange(uri));
     }
 
+    function handleEditEmail() {
+        window.location.replace(process.env.REACT_APP_AUTHORITY+ "/Account/Email" ?? "/")
+    }
+    function handleEditPassword() {
+        window.location.replace(process.env.REACT_APP_AUTHORITY+ "/Account/SetPassword" ?? "/")
+    }
+
     return (
         <div className={styles.account}>
             <div className={styles.imageContainer}>
@@ -71,18 +78,18 @@ const AccountTab = () => {
                 <>
                     <span className={styles.name}>Email</span>
                     <div className={styles.field}>
-                        <span className={styles.edit}>
+                        <span className={styles.edit} onClick={handleEditEmail}>
                             edit
                         </span>
                         <input className={styles.field} value={user.email} readOnly/>
                     </div>
                     <div>
-                        <div className={styles.ok}>ok</div>
+                        {/*<div className={styles.ok}>ok</div>*/}
                     </div>
                 </>
                 <>
                     <span className={styles.name}>Password</span>
-                    <div className={styles.button}>
+                    <div className={styles.button} onClick={handleEditPassword}>
                         <span className={styles.button}>change</span>
                     </div>
                 </>

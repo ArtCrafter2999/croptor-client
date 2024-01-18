@@ -14,10 +14,10 @@ export class DefaultSizesController extends ClientBase {
 
         return this.sendRequest({url, options});
     }
-    addSize(body: any): Promise<void> {
+    addSize(): Promise<void> {
         let url = "/default/size";
 
-        const content = JSON.stringify(body);
+        const content = JSON.stringify({});
 
         let options: RequestInit = {
             body: content,
@@ -30,10 +30,10 @@ export class DefaultSizesController extends ClientBase {
         return this.sendRequest({url, options});
     }
 
-    addCategory(body: any): Promise<void> {
+    addCategory(): Promise<void> {
         let url = "/default/category";
 
-        const content = JSON.stringify(body);
+        const content = JSON.stringify({});
 
         let options: RequestInit = {
             body: content,
@@ -46,10 +46,10 @@ export class DefaultSizesController extends ClientBase {
         return this.sendRequest({url, options});
     }
 
-    removeSize(body: any): Promise<void> {
+    removeSize(): Promise<void> {
         let url = "/default/size";
 
-        const content = JSON.stringify(body);
+        const content = JSON.stringify({});
 
         let options: RequestInit = {
             body: content,
@@ -62,10 +62,10 @@ export class DefaultSizesController extends ClientBase {
         return this.sendRequest({url, options});
     }
 
-    removeCategory(body: any): Promise<void> {
+    removeCategory(): Promise<void> {
         let url = "/default/category";
 
-        const content = JSON.stringify(body);
+        const content = JSON.stringify({});
 
         let options: RequestInit = {
             body: content,
@@ -78,10 +78,10 @@ export class DefaultSizesController extends ClientBase {
         return this.sendRequest({url, options});
     }
 
-    editSize(body: any): Promise<void> {
+    editSize(): Promise<void> {
         let url = "/default/size";
 
-        const content = JSON.stringify(body);
+        const content = JSON.stringify({});
 
         let options: RequestInit = {
             body: content,
@@ -94,10 +94,10 @@ export class DefaultSizesController extends ClientBase {
         return this.sendRequest({url, options});
     }
 
-    editCategory(body: any): Promise<void> {
+    editCategory(): Promise<void> {
         let url = "/default/category";
 
-        const content = JSON.stringify(body);
+        const content = JSON.stringify({});
 
         let options: RequestInit = {
             body: content,

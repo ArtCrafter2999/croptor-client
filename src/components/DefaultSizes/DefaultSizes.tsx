@@ -36,31 +36,31 @@ const DefaultSizes = () => {
             {defaultSizes.map(c => (
                 <CategoryItem icon={c.icon} name={c.name} key={c.name}
                               onAdd={
-                                  // user?.plan === "Admin" ?
+                                  user?.plan === "Admin" ?
                                   () => handleAdd(c)
-                                  // :  undefined
+                                  :  undefined
                               }
                               onRemove={
-                                  // user?.plan === "Admin" ?
+                                  user?.plan === "Admin" ?
                                   handleRemoveCategory
-                                  // :  undefined
+                                  :  undefined
                               }
                               onEdit={
-                                  // user?.plan === "Admin" ?
+                                  user?.plan === "Admin" ?
                                   () => setCategoryToEdit(c)
-                                  // :  undefined
+                                  :  undefined
                               }
                 >
                     <SizeList icon={c.icon} list={c.sizes} category={c.name}
                               onRemove={
-                                  // user?.plan === "Admin" ?
+                                  user?.plan === "Admin" ?
                                   handleRemoveSize
-                                  // :  undefined
+                                  :  undefined
                               }
                               onEdit={
-                                  // user?.plan === "Admin" ?
+                                  user?.plan === "Admin" ?
                                   setSizeToEdit
-                                  // :  undefined
+                                  :  undefined
                               }
                     />
                 </CategoryItem>
