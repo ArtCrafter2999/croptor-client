@@ -5,7 +5,7 @@ import {PresetSize} from "../models/Sizes";
 export class DefaultSizesController extends ClientBase {
 
     getCategories() : Promise<Category[]> {
-        let url = "/default/size";
+        let url = "/default/categories";
 
         let options: RequestInit = {
             method: "GET",
