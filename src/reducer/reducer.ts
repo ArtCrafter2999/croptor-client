@@ -3,7 +3,6 @@ import {CategorySize, PresetSize, Size} from "../models/Sizes";
 import {Preset} from "../models/Preset";
 import {GlobalParams, ImageParams, ImageParamsDictionary} from "../models/Params";
 import defaultSizes from "../defaultSizes.json";
-import {stat} from "fs";
 
 type FilesDictionary = { [fileName: string]: File };
 type SizesDictionary = { [fileName: string]: Size };
@@ -37,6 +36,7 @@ export async function LoadData(): Promise<ReducerState> {
     let presets: string[]
     let selectedPreset: Preset
     let customSizes: Size[]
+    let categories: Category[];
 
     if (api) {
         presets = await api.presets.getPresets().catch(() => []);
@@ -44,10 +44,12 @@ export async function LoadData(): Promise<ReducerState> {
             await api.presets.getPreset(presets[0]) :
             {name: "new preset", sizes: []};
         customSizes = await api.presets.getCustomSizes().catch(() => []);
+        categories = await api.defaultSizes.getCategories();
     } else {
         presets = [];
         selectedPreset = {name: "new preset", sizes: []};
         customSizes = [];
+        categories = defaultSizes as Category[];
     }
 
     return {
@@ -61,7 +63,7 @@ export async function LoadData(): Promise<ReducerState> {
         filesDictionary: {},
         sizesDictionary: {},
         selectedPreset,
-        defaultSizes: defaultSizes as Category[],
+        defaultSizes: categories,
         customSizes,
         api,
         presetIds: presets,
