@@ -10,7 +10,7 @@ export type Position = { x: number, y: number };
 
 export type Category = {
     id?: string
-    icon: string;
+    iconUri: string;
     name: string;
     sizes: CategorySize[];
 }
