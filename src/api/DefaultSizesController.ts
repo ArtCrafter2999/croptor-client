@@ -31,7 +31,7 @@ export class DefaultSizesController extends ClientBase {
         return this.sendRequest({url, options});
     }
 
-    addCategory(name: string, icon?: string): Promise<void> {
+    addCategory(name: string, icon?: string): Promise<string> {
         let url = "/default/category";
 
         const content = JSON.stringify({name, icon});

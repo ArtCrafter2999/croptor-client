@@ -10,7 +10,7 @@ type Props = {
 }
 
 const EditCategoryModal = ({category}: Props) => {
-    const {api} = useContext(AppContext)
+    const {api, dispatch} = useContext(AppContext)
     const {closeModal} = useContext(ModalContext)
     const [clearKey, setClearKey] = useState<number>(0);
     const [file, setFile] = useState<File>();
@@ -24,7 +24,11 @@ const EditCategoryModal = ({category}: Props) => {
                 return api.images.upload(file);
             return Promise.resolve(undefined);
         }
-        upload(file).then(uri => api.defaultSizes.editCategory(category.id as string, title, uri));
+        upload(file)
+            .then(uri => api.defaultSizes.editCategory(category.id as string, title, uri).then(() => uri))
+            .then((uri) =>
+                dispatch({action: "editCategory", value:{id: category.id as string, name: title, icon: uri}}))
+        ;
         closeModal()
     }
 
@@ -50,7 +54,7 @@ const EditCategoryModal = ({category}: Props) => {
                     <span>Name</span>
                     <input type={"text"} value={title} onChange={e => setTitle(e.target.value)}/>
                 </div>
-                <div className={styles.button} onClick={handleEdit}>Create</div>
+                <div className={styles.button} onClick={handleEdit}>Edit</div>
             </div>
         </div>
     );

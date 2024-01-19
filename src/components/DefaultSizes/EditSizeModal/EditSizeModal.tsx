@@ -11,16 +11,17 @@ type Props = {
 }
 
 const EditSizeModal = ({category, sizeToChange}: Props) => {
-    const {api} = useContext(AppContext)
+    const {api, dispatch} = useContext(AppContext)
     const {closeModal} = useContext(ModalContext)
     const [title, setTitle] = useState<string>(sizeToChange.name as string);
     const [size, setSize] = useState<Size>(sizeToChange);
 
-    function handleCreate() {
-        api?.defaultSizes.editSize(
-            category.id as string,
-            {...sizeToChange, icon: category.icon},
-            {...size, name: title, icon: category.icon});
+    function handleEdit() {
+        const categoryId = category.id as string;
+        const oldSize = {...sizeToChange, icon: category.icon};
+        const newSize = {...size, name: title, icon: category.icon};
+        api?.defaultSizes.editSize(categoryId, oldSize, newSize)
+            .then(() => dispatch({action: "editSize", value: {oldSize, newSize, categoryId}}))
         closeModal()
     }
 
@@ -45,7 +46,7 @@ const EditSizeModal = ({category, sizeToChange}: Props) => {
                                    ({width: prev.width, height: Number(e.target.value)}))}/>
                     </div>
                 </div>
-                <div className={styles.button} onClick={handleCreate}>Create</div>
+                <div className={styles.button} onClick={handleEdit}>Edit</div>
             </div>
         </div>
     )

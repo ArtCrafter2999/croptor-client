@@ -5,7 +5,7 @@ import {ModalContext} from "../../../Modal/Modal";
 import isFileAnImage from "../../../../isFileAnImage";
 
 const AddCategory = () => {
-    const {api} = useContext(AppContext)
+    const {api, dispatch} = useContext(AppContext)
     const {closeModal} = useContext(ModalContext)
     const [clearKey, setClearKey] = useState<number>(0);
     const [file, setFile] = useState<File>();
@@ -18,8 +18,8 @@ const AddCategory = () => {
                 return api.images.upload(file);
             return Promise.resolve(undefined);
         }
-        upload(file).then(uri => api.defaultSizes.addCategory(title, uri))
-
+        upload(file).then(uri => api.defaultSizes.addCategory(title, uri).then(id => ({id, uri})))
+            .then(value => dispatch({action: "addCategory", value: {id: value.id, icon: value.uri, name: title}}));
         closeModal()
     }
     function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
