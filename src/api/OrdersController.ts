@@ -3,12 +3,10 @@ import {WayForPayRequest} from "../models/WayForPayRequest";
 
 export class OrdersController extends ClientBase {
     create(amount: number): Promise<WayForPayRequest> {
-        let url = `/orders`;
-
-        const content = JSON.stringify({amount});
+        let url = `/orders?amount={amount}`;
+        url.replace("{amount}", encodeURIComponent("" + amount));
 
         let options: RequestInit = {
-            body: content,
             method: "POST",
             headers: {
                 "Content-Type": "application/json-patch+json",
