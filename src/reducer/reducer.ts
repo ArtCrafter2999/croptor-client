@@ -3,6 +3,7 @@ import {CategorySize, PresetSize, Size} from "../models/Sizes";
 import {Preset} from "../models/Preset";
 import {GlobalParams, ImageParams, ImageParamsDictionary} from "../models/Params";
 import defaultSizes from "../defaultSizes.json";
+import {stat} from "fs";
 
 type FilesDictionary = { [fileName: string]: File };
 type SizesDictionary = { [fileName: string]: Size };
@@ -84,8 +85,13 @@ export type Action =
     { action: "selectPreset", value: number } |
     { action: "handlePresetLoaded", value: { preset: Preset, index: number } } |
     { action: "changePresetTitle", value: { index: number, title: string } } |
-    { action: "createPreset" }
-
+    { action: "createPreset" } |
+    { action: "addSize", value: {categoryId: string, size: PresetSize}} |
+    { action: "addCategory", value: {id: string, name: string, icon?: string}} |
+    { action: "removeSize", value: {categoryId: string, size: PresetSize}} |
+    { action: "removeCategory", value: {categoryId: string}} |
+    { action: "editSize", value: {categoryId: string, oldSize: PresetSize, newSize: PresetSize}} |
+    { action: "editCategory", value: {id: string, name: string, icon?: string}}
 
 function reducer(state: ReducerState | null, action: Action): ReducerState | null {
     if (!state) {
@@ -126,6 +132,18 @@ function reducer(state: ReducerState | null, action: Action): ReducerState | nul
             return removePreset(state, action.value);
         case "createPreset":
             return createPreset(state);
+        case "addSize":
+            return addSize(state, action.value);
+        case "addCategory":
+            return addCategory(state, action.value);
+        case "removeSize":
+            return removeSize(state, action.value);
+        case "removeCategory":
+            return removeCategory(state, action.value);
+        case "editSize":
+            return editSize(state, action.value);
+        case "editCategory":
+            return editCategory(state, action.value);
     }
 }
 
@@ -268,6 +286,63 @@ function createPreset(state: ReducerState): ReducerState {
     const selectedPreset = {name: "new preset", sizes: []};
     presets.push(selectedPreset);
     return {...state, presets, selectedPreset}
+}
+
+function addSize(state: ReducerState, value: { categoryId: string; size: PresetSize }) : ReducerState {
+    const defaultSizes = {...state.defaultSizes}
+    const index = defaultSizes.findIndex(c => c.id === value.categoryId);
+    if(index >= 0) {
+        defaultSizes[index].sizes.push(value.size)
+    }
+    return {...state, defaultSizes};
+}
+function addCategory(state: ReducerState, value: { id: string, name: string; icon?: string }) : ReducerState {
+    const defaultSizes = {...state.defaultSizes}
+    defaultSizes.push({id: value.id, name: value.name, icon: value.icon ?? "icons/custom-size.svg", sizes: []});
+    return {...state, defaultSizes};
+}
+
+function removeSize(state: ReducerState, value: { categoryId: string; size: PresetSize }) : ReducerState {
+    const defaultSizes = {...state.defaultSizes}
+    const index = defaultSizes.findIndex(c => c.id === value.categoryId);
+    if(index >= 0) {
+        const sIndex = defaultSizes[index].sizes.findIndex(s =>
+            s.width === value.size.width &&
+            s.height === value.size.height &&
+            s.name === value.size.name
+        );
+        defaultSizes[index].sizes.splice(sIndex, 1);
+    }
+    return {...state, defaultSizes};
+}
+
+function removeCategory(state: ReducerState, value: { categoryId: string }) : ReducerState{
+    const defaultSizes = {...state.defaultSizes}
+    const index = defaultSizes.findIndex(c => c.id === value.categoryId);
+    defaultSizes.splice(index, 1);
+    return {...state, defaultSizes};
+}
+
+function editSize(state: ReducerState, value: { categoryId: string; oldSize: PresetSize; newSize: PresetSize }) : ReducerState {
+    const defaultSizes = {...state.defaultSizes}
+    const index = defaultSizes.findIndex(c => c.id === value.categoryId);
+    if(index >= 0) {
+        const sIndex = defaultSizes[index].sizes.findIndex(s =>
+            s.width === value.oldSize.width &&
+            s.height === value.oldSize.height &&
+            s.name === value.oldSize.name
+        );
+        defaultSizes[index].sizes[sIndex] = value.newSize;
+    }
+    return {...state, defaultSizes};
+}
+
+function editCategory(state: ReducerState, value: { id: string; name: string; icon?: string }) : ReducerState {
+    const defaultSizes = {...state.defaultSizes}
+    const index = defaultSizes.findIndex(c => c.id === value.id);
+    defaultSizes[index].name = value.name;
+    defaultSizes[index].icon = value.icon ?? "icons/custom-size.svg";
+    return {...state, defaultSizes};
 }
 
 export default reducer;

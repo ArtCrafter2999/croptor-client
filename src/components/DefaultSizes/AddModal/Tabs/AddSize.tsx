@@ -11,14 +11,21 @@ type Props = {
 }
 
 const AddSize = ({defaultCategory, categories}: Props) => {
-    const {api} = useContext(AppContext)
+    const {api, dispatch} = useContext(AppContext)
     const {closeModal} = useContext(ModalContext)
     const [category, setCategory] = useState<Category>(defaultCategory);
     const [title, setTitle] = useState<string>("new size");
     const [size, setSize] = useState<Size>({width: 1, height: 1});
 
     function handleCreate() {
-        api?.defaultSizes.addSize(category.id as string, {...size, name: title, icon: category.icon});
+        api?.defaultSizes.addSize(category.id as string, {...size, name: title, icon: category.icon})
+            .then(() =>
+                dispatch({
+                    action: "addSize", value: {
+                        categoryId: category.id as string,
+                        size: {...size, name: title, icon: category.icon}
+                    }
+                }));
         closeModal()
     }
 

@@ -11,7 +11,7 @@ import EditCategoryModal from "./EditCategoryModal/EditCategoryModal";
 import EditSizeModal from "./EditSizeModal/EditSizeModal";
 
 const DefaultSizes = () => {
-    const {defaultSizes, api} = useContext(AppContext)
+    const {defaultSizes, api, dispatch} = useContext(AppContext)
     const {user} = useContext(UserContext)
     const [isAdd, setAdd] = useState<boolean>(false);
     const [category, setCategory] = useState<Category>(defaultSizes[0]);
@@ -19,7 +19,8 @@ const DefaultSizes = () => {
     const [sizeToEdit, setSizeToEdit] = useState<CategorySize>();
 
     function handleRemoveSize(categoryId: string, size: PresetSize) {
-        api?.defaultSizes.removeSize(categoryId, size);
+        api?.defaultSizes.removeSize(categoryId, size)
+            .then(() => dispatch({action: "removeSize", value: {categoryId, size}}))
     }
 
     function handleAdd(category: Category) {
@@ -30,6 +31,7 @@ const DefaultSizes = () => {
     function handleRemoveCategory(category: Category) {
         if(category.id)
             api?.defaultSizes.removeCategory(category.id)
+                .then(() => dispatch({action: "removeCategory", value: {categoryId: category.id as string}}))
     }
 
     return (
