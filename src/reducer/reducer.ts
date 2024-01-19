@@ -300,7 +300,7 @@ function addSize(state: ReducerState, value: { categoryId: string; size: PresetS
 }
 function addCategory(state: ReducerState, value: { id: string, name: string; icon?: string }) : ReducerState {
     const defaultSizes = {...state.defaultSizes}
-    defaultSizes.push({id: value.id, name: value.name, icon: value.icon ?? "icons/custom-size.svg", sizes: []});
+    defaultSizes.push({id: value.id, name: value.name, iconUri: value.icon ?? "icons/custom-size.svg", sizes: []});
     return {...state, defaultSizes};
 }
 
@@ -343,7 +343,7 @@ function editCategory(state: ReducerState, value: { id: string; name: string; ic
     const defaultSizes = {...state.defaultSizes}
     const index = defaultSizes.findIndex(c => c.id === value.id);
     defaultSizes[index].name = value.name;
-    defaultSizes[index].icon = value.icon ?? "icons/custom-size.svg";
+    defaultSizes[index].iconUri = value.icon ?? "icons/custom-size.svg";
     return {...state, defaultSizes};
 }
 

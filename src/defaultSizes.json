@@ -1,6 +1,6 @@
 [
   {
-    "icon": "testIcons/instagram.svg",
+    "iconUri": "testIcons/instagram.svg",
     "name": "Instagram",
     "sizes": [
       {"name": "Story", "width": 1080, "height": 1920},
@@ -13,7 +13,7 @@
     ]
   },
   {
-    "icon": "testIcons/facebook.svg",
+    "iconUri": "testIcons/facebook.svg",
     "name": "Facebook",
     "sizes": [
       {"name": "Profile Photo", "width": 170, "height": 170},
@@ -34,7 +34,7 @@
     ]
   },
   {
-    "icon": "testIcons/linkedin.svg",
+    "iconUri": "testIcons/linkedin.svg",
     "name": "LinkedIn",
     "sizes": [
       {"name": "Blog Post Link Image", "width": 1080, "height": 1080},
@@ -52,7 +52,7 @@
     ]
   },
   {
-    "icon": "testIcons/pinterest.svg",
+    "iconUri": "testIcons/pinterest.svg",
     "name": "Pinterest",
     "sizes": [
       {"name": "Pin", "width": 1000, "height": 1500},
@@ -69,7 +69,7 @@
     ]
   },
   {
-    "icon": "testIcons/twitter.svg",
+    "iconUri": "testIcons/twitter.svg",
     "name": "Twitter",
     "sizes": [
       {"name": "Landscape Feed", "width": 1600, "height": 600},
@@ -86,7 +86,7 @@
     ]
   },
   {
-    "icon": "testIcons/snapchat.svg",
+    "iconUri": "testIcons/snapchat.svg",
     "name": "Snapchat",
     "sizes": [
       {"name": "Geofilter Image", "width": 1080, "height": 1920},
@@ -94,7 +94,7 @@
     ]
   },
   {
-    "icon": "testIcons/twitch.svg",
+    "iconUri": "testIcons/twitch.svg",
     "name": "Twitch",
     "sizes": [
       {"name": "Profile Banner", "width": 1200, "height": 480},
@@ -108,24 +108,24 @@
     ]
   },
   {
-    "icon": "testIcons/tiktok.svg",
+    "iconUri": "testIcons/tiktok.svg",
     "name": "TikTok",
     "sizes": [
       {"name": "Profile Photo", "width": 200, "height": 200}
     ]
   },
   {
-    "icon": "testIcons/youtube.svg",
+    "iconUri": "testIcons/youtube.svg",
     "name": "YouTube",
     "sizes": [
       {"name": "Banner", "width": 2048, "height": 1152},
       {"name": "Video", "width": 1280, "height": 720},
-      {"name": "Channel Icon", "width": 800, "height": 800},
+      {"name": "Channel iconUri", "width": 800, "height": 800},
       {"name": "Thumbnail", "width": 1280, "height": 720}
     ]
   },
   {
-    "icon": "testIcons/google ads.svg",
+    "iconUri": "testIcons/google ads.svg",
     "name": "Google Ads",
     "sizes": [
       {"name": "Vertical Display Network", "width": 600, "height": 1067},
@@ -148,7 +148,7 @@
     ]
   },
   {
-    "icon": "testIcons/reddit.svg",
+    "iconUri": "testIcons/reddit.svg",
     "name": "Reddit",
     "sizes": [
       {"name": "Small Ad Banner", "width": 1920, "height": 128},
@@ -157,7 +157,7 @@
     ]
   },
   {
-    "icon": "icons/custom-size.svg",
+    "iconUri": "icons/custom-size.svg",
     "name": "Art & Illustration",
     "sizes": [
       {"name": "B5", "width": 498, "height": 708},

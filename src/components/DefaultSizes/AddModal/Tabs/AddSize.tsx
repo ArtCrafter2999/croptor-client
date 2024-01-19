@@ -18,12 +18,12 @@ const AddSize = ({defaultCategory, categories}: Props) => {
     const [size, setSize] = useState<Size>({width: 1, height: 1});
 
     function handleCreate() {
-        api?.defaultSizes.addSize(category.id as string, {...size, name: title, icon: category.icon})
+        api?.defaultSizes.addSize(category.id as string, {...size, name: title, icon: category.iconUri})
             .then(() =>
                 dispatch({
                     action: "addSize", value: {
                         categoryId: category.id as string,
-                        size: {...size, name: title, icon: category.icon}
+                        size: {...size, name: title, icon: category.iconUri}
                     }
                 }));
         closeModal()

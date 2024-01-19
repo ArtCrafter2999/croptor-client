@@ -18,8 +18,8 @@ const EditSizeModal = ({category, sizeToChange}: Props) => {
 
     function handleEdit() {
         const categoryId = category.id as string;
-        const oldSize = {...sizeToChange, icon: category.icon};
-        const newSize = {...size, name: title, icon: category.icon};
+        const oldSize = {...sizeToChange, icon: category.iconUri};
+        const newSize = {...size, name: title, icon: category.iconUri};
         api?.defaultSizes.editSize(categoryId, oldSize, newSize)
             .then(() => dispatch({action: "editSize", value: {oldSize, newSize, categoryId}}))
         closeModal()

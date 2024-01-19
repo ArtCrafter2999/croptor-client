@@ -37,7 +37,7 @@ const DefaultSizes = () => {
     return (
         <div className={styles.section}>
             {defaultSizes.map(c => (
-                <CategoryItem icon={c.icon} name={c.name} key={c.name}
+                <CategoryItem icon={c.iconUri} name={c.name} key={c.name}
                               onAdd={
                                   user?.plan === "Admin" ?
                                   () => handleAdd(c)
@@ -54,7 +54,7 @@ const DefaultSizes = () => {
                                   :  undefined
                               }
                 >
-                    <SizeList icon={c.icon} list={c.sizes} category={c.name}
+                    <SizeList icon={c.iconUri} list={c.sizes} category={c.name}
                               onRemove={
                                   user?.plan === "Admin" ?
                                   handleRemoveSize
