@@ -14,7 +14,7 @@ import Authorization from "./components/Authorization/Authorization";
 import {User} from "./models/User";
 import Modal from "./components/Modal/Modal";
 import ErrorModal from "./components/ErrorModal/ErrorModal";
-import isFileAnImage, {imageExtensions} from "./isFileAnImage";
+import isFileAnImage from "./isFileAnImage";
 
 
 const FREE_MAX_FILES_AMOUNT = 3;
