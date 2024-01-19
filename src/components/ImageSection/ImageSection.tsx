@@ -14,7 +14,7 @@ const ImageSection = () => {
                     onChange={d =>
                         dispatch({
                             action: "imageParams",
-                            value: {...data, ...d, useDefault: d.useDefault}
+                            value: {...data, ...d, useDefault: "changed" in d && d.changed? false: d.useDefault}
                         })
                     }
                 />

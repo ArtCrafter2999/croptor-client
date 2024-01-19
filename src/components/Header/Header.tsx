@@ -67,7 +67,7 @@ const Header = ({onFilesUploaded}: Props) => {
             api.images.crop(files, {sizes, params}).then((link) => {
                 setAnimation(false);
                 setDownloadLink(link);
-            });
+            }).catch(() => setAnimation(false));
         } else {
             setDownloadLink("not link");
             setTimeout(() => setAnimation(false), 1000);

@@ -23,7 +23,7 @@ class ObservableParams implements Parameters {
 
     set centerPosition(value: Position | null) {
         this._centerPosition = value;
-        this.update();
+        this.update(true);
     }
 
     get fitNCrop(): boolean {
@@ -32,7 +32,7 @@ class ObservableParams implements Parameters {
 
     set fitNCrop(value: boolean) {
         this._fitNCrop = value;
-        this.update();
+        this.update(true);
     }
 
     get horizontalSnap(): Horizontal {
@@ -41,13 +41,14 @@ class ObservableParams implements Parameters {
 
     set horizontalSnap(value: Horizontal) {
         this._horizontalSnap = value;
-        this.update();
+        this.update(true);
     }
     get useDefault(): boolean {
         return this._useDefault;
     }
 
     set useDefault(value: boolean) {
+        console.log(value)
         this._useDefault = value;
         this.update();
     }
@@ -58,17 +59,18 @@ class ObservableParams implements Parameters {
 
     set verticalSnap(value: Vertical) {
         this._verticalSnap = value;
-        this.update();
+        this.update(true);
     }
 
-    private update(): void {
+    private update(changed: boolean = false): void {
         this.onChange({
             useDefault: this.useDefault,
             centerPosition: this.centerPosition,
             fitNCrop: this.fitNCrop,
             horizontalSnap: this.horizontalSnap,
-            verticalSnap: this.verticalSnap
-        })
+            verticalSnap: this.verticalSnap,
+            changed
+        } as Parameters)
     }
 }
 export default ObservableParams;

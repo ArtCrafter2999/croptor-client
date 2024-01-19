@@ -3,8 +3,7 @@ import {WayForPayRequest} from "../models/WayForPayRequest";
 
 export class OrdersController extends ClientBase {
     create(amount: number): Promise<WayForPayRequest> {
-        let url = `/orders?amount={amount}`;
-        url.replace("{amount}", encodeURIComponent("" + amount));
+        let url = `/orders?amount=${encodeURIComponent(amount)}`;
 
         let options: RequestInit = {
             method: "POST",
