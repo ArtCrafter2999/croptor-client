@@ -4,19 +4,23 @@ import setAuthHeader from './setAuthHeader';
 import {loadUser, signinSilent} from './user-service';
 import userManager from "./user-service";
 import {AppContext, UserContext} from "../App";
+import {LoadData} from "../reducer/reducer";
 
 const AuthProvider = ({
                           children
                       }: { children: (user: User | null) => ReactNode }): any => {
     const [isLoaded, setLoaded] = useState<boolean>(false);
     const [oidcUser, setOidcUser] = useState<User | null>(null);
-    const {api} = useContext(AppContext)
+    const {api, dispatch} = useContext(AppContext)
     const {user, setUser} = useContext(UserContext)
     useEffect(() => {
         function GetUser() {
             if (!localStorage.getItem("token") || user) return;
             api?.user.get()
-                .then(u => setUser(u)).catch(
+                .then(u => setUser(u))
+                .then(() => LoadData())
+                .then((s) => dispatch({action: "updateState", value: s}))
+                .catch(
                 () => {}
                 // signinSilent()
             );
