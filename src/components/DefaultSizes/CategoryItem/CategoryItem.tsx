@@ -49,7 +49,7 @@ const CategoryItem = ({alwaysOpened = false, icon, name, children, onAdd, onRemo
 							</div>
                         }
                         {onRemove &&
-							<div className={styles.button} onClick={onAdd}>
+							<div className={styles.button} onClick={onRemove}>
 								<TrashButton/>
 							</div>
                         }
