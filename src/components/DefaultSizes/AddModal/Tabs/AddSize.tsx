@@ -48,12 +48,18 @@ const AddSize = ({defaultCategory, categories}: Props) => {
                 <div className={styles.row}>
                     <span>Width</span>
                     <input type={"number"} value={size.width} min={1}
-                           onChange={(e) => setSize(prev =>
-                               ({height: prev.height, width: Number(e.target.value)}))}/>
+                           onChange={(e) => setSize(prev => {
+                               const value = Number(e.target.value);
+                               return {height: prev.height, width: value > 0 ? value : 1};
+                           })}
+                    />
                     <span>Height</span>
-                    <input type={"number"} value={size.height} min={1}
-                           onChange={(e) => setSize(prev =>
-                               ({width: prev.width, height: Number(e.target.value)}))}/>
+                    <input type={"number"} value={size.width} min={1}
+                           onChange={(e) => setSize(prev => {
+                               const value = Number(e.target.value);
+                               return {width: prev.width, height: value > 0 ? value : 1};
+                           })}
+                    />
                 </div>
             </div>
             <div className={styles.button} onClick={handleCreate}>Create</div>

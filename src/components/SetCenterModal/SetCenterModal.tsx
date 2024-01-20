@@ -3,7 +3,6 @@ import styles from "./SetCenterModal.module.scss"
 import Draggable from 'react-draggable';
 import {Position} from "../../reducer/reducer";
 import {ModalContext} from "../Modal/Modal";
-import HeaderButton from "../Header/HeaderButton";
 import {AppContext} from "../../App";
 import {Size} from "../../models/Sizes";
 import {ImageParams} from "../../models/Params";

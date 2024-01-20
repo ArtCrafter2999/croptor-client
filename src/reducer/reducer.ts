@@ -291,7 +291,7 @@ function createPreset(state: ReducerState): ReducerState {
 }
 
 function addSize(state: ReducerState, value: { categoryId: string; size: PresetSize }) : ReducerState {
-    const defaultSizes = {...state.defaultSizes}
+    const defaultSizes = [...state.defaultSizes]
     const index = defaultSizes.findIndex(c => c.id === value.categoryId);
     if(index >= 0) {
         defaultSizes[index].sizes.push(value.size)
@@ -299,13 +299,13 @@ function addSize(state: ReducerState, value: { categoryId: string; size: PresetS
     return {...state, defaultSizes};
 }
 function addCategory(state: ReducerState, value: { id: string, name: string; icon?: string }) : ReducerState {
-    const defaultSizes = {...state.defaultSizes}
+    const defaultSizes = [...state.defaultSizes]
     defaultSizes.push({id: value.id, name: value.name, iconUri: value.icon ?? "icons/custom-size.svg", sizes: []});
     return {...state, defaultSizes};
 }
 
 function removeSize(state: ReducerState, value: { categoryId: string; size: PresetSize }) : ReducerState {
-    const defaultSizes = {...state.defaultSizes}
+    const defaultSizes = [...state.defaultSizes]
     const index = defaultSizes.findIndex(c => c.id === value.categoryId);
     if(index >= 0) {
         const sIndex = defaultSizes[index].sizes.findIndex(s =>
@@ -319,14 +319,14 @@ function removeSize(state: ReducerState, value: { categoryId: string; size: Pres
 }
 
 function removeCategory(state: ReducerState, value: { categoryId: string }) : ReducerState{
-    const defaultSizes = {...state.defaultSizes}
+    const defaultSizes = [...state.defaultSizes]
     const index = defaultSizes.findIndex(c => c.id === value.categoryId);
     defaultSizes.splice(index, 1);
     return {...state, defaultSizes};
 }
 
 function editSize(state: ReducerState, value: { categoryId: string; oldSize: PresetSize; newSize: PresetSize }) : ReducerState {
-    const defaultSizes = {...state.defaultSizes}
+    const defaultSizes = [...state.defaultSizes]
     const index = defaultSizes.findIndex(c => c.id === value.categoryId);
     if(index >= 0) {
         const sIndex = defaultSizes[index].sizes.findIndex(s =>
@@ -340,10 +340,10 @@ function editSize(state: ReducerState, value: { categoryId: string; oldSize: Pre
 }
 
 function editCategory(state: ReducerState, value: { id: string; name: string; icon?: string }) : ReducerState {
-    const defaultSizes = {...state.defaultSizes}
+    const defaultSizes = [...state.defaultSizes]
     const index = defaultSizes.findIndex(c => c.id === value.id);
     defaultSizes[index].name = value.name;
-    defaultSizes[index].iconUri = value.icon ?? "icons/custom-size.svg";
+    defaultSizes[index].iconUri = value.icon ?? defaultSizes[index].iconUri ?? "icons/custom-size.svg";
     return {...state, defaultSizes};
 }
 
