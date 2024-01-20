@@ -36,6 +36,7 @@ const TopPart = ({name, onPrev, onNext, onSave, onRemove, onChangeName}: Props) 
         if(!newTitle) return;
         onChangeName &&
         onChangeName(newTitle);
+        onSave && onSave();
     }
 
     return (
