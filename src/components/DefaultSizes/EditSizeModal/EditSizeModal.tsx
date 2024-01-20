@@ -44,7 +44,7 @@ const EditSizeModal = ({category, sizeToChange}: Props) => {
                                })}
                         />
                         <span>Height</span>
-                        <input type={"number"} value={size.width} min={1}
+                        <input type={"number"} value={size.height} min={1}
                                onChange={(e) => setSize(prev => {
                                    const value = Number(e.target.value);
                                    return {width: prev.width, height: value > 0 ? value : 1};
