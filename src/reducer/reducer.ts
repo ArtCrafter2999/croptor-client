@@ -30,8 +30,8 @@ export type ReducerState = {
 
 export async function LoadData(): Promise<ReducerState> {
     const api: Api | null =
-        // new Api(process.env.REACT_APP_API_URI as string, process.env.REACT_APP_AUTHORITY as string);
-    null as Api | null;
+        new Api(process.env.REACT_APP_API_URI as string, process.env.REACT_APP_AUTHORITY as string);
+    // null as Api | null;
 
     let presets: string[]
     let selectedPreset: Preset
