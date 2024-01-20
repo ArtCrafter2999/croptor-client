@@ -33,7 +33,7 @@ const AddSize = ({defaultCategory, categories}: Props) => {
         <>
             <div className={styles.inputGroup}>
                 <span>Category</span>
-                <select value={category.id ?? category.name}
+                <select value={category.id}
                         onChange={e => setCategory(
                             categories.find(c => c.id === e.target.value || c.name === e.target.value) as Category)}>
                     {categories.map(c => <option value={c.id}>{c.name}</option>)}

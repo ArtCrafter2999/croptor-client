@@ -9,7 +9,7 @@ type SizesDictionary = { [fileName: string]: Size };
 export type Position = { x: number, y: number };
 
 export type Category = {
-    id?: string
+    id: string
     iconUri: string;
     name: string;
     sizes: CategorySize[];
