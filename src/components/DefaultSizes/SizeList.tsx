@@ -33,8 +33,8 @@ const SizeList = ({icon, list, onRemove, category, onEdit}: Props) => {
                         ps.name === s.name &&
                         ps.width === s.width &&
                         ps.height === s.height)}
-                    onClick={(v) => handleClick(v, {...s, icon: icon})}
-                    onRemove={onRemove === undefined? undefined: () => onRemove(category, {...s, icon: icon})}
+                    onClick={(v) => handleClick(v, {...s, iconUri: icon})}
+                    onRemove={onRemove === undefined? undefined: () => onRemove(category, {...s, iconUri: icon})}
                     onEdit={onEdit === undefined? undefined: () => onEdit(s)}
                 />)}
         </>

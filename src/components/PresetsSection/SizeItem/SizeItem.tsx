@@ -11,7 +11,7 @@ type Props = {
     [x: string]: any
 }
 
-const SizeItem = ({presetSize: {width, height, name, icon}, onRemove, classname, ...rest}: Props) => {
+const SizeItem = ({presetSize: {width, height, name, iconUri}, onRemove, classname, ...rest}: Props) => {
     const sizeString = width + "x" + height;
     const [isHover, setHover] = useState<boolean>(false);
 
@@ -20,7 +20,7 @@ const SizeItem = ({presetSize: {width, height, name, icon}, onRemove, classname,
              onMouseEnter={() => setHover(true)}
              onMouseLeave={() => setHover(false)}
              {...rest}>
-            <img src={icon} alt={name}/>
+            <img src={iconUri} alt={name}/>
             {name ?
                 <>
                     <span className={styles.name}>{name}</span>
