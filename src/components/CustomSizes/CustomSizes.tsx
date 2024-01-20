@@ -15,7 +15,9 @@ const CustomSizes = () => {
     return (
         <div className={styles.section}>
             <CategoryItem icon={"icons/custom-size.svg"} name={"Custom"} alwaysOpened>
-                <SizeList icon={"icons/custom-size.svg"} list={customSizes} category={"Custom"} onRemove={handleRemove}/>
+                <SizeList icon={"icons/custom-size.svg"} list={customSizes}
+                          category={{id: "nothing", sizes: [], name: "Custom", iconUri: "icons/custom-size.svg"}}
+                          onRemove={handleRemove}/>
             </CategoryItem>
         </div>
     );

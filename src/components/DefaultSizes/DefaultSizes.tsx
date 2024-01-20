@@ -64,7 +64,7 @@ const DefaultSizes = () => {
                                   :  undefined
                               }
                 >
-                    <SizeList icon={c.iconUri} list={c.sizes} category={c.name}
+                    <SizeList icon={c.iconUri} list={c.sizes} category={c}
                               onRemove={
                                   user?.plan === "Admin" ?
                                   handleRemoveSize
