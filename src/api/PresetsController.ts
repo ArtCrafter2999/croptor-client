@@ -81,15 +81,11 @@ export class PresetsController extends ClientBase {
     }
 
     removePreset(id: string): Promise<void> {
-        let url = `/presets`;
-
-        const content = JSON.stringify({id});
+        let url = `/presets?id=${encodeURIComponent(id)}`;
 
         let options: RequestInit = {
-            body: content,
             method: "DELETE",
             headers: {
-                "Content-Type": "application/json-patch+json",
             }
         };
         return this.sendRequest({url, options})
