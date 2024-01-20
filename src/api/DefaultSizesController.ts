@@ -54,7 +54,7 @@ export class DefaultSizesController extends ClientBase {
 
         let options: RequestInit = {
             body: content,
-            method: "POST",
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json-patch+json",
             },
@@ -70,7 +70,7 @@ export class DefaultSizesController extends ClientBase {
 
         let options: RequestInit = {
             body: content,
-            method: "POST",
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json-patch+json",
             },
