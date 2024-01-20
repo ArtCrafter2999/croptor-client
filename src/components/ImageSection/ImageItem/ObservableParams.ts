@@ -48,7 +48,7 @@ class ObservableParams implements Parameters {
     }
 
     set useDefault(value: boolean) {
-        console.log(value)
+        // console.log(value)
         this._useDefault = value;
         this.update();
     }

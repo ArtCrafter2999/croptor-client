@@ -44,7 +44,7 @@ export async function LoadData(): Promise<ReducerState> {
             await api.presets.getPreset(presets[0]) :
             {name: "new preset", sizes: []};
         customSizes = await api.presets.getCustomSizes().catch(() => []);
-        categories = await api.defaultSizes.getCategories();
+        categories = await api.defaultSizes.getCategories().catch(() => defaultSizes as Category[]);
     } else {
         presets = [];
         selectedPreset = {name: "new preset", sizes: []};
@@ -251,7 +251,7 @@ function changePresetTitle(state: ReducerState, {index, title}: { index: number,
 
 function selectPreset(state: ReducerState, value: number): ReducerState {
     const selectedPreset = state.presets[value];
-    console.log(state.presets[value]);
+    // console.log(state.presets[value]);
     return {...state, selectedPreset};
 }
 

@@ -81,7 +81,7 @@ const Header = ({onFilesUploaded}: Props) => {
     }
 
     function handleDownload() {
-        console.log("open", downloadLink)
+        // console.log("open", downloadLink)
         window.open(downloadLink, '_blank');
     }
 

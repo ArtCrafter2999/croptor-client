@@ -28,22 +28,22 @@ const AuthProvider = ({
             setLoaded(true);
         });
         const onUserLoaded = (user: User) => {
-            console.log('User loaded ', user);
+            // console.log('User loaded ', user);
             setAuthHeader(user.access_token);
             setLoaded(true);
         };
         const onUserUnloaded = () => {
             setAuthHeader(null);
-            console.log('User unloaded');
+            // console.log('User unloaded');
         };
         const onAccessTokenExpiring = () => {
-            console.log('User access token expiring');
+            // console.log('User access token expiring');
         };
         const onAccessTokenExpired = () => {
-            console.log('User access token expired');
+            // console.log('User access token expired');
         };
         const onUserSignedOut = () => {
-            console.log('User signed out');
+            // console.log('User signed out');
         };
 
         userManager.events.addUserLoaded(onUserLoaded);

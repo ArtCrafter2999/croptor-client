@@ -24,7 +24,7 @@ const SetCenterModal = ({params, onOk}: Props) => {
 
     const originalSize = sizesDictionary[params.name]
 
-    console.log(selectedPos)
+    //console.log(selectedPos)
 
     useEffect(() => {
         if (!displayedSize || position) return;
@@ -64,13 +64,13 @@ const SetCenterModal = ({params, onOk}: Props) => {
 
     function handleMouseDown(e: React.MouseEvent<HTMLDivElement>) {
         if (e.target !== e.currentTarget) return;
-        console.log("mouseDown")
+        // console.log("mouseDown")
         setMouseDown(true)
     }
 
     function handleMouseUp(e: React.MouseEvent<HTMLDivElement>) {
         if (e.target !== e.currentTarget || !isMouseDown) return;
-        console.log("close");
+        // console.log("close");
         setMouseDown(false)
         closeModal();
     }

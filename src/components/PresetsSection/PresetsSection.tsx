@@ -27,7 +27,7 @@ const PresetsSection = ({setError}: Props) => {
     }
 
     function handlePrev() {
-        console.log("handlePrev")
+        // console.log("handlePrev")
         if (index > 0) {
             if (presets[index - 1]) {
                 dispatch({action: "selectPreset", value: index - 1})
@@ -42,7 +42,7 @@ const PresetsSection = ({setError}: Props) => {
     }
 
     function handleNext() {
-        console.log("handleNext")
+        // console.log("handleNext")
         if (index < presets.length - 1) {
             dispatch({action: "selectPreset", value: index + 1});
         } else if (index < presetIds.length - 1) {

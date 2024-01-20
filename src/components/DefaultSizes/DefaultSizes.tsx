@@ -34,9 +34,19 @@ const DefaultSizes = () => {
                 .then(() => dispatch({action: "removeCategory", value: {categoryId: category.id as string}}))
     }
 
+    const sorted = [...defaultSizes].sort((a, b) => {
+        if (a.name > b.name) {
+            return -1; // Return a negative value to sort in reversed order
+        } else if (a.name < b.name) {
+            return 1; // Return a positive value to sort in reversed order
+        } else {
+            return 0; // Return 0 if the names are equal
+        }
+    })
+
     return (
         <div className={styles.section}>
-            {defaultSizes.map(c => (
+            {sorted.map(c => (
                 <CategoryItem icon={c.iconUri} name={c.name} key={c.name}
                               onAdd={
                                   user?.plan === "Admin" ?
