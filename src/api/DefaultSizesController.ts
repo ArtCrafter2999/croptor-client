@@ -66,7 +66,7 @@ export class DefaultSizesController extends ClientBase {
     removeCategory(id: string): Promise<void> {
         let url = "/default/category";
 
-        const content = JSON.stringify({categoryId: id});
+        const content = JSON.stringify({id});
 
         let options: RequestInit = {
             body: content,
