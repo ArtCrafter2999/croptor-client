@@ -6,7 +6,7 @@ const userManagerSettings: UserManagerSettings = {
     client_secret: process.env.REACT_APP_SECRET,
     redirect_uri: process.env.REACT_APP_REDIRECT_URI,
     response_type: 'code',
-    scope: 'openid profile croptor',
+    scope: 'openid profile croptor plan',
     authority: process.env.REACT_APP_AUTHORITY,
     post_logout_redirect_uri: process.env.REACT_APP_LOGOUT_REDIRECT_URI,
 };
