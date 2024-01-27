@@ -1,9 +1,8 @@
-import React, {ReactNode} from "react";
+import React, { ReactNode } from "react";
 import SignInOidc from "./auth/SignInOidc";
 import SignOutOidc from "./auth/SignOutOidc";
 import App from "./App";
 import FullScreenText from "./components/FullScreenText/FullScreenText";
-import {contactUs, privacyPolicy, refundPolicy, termsOfService} from "./components/Footer/Texts";
 
 type CustomRoute = {
     path: string;
@@ -14,7 +13,7 @@ type CustomRoute = {
 const customRoutes: CustomRoute[] = [
     {
         path: "/",
-        component: <App/>
+        component: <App />
     },
     {
         path: "/signin-oidc",
@@ -29,20 +28,20 @@ const customRoutes: CustomRoute[] = [
         component: <SignOutOidc />,
     },
     {
-        path: "/privacypolicy",
-        component: <FullScreenText html={privacyPolicy}/>
+        path: "/privacy-policy",
+        component: <FullScreenText page={"Privacy Policy"} />
     },
     {
-        path: "/termsofservice",
-        component: <FullScreenText html={termsOfService}/>
+        path: "/terms-of-service",
+        component: <FullScreenText page={"Terms Of Service"} />
     },
     {
-        path: "/refundpolicy",
-        component: <FullScreenText html={refundPolicy}/>
+        path: "/refund-policy",
+        component: <FullScreenText page={"Refund Policy"} />
     },
     {
-        path: "/contactus",
-        component: <FullScreenText html={contactUs}/>
+        path: "/company",
+        component: <FullScreenText page={"Company"} />
     }
 ]
 export default customRoutes;
