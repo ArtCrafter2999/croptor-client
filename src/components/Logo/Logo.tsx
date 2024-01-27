@@ -3,9 +3,9 @@ import styles from "./Logo.module.scss"
 
 const Logo = () => {
     return (
-        <div className={styles.logoContainer}>
+        <a className={styles.logoContainer} href={"https://croptor.com"}>
             <img src={"croptor-logo.svg"} alt={"logo"}/>
-        </div>
+        </a>
     );
 };
 

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./FullScreenText.module.scss"
+import Logo from "../Logo/Logo";
 
 type Props = {
     page: string
 }
 
-const FullScreenText = ({ page }: Props) => {
+const FullScreenText = ({page}: Props) => {
     const [htmlContent, setHtmlContent] = useState('');
 
     useEffect(() => {
@@ -23,7 +24,10 @@ const FullScreenText = ({ page }: Props) => {
     }, []);
 
     return (
-        <div className={styles.screen} dangerouslySetInnerHTML={{ __html: htmlContent }} />
+        <>
+            <Logo/>
+            <div className={styles.screen} dangerouslySetInnerHTML={{__html: htmlContent}}/>
+        </>
     );
 };
 
