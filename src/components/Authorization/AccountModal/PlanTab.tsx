@@ -1,12 +1,12 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styles from "./AccountModal.module.scss"
-import {format} from "date-fns";
-import {AppContext, UserContext} from "../../../App";
-import {WayForPayRequest} from "../../../models/WayForPayRequest";
+import { format } from "date-fns";
+import { AppContext, UserContext } from "../../../App";
+import { WayForPayRequest } from "../../../models/WayForPayRequest";
 
 const PlanTab = () => {
-    const {user} = useContext(UserContext)
-    const {api} = useContext(AppContext)
+    const { user } = useContext(UserContext)
+    const { api } = useContext(AppContext)
     const [monthAmount, setMonthAmount] = useState<number>(1);
     const submitRef = useRef<HTMLInputElement>();
     const [request, setRequest] = useState<WayForPayRequest>();
@@ -27,6 +27,7 @@ const PlanTab = () => {
 
     const expires = new Date(user.expires)
     const currentDate: Date = new Date();
+    currentDate.setHours(0, 0, 0, 0);
 
     return (
         <div className={styles.plan}>
@@ -37,16 +38,16 @@ const PlanTab = () => {
                         <span className={styles.field}>{user.plan}</span>
                     </div>
 
-						<>
-							<span className={styles.name}>Valid Till</span>
-							<div className={styles.field}>
-								<span className={styles.field}>{expires > currentDate ? format(expires, "dd.MM.yyyy") : user.plan + " Plan"}</span>
-							</div>
-						</>
+                    <>
+                        <span className={styles.name}>Valid Till</span>
+                        <div className={styles.field}>
+                            <span className={styles.field}>{expires >= currentDate ? format(expires, "dd.MM.yyyy") : user.plan + " Plan"}</span>
+                        </div>
+                    </>
                     <span className={styles.name}>Update </span>
                     <div className={styles.field}>
                         <span className={styles.field}>$9/mo</span>
-                        <NumberField number={monthAmount} setNumber={setMonthAmount}/>
+                        <NumberField number={monthAmount} setNumber={setMonthAmount} />
                     </div>
                 </div>
                 <form method="post" action="https://secure.wayforpay.com/pay" acceptCharset="utf-8">
@@ -54,11 +55,11 @@ const PlanTab = () => {
                         Object.keys(request)
                             .map(k => {
                                 if (k.startsWith("product"))
-                                    return <input name={k + "[]"} value={request[k]}/>
-                                return <input name={k} value={request[k]}/>
+                                    return <input name={k + "[]"} value={request[k]} />
+                                return <input name={k} value={request[k]} />
                             })
                     }
-                    <input type={"submit"} ref={submitRef as any}/>
+                    <input type={"submit"} ref={submitRef as any} />
                 </form>
                 <div className={styles.button} onClick={handleUpdate}>UPDATE</div>
             </>
@@ -70,13 +71,13 @@ type NFProps = {
     number: number;
     setNumber: (f: (prev: number) => number) => void;
 }
-const NumberField = ({number, setNumber}: NFProps) => {
+const NumberField = ({ number, setNumber }: NFProps) => {
     return (
         <div className={styles.numberField}>
             <span>{number}</span>
-            <img src={"icons/up arrow.svg"} alt={"up"} onClick={() => setNumber(prev => prev < 12 ? prev + 1 : prev)}/>
+            <img src={"icons/up arrow.svg"} alt={"up"} onClick={() => setNumber(prev => prev < 12 ? prev + 1 : prev)} />
             <img src={"icons/down arrow.svg"} alt={"down"}
-                 onClick={() => setNumber(prev => prev > 1 ? prev - 1 : prev)}/>
+                onClick={() => setNumber(prev => prev > 1 ? prev - 1 : prev)} />
         </div>
     );
 };
