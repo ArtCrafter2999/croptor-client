@@ -1,4 +1,4 @@
-import {signinSilent} from "../auth/user-service";
+import { signinSilent } from "../auth/user-service";
 
 export type Request = {
     url: string;
