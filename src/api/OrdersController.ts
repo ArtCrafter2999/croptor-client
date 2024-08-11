@@ -1,9 +1,9 @@
-import {ClientBase} from "./ClientBase";
-import {WayForPayRequest} from "../models/WayForPayRequest";
+import { ClientBase } from "./ClientBase";
+import { WayForPayRequest } from "../models/WayForPayRequest";
 
 export class OrdersController extends ClientBase {
     create(amount: number): Promise<WayForPayRequest> {
-        let url = `/orders?amount=${encodeURIComponent(amount)}`;
+        let url = `https://www.croptor.com/auth/orders?amount=${encodeURIComponent(amount)}`;
 
         let options: RequestInit = {
             method: "POST",
@@ -12,6 +12,6 @@ export class OrdersController extends ClientBase {
             }
         };
 
-        return this.sendRequest({url, options});
+        return this.sendRequest({ url, options, addBaseUrl: false });
     }
 }
